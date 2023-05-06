@@ -16,6 +16,7 @@ public class Coin {
     private int countryId;
     private int mintId;
     private LocalDate dateMinting;
+    private String picturePath;
 
     public Coin(int denomination, int currencyId, int countryId, int mintId, LocalDate dateMinting) {
         this.denomination = denomination;

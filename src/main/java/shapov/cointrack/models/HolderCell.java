@@ -14,12 +14,14 @@ public class HolderCell {
     private int pageId;
     private int column;
     private int line;
+    private String title;
 
-    public HolderCell(int coinId, boolean available, int pageId, int column, int line) {
+    public HolderCell(int coinId, boolean available, int pageId, int column, int line, String title) {
         this.coinId = coinId;
         this.available = available;
         this.pageId = pageId;
         this.column = column;
         this.line = line;
+        this.title = title;
     }
 }
