@@ -1,17 +1,14 @@
-package shapov.cointrack.services;
+package shapov.cointrack.repositories;
 
 import shapov.cointrack.models.Coin;
 
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public interface CoinService {
+public interface CoinRepository {
     List<Coin> findAll();
-
     Optional<Coin> findOneById(int id);
-
     List<Coin> findByDenomination(int denomination);
 
     List<Coin> findByCurrencyId(int currencyId);
@@ -22,9 +19,9 @@ public interface CoinService {
 
     List<Coin> findByDateMinting(LocalDate dateMinting);
 
-    int create(int denominationId, int currencyId, int countryId, int mintId, LocalDate dateMinting);
+    int create(Coin coin);
 
-    int update(int id, int denominationId, int currencyId, int countryId, int mintId, LocalDate dateMinting);
+    int update(Coin coin);
 
     int delete(int id);
 }
