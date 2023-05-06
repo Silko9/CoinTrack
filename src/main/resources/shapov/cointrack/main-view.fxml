@@ -45,7 +45,7 @@
                            <children>
                               <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                  <image>
-                                    <Image url="@pictures/coin_0.png" />
+                                    <Image url="@pictures/coin_01.png" />
                                  </image>
                               </ImageView>
                               <Button layoutX="15.0" layoutY="305.0" maxHeight="30.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" text="Поиск" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
@@ -66,7 +66,7 @@
                            <children>
                               <ImageView fitHeight="403.0" fitWidth="713.0" layoutX="146.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="10.0">
                                  <image>
-                                    <Image url="@pictures/album.png" />
+                                    <Image url="@pictures/album1.png" />
                                  </image>
                               </ImageView>
                            </children>
