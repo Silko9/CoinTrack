@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="shapov.cointrack.controllers.ReferenceInformationController"
+      prefHeight="400.0" prefWidth="600.0">
+    <HBox prefHeight="100.0" prefWidth="200.0">
+        <TextField prefWidth="1000.0" promptText="Страна" />
+        <TextField layoutX="10.0" layoutY="10.0" prefWidth="1000.0" promptText="Валюта" />
+        <TextField layoutX="181.0" layoutY="10.0" prefWidth="1000.0" promptText="Монетный двор" />
+    </HBox>
+    <HBox prefHeight="1000.0">
+        <TableView prefWidth="1000.0">
+            <columns>
+                <TableColumn prefWidth="300.0" text="Страна" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+        <TableView prefWidth="1000.0">
+            <columns>
+                <TableColumn prefWidth="150.0" text="Валюта" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+        <TableView prefWidth="1000.0">
+            <columns>
+                <TableColumn prefWidth="150.0" text="Монетный двор" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+    </HBox>
+    <HBox maxHeight="40.0">
+        <VBox.margin>
+            <Insets />
+        </VBox.margin>
+        <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+        </padding>
+        <Button maxHeight="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Добавить">
+            <HBox.margin>
+                <Insets right="10.0" />
+            </HBox.margin>
+        </Button>
+        <Button layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Изменить">
+            <HBox.margin>
+                <Insets right="10.0" />
+            </HBox.margin>
+        </Button>
+        <Button layoutX="160.0" layoutY="10.0" maxHeight="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Удалить">
+            <HBox.margin>
+                <Insets right="20.0" />
+            </HBox.margin>
+        </Button>
+        <Button layoutX="335.0" layoutY="15.0" maxHeight="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Сбросить">
+            <HBox.margin>
+                <Insets />
+            </HBox.margin>
+        </Button>
+    </HBox>
+</VBox>
