@@ -14,9 +14,9 @@ public interface MintService {
 
     List<Mint> findByCountryId(int countryId);
 
-    int create(String name);
+    int create(String name, int countryId);
 
-    int update(int id, String name);
+    int update(int id, String name, int countryId);
 
     int delete(int id);
 }

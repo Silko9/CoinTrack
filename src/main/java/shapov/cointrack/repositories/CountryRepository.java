@@ -12,6 +12,8 @@ public interface CountryRepository {
 
     List<Country> findByName(String name);
 
+    List<Country> findByCurrencyId(int currencyId);
+
     int create(Country country);
 
     int update(Country country);

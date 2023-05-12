@@ -9,13 +9,13 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shapov.cointrack.controllers.MainController">
    <TabPane tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <Tab text="Монеты">
-         <fx:include fx:id="coinsPanel" source="coins-view.fxml" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" />
+         <fx:include fx:id="coinsPanel" source="mainViewModules/coins-view.fxml" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" />
       </Tab>
       <Tab text="Альбомы">
-         <fx:include fx:id="albumsPanel" source="albums-view.fxml" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" />
+         <fx:include fx:id="albumsPanel" source="mainViewModules/albums-view.fxml" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" />
       </Tab>
       <Tab text="Справочная информация">
-         <fx:include fx:id="regerenceInformationsPanel" source="reference-information-view.fxml" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" />
+         <fx:include fx:id="regerenceInformationsPanel" source="mainViewModules/reference-information-view.fxml" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" />
       </Tab>
    </TabPane>
 </AnchorPane>

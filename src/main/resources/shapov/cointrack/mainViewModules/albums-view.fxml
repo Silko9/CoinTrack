@@ -36,7 +36,7 @@
             </HBox>
             <ImageView fitHeight="403.0" fitWidth="713.0" onMouseClicked="#onClickedAlbum" pickOnBounds="true"
                        preserveRatio="true" AnchorPane.bottomAnchor="5.0">
-                <Image url="@pictures/album1.png"/>
+                <Image url="@../pictures/album1.png"/>
             </ImageView>
         </AnchorPane>
     </center>

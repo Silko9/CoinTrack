@@ -28,7 +28,7 @@
     <left>
         <AnchorPane BorderPane.alignment="CENTER">
             <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
-                <Image url="@pictures/coin_01.png" />
+                <Image url="@../pictures/coin_01.png" />
             </ImageView>
             <Button layoutX="15.0" layoutY="305.0" maxHeight="30.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" text="Поиск" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
             <Button maxHeight="30.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" text="Добавить" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />

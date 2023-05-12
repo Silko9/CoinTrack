@@ -11,6 +11,8 @@ public interface CurrencyRepository {
 
     List<Currency> findByName(String name);
 
+    List<Currency> findByCountryId(int countryId);
+
     int create(Currency currency);
 
     int update(Currency currency);

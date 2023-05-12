@@ -12,6 +12,8 @@ public interface CountryService {
 
     List<Country> findByName(String name);
 
+    List<Country> findByCurrencyId(int currencyId);
+
     int create(String name);
 
     int update(int id, String name);

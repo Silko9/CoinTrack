@@ -22,9 +22,9 @@ public interface CoinService {
 
     List<Coin> findByDateMinting(LocalDate dateMinting);
 
-    int create(int denominationId, int currencyId, int countryId, int mintId, LocalDate dateMinting);
+    int create(int denominationId, int currencyId, int countryId, int mintId, LocalDate dateMinting, String picturePath);
 
-    int update(int id, int denominationId, int currencyId, int countryId, int mintId, LocalDate dateMinting);
+    int update(int id, int denominationId, int currencyId, int countryId, int mintId, LocalDate dateMinting, String picturePath);
 
     int delete(int id);
 }

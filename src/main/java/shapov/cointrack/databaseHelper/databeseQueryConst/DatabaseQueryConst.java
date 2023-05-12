@@ -1,4 +1,4 @@
-package shapov.cointrack.databaseHelper;
+package shapov.cointrack.databaseHelper.databeseQueryConst;
 
 public class DatabaseQueryConst {
     public final static String SELECT_ALL = "SELECT * FROM %s ";

@@ -18,11 +18,12 @@ public class Coin {
     private LocalDate dateMinting;
     private String picturePath;
 
-    public Coin(int denomination, int currencyId, int countryId, int mintId, LocalDate dateMinting) {
+    public Coin(int denomination, int currencyId, int countryId, int mintId, LocalDate dateMinting, String picturePath) {
         this.denomination = denomination;
         this.currencyId = currencyId;
         this.countryId = countryId;
         this.mintId = mintId;
         this.dateMinting = dateMinting;
+        this.picturePath = picturePath;
     }
 }

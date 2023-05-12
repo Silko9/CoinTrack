@@ -1,9 +1,5 @@
 package shapov.cointrack.databaseHelper.databeseQueryConst;
 
-import shapov.cointrack.databaseHelper.DatabaseQueryConst;
-
-import java.lang.annotation.Target;
-
 public class DatabaseCoinQueryConst extends DatabaseQueryConst {
     private final static String TABLE_NAME = "coins";
     private final static String PARAMETERS = "denomination=%d, currencyId=%d, countryId=%d, mintId=%d, dateMinting='%s' ";
