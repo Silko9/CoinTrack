@@ -2,19 +2,20 @@ package shapov.cointrack.services;
 
 import shapov.cointrack.models.HolderCell;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 public interface HolderCellService {
-    List<HolderCellService> findAll();
+    List<HolderCell> findAll() throws SQLException;
 
-    Optional<HolderCell> findOneById(int id);
+    Optional<HolderCell> findOneById(int id) throws SQLException;
 
-    List<HolderCell> findByPageId(int pageId);
+    List<HolderCell> findByPageId(int pageId) throws SQLException;
 
-    int create(int coinId, int pageId, int column, int line, String title);
+    int create(int coinId, int pageId, int column, int line, String title) throws SQLException;
 
-    int update(int id, boolean available, int coinId, int pageId, int column, int line, String title);
+    int update(int id, boolean available, int coinId, int pageId, int column, int line, String title) throws SQLException;
 
-    int delete(int id);
+    int delete(int id) throws SQLException;
 }

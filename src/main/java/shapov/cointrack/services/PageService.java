@@ -2,19 +2,20 @@ package shapov.cointrack.services;
 
 import shapov.cointrack.models.Page;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 public interface PageService {
-    List<Page> findAll();
+    List<Page> findAll() throws SQLException;
 
-    Optional<Page> findOneById(int id);
+    Optional<Page> findOneById(int id) throws SQLException;
 
-    List<Page> findByAlbumId(int albumId);
+    List<Page> findByAlbumId(int albumId) throws SQLException;
 
-    int create(String title, int albumId, int number);
+    int create(int albumId, int number, String title) throws SQLException;
 
-    int update(int id, String title, int albumId, int number);
+    int update(int id, int albumId, int number, String title) throws SQLException;
 
-    int delete(int id);
+    int delete(int id) throws SQLException;
 }

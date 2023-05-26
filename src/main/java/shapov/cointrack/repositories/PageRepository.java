@@ -2,19 +2,20 @@ package shapov.cointrack.repositories;
 
 import shapov.cointrack.models.Page;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 public interface PageRepository {
-    List<Page> findAll();
+    List<Page> findAll() throws SQLException;
 
-    Optional<Page> findOneById(int id);
+    Optional<Page> findOneById(int id) throws SQLException;
 
-    List<Page> findByAlbumId(int albumId);
+    List<Page> findByAlbumId(int albumId) throws SQLException;
 
-    int create(Page page);
+    int create(Page page) throws SQLException;
 
-    int update(Page page);
+    int edit(Page page) throws SQLException;
 
-    int delete(int id);
+    int delete(int id) throws SQLException;
 }

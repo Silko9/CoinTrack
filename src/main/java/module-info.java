@@ -2,6 +2,7 @@ module shapov.cointrack {
     requires javafx.controls;
     requires javafx.fxml;
     requires lombok;
+    requires java.sql;
 
     opens shapov.cointrack to javafx.fxml;
     exports shapov.cointrack;

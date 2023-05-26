@@ -1,57 +1,43 @@
 package shapov.cointrack.databaseHelper;
 
-public class DatabaseHelper {
-    public static ArrayList<Student> query(String sql) throws SQLException {
-        Connection connection = DriverManager.getConnection(Const.DB_URL, Const.LOGIN,
-                Const.PASSWORD);
-        ArrayList<Student> students = new ArrayList<>();
-        Statement statement = null;
+import java.sql.*;
+
+public abstract class DatabaseHelper {
+    private Connection connection;
+    public ResultSet query(String sql) throws SQLException {
+        Statement statement = connect();
+        ResultSet resultSet = null;
         try {
-            statement = connection.createStatement();
-        } catch (SQLException e) {
-            System.out.println("Ошибка создания сесии.");
-        }
-        try {
-            ResultSet resultSet = statement.executeQuery(sql);
-            students = mapper(resultSet);
+            resultSet = statement.executeQuery(sql);
         } catch (SQLException e) {
             System.out.println("Ошибка выполнения запроса");
         }
-        connection.close();
-        return students;
+        return resultSet;
     }
 
-    public static int update(String sql) throws SQLException {
-        Connection connection = DriverManager.getConnection(Const.DB_URL, Const.LOGIN,
-                Const.PASSWORD);
-        Statement statement = null;
+    public int update(String sql) throws SQLException {
+        Statement statement = connect();
         int result = 0;
-        try {
-            statement = connection.createStatement();
-        } catch (SQLException e) {
-            System.out.println("Ошибка создания сесии.");
-        }
         try {
             result = statement.executeUpdate(sql);
         } catch (SQLException e) {
             System.out.println("Ошибка выполнения запроса");
         }
-        connection.close();
+        connectionClose();
         return result;
     }
-
-    private static ArrayList<Student> mapper(ResultSet resultSet) throws
-            SQLException {
-        ArrayList<Student> students = new ArrayList<>();
-        Student student;
-        while (resultSet.next()) {
-            String firstName = resultSet.getString("FirstName");
-            String lastName = resultSet.getString("LastName");
-            int age = resultSet.getInt("Age");
-            long id = resultSet.getInt("Id");
-            student = new Student((int) id, firstName, lastName, age);
-            students.add(student);
+    private Statement connect() throws SQLException {
+        connection = DriverManager.getConnection(DatabaseConnectConst.DB_URL, DatabaseConnectConst.LOGIN,
+                DatabaseConnectConst.PASSWORD);
+        Statement statement = null;
+        try {
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+            System.out.println("Ошибка создания сесии.");
         }
-        return students;
+        return statement;
+    }
+    public void connectionClose() throws SQLException {
+        connection.close();
     }
 }

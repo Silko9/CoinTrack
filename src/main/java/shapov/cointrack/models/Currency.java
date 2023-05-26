@@ -12,10 +12,9 @@ import java.util.List;
 public class Currency {
     private int id;
     private String name;
-    private List<Country> countries;
+    //private List<Country> countries;
 
-    public Currency(String name, List<Country> countries) {
+    public Currency(String name) {
         this.name = name;
-        this.countries = countries;
     }
 }

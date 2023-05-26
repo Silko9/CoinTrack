@@ -2,29 +2,30 @@ package shapov.cointrack.services;
 
 import shapov.cointrack.models.Coin;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 public interface CoinService {
-    List<Coin> findAll();
+    List<Coin> findAll() throws SQLException;
 
-    Optional<Coin> findOneById(int id);
+    Optional<Coin> findOneById(int id) throws SQLException;
 
-    List<Coin> findByDenomination(int denomination);
+    List<Coin> findByDenomination(int denomination) throws SQLException;
 
-    List<Coin> findByCurrencyId(int currencyId);
+    List<Coin> findByCurrencyId(int currencyId) throws SQLException;
 
-    List<Coin> findByCountryId(int countryId);
+    List<Coin> findByCountryId(int countryId) throws SQLException;
 
-    List<Coin> findByMintId(int mintId);
+    List<Coin> findByMintId(int mintId) throws SQLException;
 
-    List<Coin> findByDateMinting(LocalDate dateMinting);
+    List<Coin> findByDateMinting(int yearMinting) throws SQLException;
 
-    int create(int denominationId, int currencyId, int countryId, int mintId, LocalDate dateMinting, String picturePath);
+    int create(int denominationId, int currencyId, int countryId, int mintId, int yearMinting, String picturePath) throws SQLException;
 
-    int update(int id, int denominationId, int currencyId, int countryId, int mintId, LocalDate dateMinting, String picturePath);
+    int update(int id, int denominationId, int currencyId, int countryId, int mintId, int yearMinting, String picturePath) throws SQLException;
 
-    int delete(int id);
+    int delete(int id) throws SQLException;
 }

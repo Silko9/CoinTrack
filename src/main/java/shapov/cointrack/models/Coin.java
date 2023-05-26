@@ -15,15 +15,15 @@ public class Coin {
     private int currencyId;
     private int countryId;
     private int mintId;
-    private LocalDate dateMinting;
+    private int yearMinting;
     private String picturePath;
 
-    public Coin(int denomination, int currencyId, int countryId, int mintId, LocalDate dateMinting, String picturePath) {
+    public Coin(int denomination, int currencyId, int countryId, int mintId, int yearMinting, String picturePath) {
         this.denomination = denomination;
         this.currencyId = currencyId;
         this.countryId = countryId;
         this.mintId = mintId;
-        this.dateMinting = dateMinting;
+        this.yearMinting = yearMinting;
         this.picturePath = picturePath;
     }
 }

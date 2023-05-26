@@ -1,21 +1,21 @@
 package shapov.cointrack.repositories;
 
 import shapov.cointrack.models.HolderCell;
-import shapov.cointrack.services.HolderCellService;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 public interface HolderCellRepository {
-    List<HolderCellService> findAll();
+    List<HolderCell> findAll() throws SQLException;
 
-    Optional<HolderCell> findOneById(int id);
+    Optional<HolderCell> findOneById(int id) throws SQLException;
 
-    List<HolderCell> findByPageId(int pageId);
+    List<HolderCell> findByPageId(int pageId) throws SQLException;
 
-    int create(HolderCell holderCell);
+    int create(HolderCell holderCell) throws SQLException;
 
-    int update(HolderCell holderCell);
+    int edit(HolderCell holderCell) throws SQLException;
 
-    int delete(int id);
+    int delete(int id) throws SQLException;
 }
