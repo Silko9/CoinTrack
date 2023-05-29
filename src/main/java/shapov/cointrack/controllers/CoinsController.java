@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class CoinsController implements Initializable {
-    private final CoinService coinService = new CoinServiceImpl();
+    //private final CoinService coinService = new CoinServiceImpl();
     private ObservableList<CoinProperty> coins;
     @FXML
     private ImageView imageCoin;
@@ -45,11 +45,11 @@ public class CoinsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
+        /*try {
             coins = coin2property(coinService.findAll());
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
         columnCountry.setCellValueFactory(coinStringCellDataFeatures -> coinStringCellDataFeatures.getValue().countryProperty());
         columnCurrency.setCellValueFactory(coinStringCellDataFeatures -> coinStringCellDataFeatures.getValue().currencyProperty());
@@ -58,14 +58,14 @@ public class CoinsController implements Initializable {
         columnYear.setCellValueFactory(coinIntegerCellDataFeatures -> coinIntegerCellDataFeatures.getValue().yearMintingProperty().asObject());
         tableCoin.setItems(coins);
     }
-    private ObservableList<CoinProperty> coin2property(List<Coin> coins) throws SQLException {
+    /*private ObservableList<CoinProperty> coin2property(List<Coin> coins) throws SQLException {
         ObservableList<CoinProperty> coinProperties = FXCollections.observableArrayList();
         for(Coin coin : coins){
             coin = coinService.include(coin);
             coinProperties.add(new CoinProperty(coin));
         }
         return coinProperties;
-    }
+    }*/
 
     @FXML
     protected void onClicked() {

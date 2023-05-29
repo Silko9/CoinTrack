@@ -27,9 +27,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ReferenceInformationController implements Initializable {
-    private final CountryService countryService = new CountryServiceImpl();
+    /*private final CountryService countryService = new CountryServiceImpl();
     private final CurrencyService currencyService = new CurrencyServiceImpl();
-    private final MintService mintService = new MintServiceImpl();
+    private final MintService mintService = new MintServiceImpl();*/
     ObservableList<CountryProperty> countries;
     ObservableList<CurrencyProperty> currencies;
     ObservableList<MintProperty> mints;
@@ -53,13 +53,13 @@ public class ReferenceInformationController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
+        /*try {
             countries = country2property(countryService.findAll());
             currencies = currency2property(currencyService.findAll());
             mints = mint2property(mintService.findAll());
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }
+        }*/
         columnCountry.setCellValueFactory(countryStringCellDataFeatures -> countryStringCellDataFeatures.getValue().nameProperty());
         columnCurrency.setCellValueFactory(currencyStringCellDataFeatures -> currencyStringCellDataFeatures.getValue().nameProperty());
         columnMint.setCellValueFactory(mintStringCellDataFeatures -> mintStringCellDataFeatures.getValue().nameProperty());
@@ -73,11 +73,11 @@ public class ReferenceInformationController implements Initializable {
     void onClickedCountry(MouseEvent event) throws SQLException {
         CountryProperty countryProperty = tableCountry.getSelectionModel().getSelectedItem();
 
-        mints.clear();
+        /*mints.clear();
         mints.addAll(mint2property(mintService.findByCountryId(countryProperty.getId())));
 
         currencies.clear();
-        currencies.addAll(currency2property(currencyService.findByCountryId(countryProperty.getId())));
+        currencies.addAll(currency2property(currencyService.findByCountryId(countryProperty.getId())));*/
     }
 
     @FXML
@@ -85,7 +85,7 @@ public class ReferenceInformationController implements Initializable {
         CurrencyProperty currencyProperty = tableCurrency.getSelectionModel().getSelectedItem();
 
         countries.clear();
-        countries.addAll(country2property(countryService.findByCurrencyId(currencyProperty.getId())));
+        //countries.addAll(country2property(countryService.findByCurrencyId(currencyProperty.getId())));
     }
 
     @FXML
@@ -93,9 +93,9 @@ public class ReferenceInformationController implements Initializable {
         MintProperty mintProperty = tableMint.getSelectionModel().getSelectedItem();
 
         countries.clear();
-        Optional<Country> country = countryService.findOneById(mintProperty.getCountryId());
+        /*Optional<Country> country = countryService.findOneById(mintProperty.getCountryId());
         if(country.isEmpty()) return;
-        countries.add(new CountryProperty(country.get()));
+        countries.add(new CountryProperty(country.get()));*/
     }
 
     private ObservableList<CountryProperty> country2property(List<Country> countries) {
@@ -121,13 +121,13 @@ public class ReferenceInformationController implements Initializable {
 
     @FXML
     protected void onClickedReset(MouseEvent mouseEvent) throws SQLException {
-        countries.clear();
+        /*countries.clear();
         countries.addAll(country2property(countryService.findAll()));
 
         currencies.clear();
         currencies.addAll(currency2property(currencyService.findAll()));
 
         mints.clear();
-        mints.addAll(mint2property(mintService.findAll()));
+        mints.addAll(mint2property(mintService.findAll()));*/
     }
 }

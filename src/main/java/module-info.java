@@ -3,6 +3,7 @@ module shapov.cointrack {
     requires javafx.fxml;
     requires lombok;
     requires java.sql;
+    requires opencv;
 
     opens shapov.cointrack to javafx.fxml;
     exports shapov.cointrack;

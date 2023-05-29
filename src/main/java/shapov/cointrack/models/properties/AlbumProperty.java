@@ -4,11 +4,13 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import lombok.NoArgsConstructor;
 import shapov.cointrack.models.Album;
 
+@NoArgsConstructor
 public class AlbumProperty {
-    private final IntegerProperty id;
-    private final StringProperty title;
+    private IntegerProperty id;
+    private StringProperty title;
     public AlbumProperty(Album album){
         this.id = new SimpleIntegerProperty(album.getId());
         this.title = new SimpleStringProperty(album.getTitle());

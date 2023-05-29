@@ -7,6 +7,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import lombok.Getter;
 import shapov.cointrack.models.Album;
+import shapov.cointrack.models.properties.AlbumProperty;
 
 public class AlbumEditorController {
     @FXML
@@ -16,19 +17,22 @@ public class AlbumEditorController {
     private Stage stage;
 
     @Getter
-    private String text;
+    private AlbumProperty album;
 
-    public void setParams(ActionType actionType, Stage stage) {
+    public void setParams(ActionType actionType, Stage stage, AlbumProperty album) {
         this.stage = stage;
-        if(actionType == ActionType.CREATE)
+        this.album = album;
+        if (actionType == ActionType.CREATE)
             btAccept.setText(ActionType.CREATE.getValue());
-        else
+        else {
             btAccept.setText(ActionType.EDIT.getValue());
+            textName.setText(album.getTitle());
+        }
     }
 
     @FXML
     private void onClickedAccept(MouseEvent mouseEvent) {
-        text = textName.getText();
+        album.setTitle(textName.getText());
         stage.close();
     }
 
