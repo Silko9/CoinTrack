@@ -28,4 +28,6 @@ public interface CoinService {
     int update(int id, int denominationId, int currencyId, int countryId, int mintId, int yearMinting, String picturePath) throws SQLException;
 
     int delete(int id) throws SQLException;
+
+    Coin include(Coin coin) throws SQLException;
 }

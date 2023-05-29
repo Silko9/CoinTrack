@@ -45,7 +45,7 @@
       <DatePicker prefHeight="30.0" prefWidth="300.0" />
       <ImageView fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@pictures/coin_01.png" />
+            <Image url="@pictures/coin_0.png" />
          </image>
       </ImageView>
       <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="300.0" text="Открыть изображение" />

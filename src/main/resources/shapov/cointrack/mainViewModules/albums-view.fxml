@@ -19,26 +19,24 @@
             <BorderPane.margin>
                 <Insets top="5.0" />
             </BorderPane.margin>
-         <VBox alignment="CENTER" maxWidth="-Infinity" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
-            <children>
-               <Label text="Заголовок страницы" />
-            </children>
-         </VBox>
-            <ImageView fitHeight="403.0" fitWidth="713.0" onMouseClicked="#onClickedAlbum" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="40.0">
-                <Image url="@../pictures/album1.png" />
+            <VBox alignment="CENTER" maxWidth="-Infinity" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+                <Label fx:id="labelTitlePage" text="Заголовок страницы" />
+            </VBox>
+            <ImageView fx:id="imageAlbum" fitHeight="403.0" fitWidth="713.0" onMouseClicked="#onClickedAlbum" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="40.0">
+                <Image url="@../pictures/album.png" />
             </ImageView>
             <HBox alignment="CENTER" maxWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                <Button mnemonicParsing="false" prefHeight="30.0" text="&lt;---">
+                <Button mnemonicParsing="false" onMouseClicked="#onClickedBackPage" prefHeight="30.0" text="&lt;---">
                     <HBox.margin>
                         <Insets bottom="10.0" top="10.0" />
                     </HBox.margin>
                 </Button>
-                <Label text="1/10">
+                <Label fx:id="labelNumberPage" text="1/10">
                     <HBox.margin>
                         <Insets bottom="15.0" left="50.0" right="50.0" top="15.0" />
                     </HBox.margin>
                 </Label>
-                <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="30.0" text="---&gt;">
+                <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#onClickedNextPage" prefHeight="30.0" text="---&gt;">
                     <HBox.margin>
                         <Insets bottom="10.0" top="10.0" />
                     </HBox.margin>
@@ -48,9 +46,9 @@
     </center>
     <left>
         <VBox fillWidth="false" spacing="10.0" BorderPane.alignment="CENTER">
-            <TableView maxHeight="1000.0" maxWidth="1.7976931348623157E308" minHeight="10.0" prefHeight="1000.0" prefWidth="200.0">
+            <TableView fx:id="tableAlbum" maxHeight="1000.0" maxWidth="1.7976931348623157E308" minHeight="10.0" prefHeight="1000.0" prefWidth="200.0">
                 <columns>
-                    <TableColumn prefWidth="75.0" text="Название альбома" />
+                    <TableColumn fx:id="columnAlbum" prefWidth="75.0" text="Название альбома" />
                 </columns>
                 <columnResizePolicy>
                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -59,17 +57,17 @@
                     <Insets left="5.0" right="5.0" top="5.0" />
                 </VBox.margin>
             </TableView>
-            <Button maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="Добавить альбом">
+            <Button maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#onClickedAddAlbum" prefHeight="30.0" prefWidth="200.0" text="Добавить альбом">
                 <VBox.margin>
                     <Insets left="5.0" right="5.0" />
                 </VBox.margin>
             </Button>
-            <Button layoutX="10.0" layoutY="360.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="Изменить альбом">
+            <Button layoutX="10.0" layoutY="360.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#onClickedEditAlbum" prefHeight="30.0" prefWidth="200.0" text="Изменить альбом">
                 <VBox.margin>
                     <Insets left="5.0" right="5.0" />
                 </VBox.margin>
             </Button>
-            <Button layoutX="10.0" layoutY="384.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="Удалить альбом">
+            <Button layoutX="10.0" layoutY="384.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#onClickedDeleteAlbum" prefHeight="30.0" prefWidth="200.0" text="Удалить альбом">
                 <VBox.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" />
                 </VBox.margin>
@@ -77,47 +75,41 @@
         </VBox>
     </left>
    <right>
-      <SplitPane dividerPositions="0.5" orientation="VERTICAL" BorderPane.alignment="CENTER">
-         <items>
-            <VBox spacing="10.0">
-               <children>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="Добавить монету">
-                     <VBox.margin>
-                        <Insets left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="Изменить монету">
-                     <VBox.margin>
-                        <Insets left="5.0" right="5.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="Удалить монету">
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" />
-                     </VBox.margin>
-                  </Button>
-               </children>
-            </VBox>
-            <VBox spacing="10.0">
-               <children>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="Добавить страницу">
-                     <VBox.margin>
-                        <Insets left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="Изменить страницу">
-                     <VBox.margin>
-                        <Insets left="5.0" right="5.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="Удалить страницу">
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" />
-                     </VBox.margin>
-                  </Button>
-               </children>
-            </VBox>
-         </items>
-      </SplitPane>
+       <SplitPane dividerPositions="0.5" orientation="VERTICAL" BorderPane.alignment="CENTER">
+           <VBox spacing="10.0">
+               <Button mnemonicParsing="false" onMouseClicked="#onClickedAddCoin" prefHeight="30.0" prefWidth="200.0" text="Добавить монету">
+                   <VBox.margin>
+                       <Insets left="5.0" right="5.0" top="5.0" />
+                   </VBox.margin>
+               </Button>
+               <Button mnemonicParsing="false" onMouseClicked="#onClickedEditCoin" prefHeight="30.0" prefWidth="200.0" text="Изменить монету">
+                   <VBox.margin>
+                       <Insets left="5.0" right="5.0" />
+                   </VBox.margin>
+               </Button>
+               <Button mnemonicParsing="false" onMouseClicked="#onClickedDeleteCoin" prefHeight="30.0" prefWidth="200.0" text="Удалить монету">
+                   <VBox.margin>
+                       <Insets bottom="5.0" left="5.0" right="5.0" />
+                   </VBox.margin>
+               </Button>
+           </VBox>
+           <VBox spacing="10.0">
+               <Button mnemonicParsing="false" onMouseClicked="#onClickedAddPage" prefHeight="30.0" prefWidth="200.0" text="Добавить страницу">
+                   <VBox.margin>
+                       <Insets left="5.0" right="5.0" top="5.0" />
+                   </VBox.margin>
+               </Button>
+               <Button mnemonicParsing="false" onMouseClicked="#onClickedEditPage" prefHeight="30.0" prefWidth="200.0" text="Изменить страницу">
+                   <VBox.margin>
+                       <Insets left="5.0" right="5.0" />
+                   </VBox.margin>
+               </Button>
+               <Button mnemonicParsing="false" onMouseClicked="#onClickedDeletePage" prefHeight="30.0" prefWidth="200.0" text="Удалить страницу">
+                   <VBox.margin>
+                       <Insets bottom="5.0" left="5.0" right="5.0" />
+                   </VBox.margin>
+               </Button>
+           </VBox>
+       </SplitPane>
    </right>
 </BorderPane>

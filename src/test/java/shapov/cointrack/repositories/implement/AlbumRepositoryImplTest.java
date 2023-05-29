@@ -3,9 +3,7 @@ package shapov.cointrack.repositories.implement;
 import org.junit.jupiter.api.*;
 import shapov.cointrack.databaseHelper.DatabaseHelper;
 import shapov.cointrack.models.Album;
-import shapov.cointrack.models.Coin;
 import shapov.cointrack.repositories.AlbumRepository;
-import shapov.cointrack.repositories.CoinRepository;
 
 import java.sql.SQLException;
 import java.util.List;

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AlbumService {
-    Collection<Album> findAll() throws SQLException;
+    List<Album> findAll() throws SQLException;
 
     Optional<Album> findOneById(int id) throws SQLException;
 

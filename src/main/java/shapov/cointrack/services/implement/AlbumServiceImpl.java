@@ -13,7 +13,7 @@ import java.util.Optional;
 public class AlbumServiceImpl implements AlbumService {
     private final AlbumRepository albumRepository = new AlbumRepositoryImpl("CoinTrack");
     @Override
-    public Collection<Album> findAll() throws SQLException {
+    public List<Album> findAll() throws SQLException {
         return albumRepository.findAll();
     }
 

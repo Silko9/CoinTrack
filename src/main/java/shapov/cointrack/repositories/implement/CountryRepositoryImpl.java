@@ -18,6 +18,7 @@ import java.util.Optional;
 public class CountryRepositoryImpl extends DatabaseHelper implements CountryRepository {
     private final static String TABLE_NAME = "Country";
     private final static String TABLE_RELATION_NAME = "RelationCountryCurrency";
+    private final static String TABLE_MINT = "Mint";
     private String nameDB = "CoinTrackTest";
     private String getFullTableName(String nameTable){
         return nameDB + "." + nameTable;

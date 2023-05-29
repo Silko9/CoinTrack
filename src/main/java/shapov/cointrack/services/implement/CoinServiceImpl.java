@@ -1,8 +1,17 @@
 package shapov.cointrack.services.implement;
 
 import shapov.cointrack.models.Coin;
+import shapov.cointrack.models.Country;
+import shapov.cointrack.models.Currency;
+import shapov.cointrack.models.Mint;
 import shapov.cointrack.repositories.CoinRepository;
+import shapov.cointrack.repositories.CountryRepository;
+import shapov.cointrack.repositories.CurrencyRepository;
+import shapov.cointrack.repositories.MintRepository;
 import shapov.cointrack.repositories.implement.CoinRepositoryImpl;
+import shapov.cointrack.repositories.implement.CountryRepositoryImpl;
+import shapov.cointrack.repositories.implement.CurrencyRepositoryImpl;
+import shapov.cointrack.repositories.implement.MintRepositoryImpl;
 import shapov.cointrack.services.CoinService;
 
 import java.sql.SQLException;
@@ -11,6 +20,9 @@ import java.util.Optional;
 
 public class CoinServiceImpl implements CoinService {
     private final CoinRepository coinRepository = new CoinRepositoryImpl("CoinTrack");
+    private final CountryRepository countryRepository = new CountryRepositoryImpl("CoinTrack");
+    private final CurrencyRepository currencyRepository = new CurrencyRepositoryImpl("CoinTrack");
+    private final MintRepository mintRepository = new MintRepositoryImpl("CoinTrack");
     @Override
     public List<Coin> findAll() throws SQLException {
         return coinRepository.findAll();
@@ -59,5 +71,20 @@ public class CoinServiceImpl implements CoinService {
     @Override
     public int delete(int id) throws SQLException {
         return coinRepository.delete(id);
+    }
+
+    @Override
+    public Coin include(Coin coin) throws SQLException {
+        Optional<Country> country = countryRepository.findOneById(coin.getCountryId());
+        Optional<Currency> currency = currencyRepository.findOneById(coin.getCurrencyId());
+        Optional<Mint> mint = mintRepository.findOneById(coin.getMintId());
+
+        if(country.isEmpty() || currency.isEmpty() || mint.isEmpty()) return null;
+
+        coin.setCountry(country.get());
+        coin.setCurrency(currency.get());
+        coin.setMint(mint.get());
+
+        return coin;
     }
 }

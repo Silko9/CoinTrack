@@ -12,7 +12,6 @@ import java.util.List;
 public class Country {
     private int id;
     private String name;
-    //private List<Currency> currencies;
 
     public Country(String name) {
         this.name = name;
