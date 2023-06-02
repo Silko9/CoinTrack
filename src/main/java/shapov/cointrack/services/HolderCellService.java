@@ -1,5 +1,6 @@
 package shapov.cointrack.services;
 
+import shapov.cointrack.models.Coin;
 import shapov.cointrack.models.HolderCell;
 
 import java.sql.SQLException;
@@ -18,4 +19,6 @@ public interface HolderCellService {
     int update(int id, boolean available, int coinId, int pageId, int column, int line, String title) throws SQLException;
 
     int delete(int id) throws SQLException;
+
+    HolderCell include(HolderCell holderCell) throws SQLException;
 }

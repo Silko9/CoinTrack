@@ -15,23 +15,101 @@
 
 <BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shapov.cointrack.controllers.AlbumsController">
     <center>
-        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="495.0" prefWidth="672.0" BorderPane.alignment="CENTER">
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
             <BorderPane.margin>
                 <Insets top="5.0" />
             </BorderPane.margin>
             <VBox alignment="CENTER" maxWidth="-Infinity" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
-                <Label fx:id="labelTitlePage" text="Заголовок страницы" />
+                <Label fx:id="labelTitlePage" />
             </VBox>
-            <ImageView fx:id="imageAlbum" fitHeight="403.0" fitWidth="713.0" onMouseClicked="#onClickedAlbum" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="40.0">
-                <Image url="@../pictures/album.png" />
+            <ImageView fx:id="imageAlbum" fitHeight="605.0" fitWidth="1070.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="40.0">
+                <Image url="@../pictures/album.jpg" />
             </ImageView>
+         <ImageView fx:id="coin1" fitHeight="150.0" fitWidth="150.0" layoutX="54.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="frame1" depthTest="DISABLE" fitHeight="160.0" fitWidth="160.0" layoutX="49.0" layoutY="45.0" onMouseClicked="#onClickedHolder" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../pictures/frame.png" />
+            </ImageView>
+         <Label fx:id="title1" alignment="CENTER" contentDisplay="CENTER" layoutX="54.0" layoutY="209.0" prefWidth="150.0" textFill="WHITE" />
+         <ImageView fx:id="coin2" fitHeight="150.0" fitWidth="150.0" layoutX="240.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="frame2" depthTest="DISABLE" fitHeight="160.0" fitWidth="160.0" layoutX="235.0" layoutY="45.0" onMouseClicked="#onClickedHolder" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../pictures/frame.png" />
+            </ImageView>
+         <Label fx:id="title2" alignment="CENTER" contentDisplay="CENTER" layoutX="240.0" layoutY="209.0" prefWidth="150.0" textFill="WHITE" />
+         <ImageView fx:id="coin3" fitHeight="150.0" fitWidth="150.0" layoutX="650.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="frame3" depthTest="DISABLE" fitHeight="160.0" fitWidth="160.0" layoutX="645.0" layoutY="45.0" onMouseClicked="#onClickedHolder" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../pictures/frame.png" />
+            </ImageView>
+         <Label fx:id="title3" alignment="CENTER" contentDisplay="CENTER" layoutX="650.0" layoutY="201.0" prefWidth="150.0" textFill="WHITE" />
+         <ImageView fx:id="coin4" fitHeight="150.0" fitWidth="150.0" layoutX="850.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fx:id="frame4" depthTest="DISABLE" fitHeight="160.0" fitWidth="160.0" layoutX="845.0" layoutY="45.0" onMouseClicked="#onClickedHolder" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../pictures/frame.png" />
+            </image>
+         </ImageView>
+         <Label fx:id="title4" alignment="CENTER" contentDisplay="CENTER" layoutX="850.0" layoutY="201.0" prefWidth="150.0" textFill="WHITE" />
+         <ImageView fx:id="coin5" fitHeight="150.0" fitWidth="150.0" layoutX="54.0" layoutY="240.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fx:id="frame5" depthTest="DISABLE" fitHeight="160.0" fitWidth="160.0" layoutX="49.0" layoutY="235.0" onMouseClicked="#onClickedHolder" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../pictures/frame.png" />
+            </image>
+         </ImageView>
+         <Label fx:id="title5" alignment="CENTER" contentDisplay="CENTER" layoutX="54.0" layoutY="397.0" prefWidth="150.0" textFill="WHITE" />
+         <ImageView fx:id="coin6" fitHeight="150.0" fitWidth="150.0" layoutX="240.0" layoutY="240.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fx:id="frame6" depthTest="DISABLE" fitHeight="160.0" fitWidth="160.0" layoutX="235.0" layoutY="235.0" onMouseClicked="#onClickedHolder" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../pictures/frame.png" />
+            </image>
+         </ImageView>
+         <Label fx:id="title6" alignment="CENTER" contentDisplay="CENTER" layoutX="240.0" layoutY="397.0" prefWidth="150.0" textFill="WHITE" />
+         <ImageView fx:id="coin7" fitHeight="150.0" fitWidth="150.0" layoutX="650.0" layoutY="240.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fx:id="frame7" depthTest="DISABLE" fitHeight="160.0" fitWidth="160.0" layoutX="645.0" layoutY="235.0" onMouseClicked="#onClickedHolder" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../pictures/frame.png" />
+            </image>
+         </ImageView>
+         <Label fx:id="title7" alignment="CENTER" contentDisplay="CENTER" layoutX="650.0" layoutY="397.0" prefWidth="150.0" textFill="WHITE" />
+         <ImageView fx:id="coin8" fitHeight="150.0" fitWidth="150.0" layoutX="850.0" layoutY="240.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fx:id="frame8" depthTest="DISABLE" fitHeight="160.0" fitWidth="160.0" layoutX="845.0" layoutY="235.0" onMouseClicked="#onClickedHolder" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../pictures/frame.png" />
+            </image>
+         </ImageView>
+         <Label fx:id="title8" alignment="CENTER" contentDisplay="CENTER" layoutX="850.0" layoutY="389.0" prefWidth="150.0" textFill="WHITE" />
+         <ImageView fx:id="coin9" fitHeight="150.0" fitWidth="150.0" layoutX="54.0" layoutY="420.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fx:id="frame9" depthTest="DISABLE" fitHeight="160.0" fitWidth="160.0" layoutX="49.0" layoutY="415.0" onMouseClicked="#onClickedHolder" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../pictures/frame.png" />
+            </image>
+         </ImageView>
+         <Label fx:id="title9" alignment="CENTER" contentDisplay="CENTER" layoutX="54.0" layoutY="585.0" prefWidth="150.0" textFill="WHITE" />
+         <ImageView fx:id="coin10" fitHeight="150.0" fitWidth="150.0" layoutX="240.0" layoutY="420.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fx:id="frame10" depthTest="DISABLE" fitHeight="160.0" fitWidth="160.0" layoutX="235.0" layoutY="415.0" onMouseClicked="#onClickedHolder" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../pictures/frame.png" />
+            </image>
+         </ImageView>
+         <Label fx:id="title10" alignment="CENTER" contentDisplay="CENTER" layoutX="240.0" layoutY="585.0" prefWidth="150.0" textFill="WHITE" />
+         <ImageView fx:id="coin11" fitHeight="150.0" fitWidth="150.0" layoutX="650.0" layoutY="420.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fx:id="frame11" depthTest="DISABLE" fitHeight="160.0" fitWidth="160.0" layoutX="645.0" layoutY="415.0" onMouseClicked="#onClickedHolder" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../pictures/frame.png" />
+            </image>
+         </ImageView>
+         <Label fx:id="title11" alignment="CENTER" contentDisplay="CENTER" layoutX="650.0" layoutY="585.0" prefWidth="150.0" textFill="WHITE" />
+         <ImageView fx:id="coin12" fitHeight="150.0" fitWidth="150.0" layoutX="850.0" layoutY="420.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fx:id="frame12" depthTest="DISABLE" fitHeight="160.0" fitWidth="160.0" layoutX="845.0" layoutY="415.0" onMouseClicked="#onClickedHolder" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../pictures/frame.png" />
+            </image>
+         </ImageView>
+         <Label fx:id="title12" alignment="CENTER" contentDisplay="CENTER" layoutX="850.0" layoutY="585.0" prefWidth="150.0" textFill="WHITE" />
             <HBox alignment="CENTER" maxWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                 <Button mnemonicParsing="false" onMouseClicked="#onClickedBackPage" prefHeight="30.0" text="&lt;---">
                     <HBox.margin>
                         <Insets bottom="10.0" top="10.0" />
                     </HBox.margin>
                 </Button>
-                <Label fx:id="labelNumberPage" text="1/10">
+                <Label fx:id="labelNumberPage">
                     <HBox.margin>
                         <Insets bottom="15.0" left="50.0" right="50.0" top="15.0" />
                     </HBox.margin>
@@ -46,7 +124,7 @@
     </center>
     <left>
         <VBox fillWidth="false" spacing="10.0" BorderPane.alignment="CENTER">
-            <TableView fx:id="tableAlbum" maxHeight="1000.0" maxWidth="1.7976931348623157E308" minHeight="10.0" prefHeight="1000.0" prefWidth="200.0">
+            <TableView fx:id="tableAlbum" maxHeight="1000.0" maxWidth="1.7976931348623157E308" minHeight="10.0" onMouseClicked="#onClickAlbum" prefHeight="1000.0" prefWidth="200.0">
                 <columns>
                     <TableColumn fx:id="columnAlbum" prefWidth="75.0" text="Название альбома" />
                 </columns>
@@ -79,19 +157,28 @@
            <VBox spacing="10.0">
                <Button mnemonicParsing="false" onMouseClicked="#onClickedAddCoin" prefHeight="30.0" prefWidth="200.0" text="Добавить монету">
                    <VBox.margin>
-                       <Insets left="5.0" right="5.0" top="5.0" />
+                       <Insets />
                    </VBox.margin>
                </Button>
                <Button mnemonicParsing="false" onMouseClicked="#onClickedEditCoin" prefHeight="30.0" prefWidth="200.0" text="Изменить монету">
                    <VBox.margin>
-                       <Insets left="5.0" right="5.0" />
+                       <Insets />
                    </VBox.margin>
                </Button>
                <Button mnemonicParsing="false" onMouseClicked="#onClickedDeleteCoin" prefHeight="30.0" prefWidth="200.0" text="Удалить монету">
                    <VBox.margin>
-                       <Insets bottom="5.0" left="5.0" right="5.0" />
+                       <Insets />
                    </VBox.margin>
                </Button>
+            <Label fx:id="statusCoin">
+               <VBox.margin>
+                  <Insets bottom="30.0" />
+               </VBox.margin>
+            </Label>
+            <Button fx:id="btReset" disable="true" mnemonicParsing="false" onMouseClicked="#onResetCoin" prefHeight="30.0" prefWidth="200.0" text="Сбросить действие" />
+            <padding>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
            </VBox>
            <VBox spacing="10.0">
                <Button mnemonicParsing="false" onMouseClicked="#onClickedAddPage" prefHeight="30.0" prefWidth="200.0" text="Добавить страницу">

@@ -1,8 +1,13 @@
 package shapov.cointrack.services.implement;
 
+import shapov.cointrack.models.Coin;
+import shapov.cointrack.models.Country;
 import shapov.cointrack.models.HolderCell;
+import shapov.cointrack.repositories.CoinRepository;
 import shapov.cointrack.repositories.HolderCellRepository;
+import shapov.cointrack.repositories.implement.CoinRepositoryImpl;
 import shapov.cointrack.repositories.implement.HolderCellRepositoryImpl;
+import shapov.cointrack.services.CoinService;
 import shapov.cointrack.services.HolderCellService;
 
 import java.sql.SQLException;
@@ -11,6 +16,7 @@ import java.util.Optional;
 
 public class HolderCellServiceImpl implements HolderCellService {
     private final HolderCellRepository holderCellRepository = new HolderCellRepositoryImpl("CoinTrack");
+    private final CoinRepository coinRepository = new CoinRepositoryImpl("CoinTrack");
     @Override
     public List<HolderCell> findAll() throws SQLException {
         return holderCellRepository.findAll();
@@ -39,5 +45,16 @@ public class HolderCellServiceImpl implements HolderCellService {
     @Override
     public int delete(int id) throws SQLException {
         return holderCellRepository.delete(id);
+    }
+
+    @Override
+    public HolderCell include(HolderCell holderCell) throws SQLException {
+        Optional<Coin> coin = coinRepository.findOneById(holderCell.getCoinId());
+
+        if(coin.isEmpty()) return null;
+
+        holderCell.setCoin(coin.get());
+
+        return holderCell;
     }
 }

@@ -9,6 +9,8 @@ import lombok.Getter;
 import shapov.cointrack.models.Album;
 import shapov.cointrack.models.properties.AlbumProperty;
 
+import java.util.Objects;
+
 public class AlbumEditorController {
     @FXML
     private TextField textName;
@@ -22,8 +24,9 @@ public class AlbumEditorController {
     public void setParams(ActionType actionType, Stage stage, AlbumProperty album) {
         this.stage = stage;
         this.album = album;
-        if (actionType == ActionType.CREATE)
+        if (actionType == ActionType.CREATE) {
             btAccept.setText(ActionType.CREATE.getValue());
+        }
         else {
             btAccept.setText(ActionType.EDIT.getValue());
             textName.setText(album.getTitle());
@@ -32,7 +35,8 @@ public class AlbumEditorController {
 
     @FXML
     private void onClickedAccept(MouseEvent mouseEvent) {
-        album.setTitle(textName.getText());
+        if(!Objects.equals(textName.getText(), ""))
+            album.setTitle(textName.getText());
         stage.close();
     }
 

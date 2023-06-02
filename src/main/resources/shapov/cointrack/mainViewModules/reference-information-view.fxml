@@ -9,12 +9,12 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shapov.cointrack.controllers.ReferenceInformationController">
-    <HBox prefHeight="100.0" prefWidth="200.0">
+    <HBox maxHeight="0.0" prefHeight="100.0" prefWidth="0.0" visible="false">
         <TextField prefWidth="1000.0" promptText="Страна" />
         <TextField layoutX="10.0" layoutY="10.0" prefWidth="1000.0" promptText="Валюта" />
         <TextField layoutX="181.0" layoutY="10.0" prefWidth="1000.0" promptText="Монетный двор" />
     </HBox>
-    <HBox prefHeight="1000.0">
+    <HBox prefHeight="1000.0" prefWidth="0.0">
         <TableView fx:id="tableCurrency" onMouseClicked="#onClickedCurrency" prefWidth="1000.0">
             <columns>
                 <TableColumn fx:id="columnCurrency" prefWidth="150.0" text="Валюта" />
@@ -40,24 +40,24 @@
             </columnResizePolicy>
         </TableView>
     </HBox>
-    <HBox maxHeight="40.0">
+    <HBox alignment="TOP_RIGHT" maxHeight="40.0">
         <VBox.margin>
             <Insets />
         </VBox.margin>
         <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
         </padding>
-        <Button disable="true" maxHeight="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Добавить">
+        <Button disable="true" maxHeight="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Добавить" visible="false">
             <HBox.margin>
                 <Insets right="10.0" />
             </HBox.margin>
         </Button>
-        <Button disable="true" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Изменить">
+        <Button disable="true" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Изменить" visible="false">
             <HBox.margin>
                 <Insets right="10.0" />
             </HBox.margin>
         </Button>
-        <Button disable="true" layoutX="160.0" layoutY="10.0" maxHeight="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Удалить">
+        <Button disable="true" layoutX="160.0" layoutY="10.0" maxHeight="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Удалить" visible="false">
             <HBox.margin>
                 <Insets right="20.0" />
             </HBox.margin>

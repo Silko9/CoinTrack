@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ActionType {
-    CREATE("Создать"),
+    CREATE("Добавить"),
     EDIT("Изменить");
     private final String value;
 }
