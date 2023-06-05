@@ -46,7 +46,6 @@ public class SampleCoinController {
         this.label3.setText(coin.getMint().getName());
         this.controller = controller;
         this.idCoin = coin.getId();
-
     }
     @FXML
     private void onClicked(MouseEvent mouseEvent) throws SQLException {

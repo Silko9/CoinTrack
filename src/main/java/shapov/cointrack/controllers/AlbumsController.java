@@ -171,15 +171,15 @@ public class AlbumsController implements Initializable {
     @FXML
     private ImageView frame9;
 
-    List<ImageView> imageViews = new ArrayList<>();
+    private final List<ImageView> imageViews = new ArrayList<>();
 
-    List<Label> labels = new ArrayList<>();
+    private final List<Label> labels = new ArrayList<>();
 
-    List<ImageView> frames = new ArrayList<>();
+    private final List<ImageView> frames = new ArrayList<>();
     private int idCoin;
     private String titleHolder;
     private TypeCoinAction typeCoinAction = TypeCoinAction.NONE;
-    int[] idHolders = new int[12];
+    private final int[] idHolders = new int[12];
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -327,7 +327,7 @@ public class AlbumsController implements Initializable {
             return;
         }
 
-        if(isVoid()) {
+        if(setAndCheckBorders(true)) {
             AlertHelper.showAlert(Alert.AlertType.WARNING,
                     "Предупреждение",
                     "На странице нет мест для новой монеты.",
@@ -362,7 +362,7 @@ public class AlbumsController implements Initializable {
     }
 
     @FXML
-    private void onClickedEditCoin(MouseEvent mouseEvent) throws IOException {
+    private void onClickedEditCoin() {
         setActionNone();
         if (albumProperty == null) {
             AlertHelper.showAlert(Alert.AlertType.WARNING,
@@ -380,8 +380,8 @@ public class AlbumsController implements Initializable {
                     false);
             return;
         }
-         фыфыф
-        if(isVoid()) {
+
+        if(setAndCheckBorders(false)) {
             AlertHelper.showAlert(Alert.AlertType.WARNING,
                     "Предупреждение",
                     "На странице нет монет.",
@@ -396,10 +396,10 @@ public class AlbumsController implements Initializable {
     }
 
     @FXML
-    private void onClickedDeleteCoin(MouseEvent mouseEvent) {
+    private void onClickedDeleteCoin() {
         setActionNone();
 
-        if(isVoid()) {
+        if(setAndCheckBorders(false)) {
             AlertHelper.showAlert(Alert.AlertType.WARNING,
                     "Предупреждение",
                     "На странице нет монет.",
@@ -546,7 +546,7 @@ public class AlbumsController implements Initializable {
     }
 
     @FXML
-    private void onClickAlbum(MouseEvent mouseEvent) throws SQLException {
+    private void onClickAlbum() throws SQLException {
         setActionNone();
         albumProperty = tableAlbum.getSelectionModel().getSelectedItem();
         if(albumProperty == null) return;
@@ -733,10 +733,8 @@ public class AlbumsController implements Initializable {
 
                 idCoin = controller.getIdCoin();
                 titleHolder = controller.getTitle();
-                if(idCoin == 0) {
-                    resetCoin();
-                    return;
-                }
+                if(idCoin == 0) break;
+
                 holderCellService.update(holderCellOptional.get().getId(),
                         false,
                         idCoin,
@@ -755,13 +753,14 @@ public class AlbumsController implements Initializable {
                 holderCellService.delete(idHolderInt);
             }
         }
-        resetCoin();
+
+        setActionNone();
         showPage();
     }
-    private boolean isVoid(){
+    private boolean setAndCheckBorders(boolean forEmpty){
         boolean isVoid = true;
         for (int i = 0; i < imageViews.size(); i++)
-            if(imageViews.get(i).getImage() == null) {
+            if((imageViews.get(i).getImage() == null) == forEmpty) {
                 frames.get(i).setVisible(true);
                 isVoid = false;
             }

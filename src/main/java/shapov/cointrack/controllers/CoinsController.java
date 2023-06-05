@@ -8,7 +8,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import shapov.cointrack.models.Coin;
 import shapov.cointrack.models.properties.CoinProperty;
 import shapov.cointrack.services.CoinService;
@@ -23,7 +22,6 @@ import java.util.ResourceBundle;
 
 public class CoinsController implements Initializable {
     private final CoinService coinService = new CoinServiceImpl();
-    private ObservableList<CoinProperty> coins;
     @FXML
     private ImageView imageCoin;
     @FXML
@@ -46,6 +44,7 @@ public class CoinsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ObservableList<CoinProperty> coins;
         try {
             coins = coin2property(coinService.findAll());
         } catch (SQLException e) {
