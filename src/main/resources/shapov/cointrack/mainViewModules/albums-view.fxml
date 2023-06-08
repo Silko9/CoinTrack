@@ -22,7 +22,7 @@
             <VBox alignment="CENTER" maxWidth="-Infinity" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
                 <Label fx:id="labelTitlePage" />
             </VBox>
-            <ImageView fx:id="imageAlbum" fitHeight="605.0" fitWidth="1070.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="40.0">
+            <ImageView fitHeight="605.0" fitWidth="1070.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="40.0">
                 <Image url="@../pictures/album.jpg" />
             </ImageView>
          <ImageView fx:id="coin1" fitHeight="150.0" fitWidth="150.0" layoutX="54.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />

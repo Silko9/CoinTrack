@@ -47,7 +47,7 @@ public class AlbumEditorController {
 
     @FXML
     private void onClickedAccept() throws SQLException {
-        if(!Objects.equals(textName.getText(), "")) {
+        if(Objects.equals(textName.getText(), "")) {
             AlertHelper.showAlert(Alert.AlertType.WARNING,
                     "Предупреждение",
                     "Заполните поле.",

@@ -20,6 +20,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import lombok.Setter;
 import shapov.cointrack.AlertHelper;
 import shapov.cointrack.MainApplication;
 import shapov.cointrack.controllers.editControllers.ActionType;
@@ -34,7 +35,8 @@ import shapov.cointrack.services.implement.AlbumServiceImpl;
 import shapov.cointrack.services.implement.PageServiceImpl;
 
 public class AlbumsListController implements Initializable {
-    
+
+    @Setter
     private AlbumsController mainController;
     
     private final AlbumService albumService = new AlbumServiceImpl();
@@ -49,17 +51,16 @@ public class AlbumsListController implements Initializable {
     
     private ObservableList<AlbumProperty> albumsProperty;
 
+    private static AlbumsListController albumsListController;
+
+    public static AlbumsListController getInstance(){
+        return albumsListController;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("mainViewModules/album-view.fxml"));
-        try {
-            loader.load();
-        } catch (IOException ex) {
-            Logger.getLogger(AlbumsListController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        mainController = loader.getController();
-        mainController.setAlbumsListController(this);
-        
+        albumsListController = this;
+
         try {
             albumsProperty = album2property(albumService.findAll());
         } catch (SQLException e) {
@@ -75,16 +76,12 @@ public class AlbumsListController implements Initializable {
         mainController.setActionNone();
         
         Optional<AlbumProperty> album = showEditorAlbum();
-        
-        if("".equals(album.get().getTitle())) return;
-        
-        albumsProperty.add(album.get());
-        mainController.setCurrentAlbum(album.get());
-        mainController.setCurrentPage(null);
-        mainController.setMaxNumberPage(0);
-        mainController.getPages().clear();
-        
-        mainController.showPage();
+
+        if(album.isEmpty() || "".equals(album.get().getTitle())) return;
+
+        albumsProperty.setAll(album2property(albumService.findAll()));
+
+        mainController.setCurrent(album.get());
     }
 
     @FXML
@@ -100,7 +97,7 @@ public class AlbumsListController implements Initializable {
             return;
         }
         
-       showEditorAlbum( mainController.getCurrentAlbum());
+       showEditorAlbum(mainController.getCurrentAlbum());
     }
 
     @FXML
@@ -125,28 +122,14 @@ public class AlbumsListController implements Initializable {
         albumService.delete(mainController.getCurrentAlbum().getId());
         albumsProperty.remove(mainController.getCurrentAlbum());
         
-        mainController.setCurrentAlbum(null);
-        mainController.setCurrentPage(null);
-        mainController.setMaxNumberPage(0);
-        mainController.getPages().clear();
-        
-        mainController.showPage();
+        mainController.setCurrent();
     }
     
     @FXML
     private void onClickAlbum() throws SQLException {
         mainController.setActionNone();
-        
-        mainController.setCurrentAlbum(tableAlbum.getSelectionModel().getSelectedItem());
-        if(mainController.getCurrentAlbum() == null) return;
-
-        mainController.setPages(pageService.findByAlbumId(mainController.getCurrentAlbum().getId()));
-        mainController.setMaxNumberPage(mainController.getPages().size());
-
-        if(mainController.getMaxNumberPage() != 0) mainController.setCurrentPage(mainController.getPages().get(0));
-        else mainController.setCurrentPage(null);
-
-        mainController.showPage();
+        AlbumProperty albumProperty = tableAlbum.getSelectionModel().getSelectedItem();
+        mainController.setCurrent(albumProperty, pageService.findByAlbumId(albumProperty.getId()));
     }
     
     private Optional<AlbumProperty> showEditorAlbum() throws IOException, SQLException {

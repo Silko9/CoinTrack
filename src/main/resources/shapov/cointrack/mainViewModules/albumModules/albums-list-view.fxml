@@ -6,9 +6,9 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fillWidth="false" spacing="10.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shapov.cointrack.controllers.AlbumsListController">
+<VBox fillWidth="false" spacing="10.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shapov.cointrack.controllers.AlbumsListController">
    <children>
-      <TableView fx:id="tableAlbum" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#onClickAlbum" prefWidth="200.0">
+      <TableView fx:id="tableAlbum" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#onClickAlbum" prefHeight="1000.0" prefWidth="200.0">
          <columns>
             <TableColumn fx:id="columnAlbum" prefWidth="75.0" text="Название альбома" />
          </columns>

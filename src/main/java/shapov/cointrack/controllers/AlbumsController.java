@@ -1,7 +1,5 @@
 package shapov.cointrack.controllers;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,18 +14,15 @@ import javafx.stage.Stage;
 import shapov.cointrack.AlertHelper;
 import shapov.cointrack.MainApplication;
 import shapov.cointrack.controllers.editControllers.ActionType;
-import shapov.cointrack.controllers.editControllers.AlbumEditorController;
 import shapov.cointrack.controllers.editControllers.PageEditorController;
 import shapov.cointrack.models.Album;
 import shapov.cointrack.models.HolderCell;
 import shapov.cointrack.models.Page;
 import shapov.cointrack.models.Coin;
 import shapov.cointrack.models.properties.AlbumProperty;
-import shapov.cointrack.services.AlbumService;
 import shapov.cointrack.services.CoinService;
 import shapov.cointrack.services.HolderCellService;
 import shapov.cointrack.services.PageService;
-import shapov.cointrack.services.implement.AlbumServiceImpl;
 import shapov.cointrack.services.implement.CoinServiceImpl;
 import shapov.cointrack.services.implement.HolderCellServiceImpl;
 import shapov.cointrack.services.implement.PageServiceImpl;
@@ -187,30 +182,31 @@ public class AlbumsController implements Initializable {
     
     private TypeCoinAction typeCoinAction = TypeCoinAction.NONE;
     
-    private int[] idHolders = new int[12];
+    private final int[] idHolders = new int[12];
     
-    
+
     @Getter
-    @Setter
     private AlbumProperty currentAlbum;
-    
-    @Getter
-    @Setter
+
     private Page currentPage;
-    
-    @Getter
-    @Setter
-    private List<Page> pages;
-    
-    @Getter
-    @Setter
+
+    private List<Page> pages = new ArrayList<>();
+
     private int maxNumberPage;
     
-    @Setter
     private AlbumsListController albumsListController;
+
+    private static AlbumsController albumsController;
+
+    public static AlbumsController getInstance(){
+        return albumsController;
+    }
                     
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        albumsListController = AlbumsListController.getInstance();
+        albumsListController.setMainController(this);
+
         imageViews.add(coin1);
         imageViews.add(coin2);
         imageViews.add(coin3);
@@ -256,6 +252,31 @@ public class AlbumsController implements Initializable {
         }
     }
 
+    public void setCurrent() throws SQLException {
+        setCurrent(null, null);
+    }
+
+    public void setCurrent(AlbumProperty album) throws SQLException {
+        setCurrent(album, null);
+    }
+
+    public void setCurrent(AlbumProperty album, List<Page> pages) throws SQLException {
+        currentAlbum = album;
+
+        this.pages.clear();
+
+        if(pages == null || pages.isEmpty()) {
+            currentPage = null;
+            maxNumberPage = 0;
+        }
+        else{
+            this.pages.addAll(pages);
+            currentPage = this.pages.get(0);
+            maxNumberPage = pages.size();
+        }
+
+        showPage();
+    }
 
     @FXML
     private void onClickedNextPage() throws SQLException {
@@ -388,7 +409,7 @@ public class AlbumsController implements Initializable {
 
 
     @FXML
-    private void onClickedAddPage(MouseEvent mouseEvent) throws SQLException, IOException {
+    private void onClickedAddPage() throws SQLException, IOException {
         setActionNone();
         if(currentAlbum == null) {
             AlertHelper.showAlert(Alert.AlertType.WARNING,
@@ -416,7 +437,7 @@ public class AlbumsController implements Initializable {
     }
 
     @FXML
-    private void onClickedEditPage(MouseEvent mouseEvent) throws SQLException, IOException {
+    private void onClickedEditPage() throws SQLException, IOException {
         setActionNone();
         if(currentAlbum == null) {
             AlertHelper.showAlert(Alert.AlertType.WARNING,
@@ -440,7 +461,7 @@ public class AlbumsController implements Initializable {
     }
 
     @FXML
-    private void onClickedDeletePage(MouseEvent mouseEvent) throws SQLException {
+    private void onClickedDeletePage() throws SQLException {
         setActionNone();
         if (currentAlbum == null) {
             AlertHelper.showAlert(Alert.AlertType.WARNING,
@@ -482,7 +503,7 @@ public class AlbumsController implements Initializable {
         showPage();
     }
 
-    private Page showEditorPage(ActionType actionType, Page page) throws IOException, SQLException {
+    private Page showEditorPage(ActionType actionType, Page page) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApplication.class.getResource("page-editor-view.fxml"));
         Parent parentPage = loader.load();

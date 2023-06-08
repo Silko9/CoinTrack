@@ -3,6 +3,7 @@ package shapov.cointrack.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import shapov.cointrack.models.properties.AlbumProperty;
 
 /**
 
@@ -41,16 +42,6 @@ public class Album {
      @param title заголовок альбома
      */
     public Album(String title) {
-        this.title = title;
-    }
-    
-    /**
-     Конструктор - создание нового экземпляра альбома с указанным id и заголовком.
-     @param id индификатор альбома
-     @param title заголовок альбома
-     */
-    public Album(int id, String title) {
-        this.id = id;
         this.title = title;
     }
 }
