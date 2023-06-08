@@ -8,7 +8,9 @@ import shapov.cointrack.services.PageService;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
-
+import shapov.cointrack.models.HolderCell;
+import shapov.cointrack.repositories.HolderCellRepository;
+import shapov.cointrack.repositories.implement.HolderCellRepositoryImpl;
 
 /**
 
@@ -21,11 +23,16 @@ import java.util.Optional;
  @version 1.0
  */
 public class PageServiceImpl implements PageService {
-
+    
     /**
      Репозиторий для работы с страницами.
      */
     private final PageRepository pageRepository = new PageRepositoryImpl("CoinTrack");
+    
+    /**
+     Репозиторий для работы с ячейками хранения.
+     */
+    private final HolderCellRepository holderCellRepository = new HolderCellRepositoryImpl("CoinTrack");
 
     /**
      Получает список всех страниц.
@@ -94,6 +101,8 @@ public class PageServiceImpl implements PageService {
      */
     @Override
     public int delete(int id) throws SQLException {
+        for(HolderCell holderCell : holderCellRepository.findByPageId(id))
+            holderCellRepository.delete(holderCell.id);
         return pageRepository.delete(id);
     }
 }

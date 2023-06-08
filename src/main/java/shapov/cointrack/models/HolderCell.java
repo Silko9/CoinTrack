@@ -38,7 +38,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class HolderCell {
     /** Поле идентификатор */
-    private int id;
+    public int id;
     /** Поле идентификатор монеты */
     private int coinId;
     /** Поле монета */

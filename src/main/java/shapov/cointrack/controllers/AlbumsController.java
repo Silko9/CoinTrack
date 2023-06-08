@@ -42,29 +42,29 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Optional;
+import lombok.Getter;
+import lombok.Setter;
 
 public class AlbumsController implements Initializable {
-    private final AlbumService albumService = new AlbumServiceImpl();
-    private final PageService pageService = new PageServiceImpl();
+    
     private final HolderCellService holderCellService = new HolderCellServiceImpl();
+    
     private final CoinService coinService = new CoinServiceImpl();
+    
+    private final PageService pageService = new PageServiceImpl();
+    
     @FXML
     private Button btReset;
+    
     @FXML
     private Label statusCoin;
-    private ObservableList<AlbumProperty> albums;
+    
     @FXML
     private Label labelTitlePage;
+    
     @FXML
     private Label labelNumberPage;
-    @FXML
-    private TableView<AlbumProperty> tableAlbum;
-    @FXML
-    private TableColumn<AlbumProperty, String> columnAlbum;
-    private List<Page> pages;
-    private Page currentPage;
-    private int maxPage;
-    private AlbumProperty albumProperty;
+    
     @FXML
     private ImageView coin1;
 
@@ -136,8 +136,10 @@ public class AlbumsController implements Initializable {
 
     @FXML
     private Label title9;
+    
     @FXML
     private ImageView frame1;
+    
     @FXML
     private ImageView frame10;
 
@@ -170,28 +172,45 @@ public class AlbumsController implements Initializable {
 
     @FXML
     private ImageView frame9;
+    
 
     private final List<ImageView> imageViews = new ArrayList<>();
 
     private final List<Label> labels = new ArrayList<>();
 
     private final List<ImageView> frames = new ArrayList<>();
+    
+    
     private int idCoin;
+    
     private String titleHolder;
+    
     private TypeCoinAction typeCoinAction = TypeCoinAction.NONE;
-    private final int[] idHolders = new int[12];
-
+    
+    private int[] idHolders = new int[12];
+    
+    
+    @Getter
+    @Setter
+    private AlbumProperty currentAlbum;
+    
+    @Getter
+    @Setter
+    private Page currentPage;
+    
+    @Getter
+    @Setter
+    private List<Page> pages;
+    
+    @Getter
+    @Setter
+    private int maxNumberPage;
+    
+    @Setter
+    private AlbumsListController albumsListController;
+                    
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            albums = album2property(albumService.findAll());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        columnAlbum.setCellValueFactory(albumStringCellDataFeatures -> albumStringCellDataFeatures.getValue().titleProperty());
-        tableAlbum.setItems(albums);
-
         imageViews.add(coin1);
         imageViews.add(coin2);
         imageViews.add(coin3);
@@ -241,75 +260,29 @@ public class AlbumsController implements Initializable {
     @FXML
     private void onClickedNextPage() throws SQLException {
         setActionNone();
-        if(albumProperty == null || maxPage == 0 || currentPage.getNumber() == maxPage) return;
+        
+        if(currentAlbum == null || maxNumberPage == 0 || currentPage.getNumber() == maxNumberPage) return;
+        
         currentPage = pages.get(currentPage.getNumber());
+        
         showPage();
     }
 
     @FXML
     private void onClickedBackPage() throws SQLException {
         setActionNone();
-        if(albumProperty == null || maxPage == 0 || currentPage.getNumber() == 1) return;
+        
+        if(currentAlbum == null || maxNumberPage == 0 || currentPage.getNumber() == 1) return;
+        
         currentPage = pages.get(currentPage.getNumber() - 2);
+        
         showPage();
     }
-
+    
     @FXML
-    private void onClickedAddAlbum() throws IOException, SQLException {
+    private void onClickedAddCoin() throws IOException {
         setActionNone();
-        albumProperty = showEditorAlbum(ActionType.CREATE, new AlbumProperty(new Album("")));
-        if(Objects.equals(albumProperty.getTitle(), "")) return;
-        albumService.create(albumProperty.getTitle());
-        updateAlbum();
-    }
-
-    @FXML
-    private void onClickedEditAlbum() throws IOException, SQLException {
-        setActionNone();
-        if(albumProperty == null) {
-            AlertHelper.showAlert(Alert.AlertType.WARNING,
-                    "Предупреждение",
-                    "Выберите альбом из списка.",
-                    "Чтобы изменить альбом, выберите один из них в списке всех альбомов.",
-                    false);
-            return;
-        }
-        albumProperty = showEditorAlbum(ActionType.EDIT, albumProperty);
-        albumService.update(albumProperty.getId(), albumProperty.getTitle());
-    }
-
-    @FXML
-    private void onClickedDeleteAlbum() throws SQLException {
-        setActionNone();
-        if (albumProperty == null) {
-            AlertHelper.showAlert(Alert.AlertType.WARNING,
-                    "Предупреждение",
-                    "Выберите альбом из списка.",
-                    "Чтобы удалить альбом, выберите один из них в списке всех альбомов.",
-                    false);
-            return;
-        }
-        if (!AlertHelper.showAlert(Alert.AlertType.WARNING,
-                "Предупреждение",
-                "Точно хотите удалить альбом?",
-                "Это действие не обратимо, все содерживое альбома тоже удалиться.",
-                true)) return;
-
-        albumService.delete(albumProperty.getId());
-        albums.remove(albumProperty);
-        albumProperty = null;
-        currentPage = null;
-
-        for(Page page : pages)
-            removePage(page.getId());
-        pages.clear();
-        showPage();
-    }
-
-    @FXML
-    private void onClickedAddCoin(MouseEvent mouseEvent) throws IOException {
-        setActionNone();
-        if (albumProperty == null) {
+        if (currentAlbum == null) {
             AlertHelper.showAlert(Alert.AlertType.WARNING,
                     "Предупреждение",
                     "Выберите альбом из списка.",
@@ -318,7 +291,7 @@ public class AlbumsController implements Initializable {
             return;
         }
 
-        if (maxPage == 0) {
+        if (maxNumberPage == 0) {
             AlertHelper.showAlert(Alert.AlertType.WARNING,
                     "Предупреждение",
                     "В альбоме нету страниц.",
@@ -364,7 +337,7 @@ public class AlbumsController implements Initializable {
     @FXML
     private void onClickedEditCoin() {
         setActionNone();
-        if (albumProperty == null) {
+        if (currentAlbum == null) {
             AlertHelper.showAlert(Alert.AlertType.WARNING,
                     "Предупреждение",
                     "Выберите альбом из списка.",
@@ -372,7 +345,7 @@ public class AlbumsController implements Initializable {
                     false);
             return;
         }
-        if (maxPage == 0) {
+        if (maxNumberPage == 0) {
             AlertHelper.showAlert(Alert.AlertType.WARNING,
                     "Предупреждение",
                     "В альбоме нету страниц.",
@@ -417,7 +390,7 @@ public class AlbumsController implements Initializable {
     @FXML
     private void onClickedAddPage(MouseEvent mouseEvent) throws SQLException, IOException {
         setActionNone();
-        if(albumProperty == null) {
+        if(currentAlbum == null) {
             AlertHelper.showAlert(Alert.AlertType.WARNING,
                     "Предупреждение",
                     "Выберите альбом из списка.",
@@ -425,12 +398,14 @@ public class AlbumsController implements Initializable {
                     false);
             return;
         }
-        Page newPage = showEditorPage(ActionType.CREATE, new Page(albumProperty.getId(), pages.size() + 1, ""));
+        
+        Page newPage = showEditorPage(ActionType.CREATE, new Page(currentAlbum.getId(), pages.size() + 1, ""));
         if(Objects.equals(newPage.getTitle(), "")) return;
         pageService.create(newPage.getAlbumId(), newPage.getNumber(), newPage.getTitle());
-        pages = pageService.findByAlbumId(albumProperty.getId());
-        maxPage ++;
-        currentPage = pages.get(maxPage - 1);
+        pages = pageService.findByAlbumId(currentAlbum.getId());
+        maxNumberPage ++;
+        currentPage = pages.get(maxNumberPage - 1);
+        
         showPage();
     }
     private enum TypeCoinAction{
@@ -443,7 +418,7 @@ public class AlbumsController implements Initializable {
     @FXML
     private void onClickedEditPage(MouseEvent mouseEvent) throws SQLException, IOException {
         setActionNone();
-        if(albumProperty == null) {
+        if(currentAlbum == null) {
             AlertHelper.showAlert(Alert.AlertType.WARNING,
                     "Предупреждение",
                     "Выберите альбом из списка.",
@@ -451,7 +426,7 @@ public class AlbumsController implements Initializable {
                     false);
             return;
         }
-        if(maxPage == 0){
+        if(maxNumberPage == 0){
             AlertHelper.showAlert(Alert.AlertType.WARNING,
                     "Предупреждение",
                     "В альбоме нету страниц.",
@@ -467,7 +442,7 @@ public class AlbumsController implements Initializable {
     @FXML
     private void onClickedDeletePage(MouseEvent mouseEvent) throws SQLException {
         setActionNone();
-        if (albumProperty == null) {
+        if (currentAlbum == null) {
             AlertHelper.showAlert(Alert.AlertType.WARNING,
                     "Предупреждение",
                     "Выберите альбом из списка.",
@@ -475,7 +450,7 @@ public class AlbumsController implements Initializable {
                     false);
             return;
         }
-        if (maxPage == 0) {
+        if (maxNumberPage == 0) {
             AlertHelper.showAlert(Alert.AlertType.WARNING,
                     "Предупреждение",
                     "В альбоме нету страниц.",
@@ -490,15 +465,14 @@ public class AlbumsController implements Initializable {
                 true)) return;
 
         pages.remove(currentPage);
-        removePage(currentPage.getId());
-        maxPage--;
+        maxNumberPage--;
 
-        if(maxPage == 0) currentPage = null;
+        if(maxNumberPage == 0) currentPage = null;
         else if(currentPage.getNumber() == 1) currentPage = pages.get(currentPage.getNumber());
-        else if(maxPage == currentPage.getNumber() - 1) currentPage = pages.get(currentPage.getNumber() - 2);
+        else if(maxNumberPage == currentPage.getNumber() - 1) currentPage = pages.get(currentPage.getNumber() - 2);
         else {
             currentPage = pages.get(currentPage.getNumber() - 1);
-            for (int i = 0; i < maxPage; i++) {
+            for (int i = 0; i < maxNumberPage; i++) {
                 Page page = pages.get(i);
                 page.setNumber(i + 1);
                 pageService.update(page.getId(), page.getAlbumId(), page.getNumber(), page.getTitle());
@@ -506,22 +480,6 @@ public class AlbumsController implements Initializable {
         }
 
         showPage();
-    }
-
-    private AlbumProperty showEditorAlbum(ActionType actionType, AlbumProperty album) throws IOException, SQLException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainApplication.class.getResource("album-editor-view.fxml"));
-        Parent page = loader.load();
-        Stage addStage = new Stage();
-        addStage.setTitle(actionType.getValue() + " альбом");
-        addStage.initModality(Modality.WINDOW_MODAL);
-        addStage.initOwner(MainApplication.getPrimaryStage());
-        Scene scene = new Scene(page);
-        addStage.setScene(scene);
-        AlbumEditorController controller = loader.getController();
-        controller.setParams(actionType, addStage, album);
-        addStage.showAndWait();
-        return controller.getAlbum();
     }
 
     private Page showEditorPage(ActionType actionType, Page page) throws IOException, SQLException {
@@ -540,32 +498,12 @@ public class AlbumsController implements Initializable {
         return controller.getPage();
     }
 
-    private void updateAlbum() throws SQLException {
-        albums.clear();
-        albums.addAll(album2property(albumService.findAll()));
-    }
-
-    @FXML
-    private void onClickAlbum() throws SQLException {
-        setActionNone();
-        albumProperty = tableAlbum.getSelectionModel().getSelectedItem();
-        if(albumProperty == null) return;
-
-        pages = pageService.findByAlbumId(albumProperty.getId());
-        maxPage = pages.size();
-
-        if(maxPage != 0) currentPage = pages.get(0);
-        else currentPage = null;
-
-        showPage();
-    }
-
-    private void showPage() throws SQLException {
+    public void showPage() throws SQLException {
         if (currentPage == null) {
             labelNumberPage.setText("0/0");
             labelTitlePage.setText("");
         } else {
-            labelNumberPage.setText(currentPage.getNumber() + "/" + maxPage);
+            labelNumberPage.setText(currentPage.getNumber() + "/" + maxNumberPage);
             labelTitlePage.setText(currentPage.getTitle());
         }
 
@@ -586,25 +524,13 @@ public class AlbumsController implements Initializable {
         setActionNone();
     }
 
-    private void setActionNone(){
+    public void setActionNone(){
         for(ImageView imageView : frames)
             imageView.setVisible(false);
         btReset.setDisable(true);
         idCoin = 0;
         statusCoin.setText("");
         typeCoinAction = TypeCoinAction.NONE;
-    }
-
-    private ObservableList<AlbumProperty> album2property(List<Album> albums) throws SQLException {
-        ObservableList<AlbumProperty> albumProperties = FXCollections.observableArrayList();
-        for(Album album : albums)
-            albumProperties.add(new AlbumProperty(album));
-        return albumProperties;
-    }
-    private void removePage(int id) throws SQLException {
-        pageService.delete(id);
-        for(HolderCell holderCell : holderCellService.findByPageId(id))
-            holderCellService.delete(holderCell.getId());
     }
 
     private void addImageAndTitleCoin(HolderCell holderCell){

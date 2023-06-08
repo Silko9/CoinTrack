@@ -36,6 +36,7 @@ public class AddCoinToPageController implements Initializable {
     @Getter
     @FXML
     private Button bAdd;
+    
     @FXML
     private ImageView imageCoin;
 
@@ -59,12 +60,16 @@ public class AddCoinToPageController implements Initializable {
 
     @FXML
     private TextField tfTitle;
+    
     private final CoinService coinService = new CoinServiceImpl();
+    
     @Setter
     @Getter
     private Stage stage;
+    
     @Getter
     private int idCoin;
+    
     private int idCoinCurrent;
 
     @Override

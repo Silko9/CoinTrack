@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import shapov.cointrack.databaseHelper.DatabaseHelper;
 import shapov.cointrack.databaseHelper.DatabaseQueryConst;
-import shapov.cointrack.models.Currency;
 import shapov.cointrack.models.HolderCell;
 import shapov.cointrack.repositories.HolderCellRepository;
 
@@ -66,7 +65,7 @@ public class HolderCellRepositoryImpl extends DatabaseHelper implements HolderCe
     @Override
     public Optional<HolderCell> findOneById(int id) throws SQLException {
         List<HolderCell> holderCells = mapper(query(String.format(DatabaseQueryConst.SELECT_WHERE, getFullTableName(), "id=" + id)));
-        if (holderCells.size() > 0)
+        if (!holderCells.isEmpty())
             return Optional.of(holderCells.get(0));
         else
             return Optional.empty();

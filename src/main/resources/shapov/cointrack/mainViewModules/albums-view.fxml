@@ -123,34 +123,7 @@
         </AnchorPane>
     </center>
     <left>
-        <VBox fillWidth="false" spacing="10.0" BorderPane.alignment="CENTER">
-            <TableView fx:id="tableAlbum" maxHeight="1000.0" maxWidth="1.7976931348623157E308" minHeight="10.0" onMouseClicked="#onClickAlbum" prefHeight="1000.0" prefWidth="200.0">
-                <columns>
-                    <TableColumn fx:id="columnAlbum" prefWidth="75.0" text="Название альбома" />
-                </columns>
-                <columnResizePolicy>
-                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                </columnResizePolicy>
-                <VBox.margin>
-                    <Insets left="5.0" right="5.0" top="5.0" />
-                </VBox.margin>
-            </TableView>
-            <Button maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#onClickedAddAlbum" prefHeight="30.0" prefWidth="200.0" text="Добавить альбом">
-                <VBox.margin>
-                    <Insets left="5.0" right="5.0" />
-                </VBox.margin>
-            </Button>
-            <Button layoutX="10.0" layoutY="360.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#onClickedEditAlbum" prefHeight="30.0" prefWidth="200.0" text="Изменить альбом">
-                <VBox.margin>
-                    <Insets left="5.0" right="5.0" />
-                </VBox.margin>
-            </Button>
-            <Button layoutX="10.0" layoutY="384.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#onClickedDeleteAlbum" prefHeight="30.0" prefWidth="200.0" text="Удалить альбом">
-                <VBox.margin>
-                    <Insets bottom="5.0" left="5.0" right="5.0" />
-                </VBox.margin>
-            </Button>
-        </VBox>
+        <fx:include source="albumModules/albums-list-view.fxml" />
     </left>
    <right>
        <SplitPane dividerPositions="0.5" orientation="VERTICAL" BorderPane.alignment="CENTER">

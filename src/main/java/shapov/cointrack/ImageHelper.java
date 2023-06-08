@@ -12,7 +12,6 @@ import java.util.Optional;
 import java.io.IOException;
 
 /**
-
  Класс ImageHelper с методами для работы с изображениями.
  <p>
  Данный класс предоставляет статические методы для преобразования изображения в формат Image,

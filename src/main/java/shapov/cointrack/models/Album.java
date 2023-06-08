@@ -29,15 +29,28 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Album {
+    
     /** Поле идентификатор */
     private int id;
+    
     /** Поле заголовок альбома */
     private String title;
+    
     /**
      Конструктор - создание нового экземпляра альбома с указанным заголовком.
      @param title заголовок альбома
      */
     public Album(String title) {
+        this.title = title;
+    }
+    
+    /**
+     Конструктор - создание нового экземпляра альбома с указанным id и заголовком.
+     @param id индификатор альбома
+     @param title заголовок альбома
+     */
+    public Album(int id, String title) {
+        this.id = id;
         this.title = title;
     }
 }

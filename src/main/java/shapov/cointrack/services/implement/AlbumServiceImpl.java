@@ -6,9 +6,15 @@ import shapov.cointrack.repositories.implement.AlbumRepositoryImpl;
 import shapov.cointrack.services.AlbumService;
 
 import java.sql.SQLException;
-import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import shapov.cointrack.models.HolderCell;
+import shapov.cointrack.models.Page;
+import shapov.cointrack.repositories.HolderCellRepository;
+import shapov.cointrack.repositories.PageRepository;
+import shapov.cointrack.repositories.implement.HolderCellRepositoryImpl;
+import shapov.cointrack.repositories.implement.PageRepositoryImpl;
 
 /**
  Класс AlbumServiceImpl представляет реализацию интерфейса AlbumService.
@@ -20,10 +26,21 @@ import java.util.Optional;
  @version 1.0
  */
 public class AlbumServiceImpl implements AlbumService {
+    
     /**
      * Поле репозиторя альбомов. В качестве параметра для конструктора наименование базы данных.
      */
     private final AlbumRepository albumRepository = new AlbumRepositoryImpl("CoinTrack");
+    
+    /**
+     * Поле репозиторя страниц. В качестве параметра для конструктора наименование базы данных.
+     */
+    private final PageRepository pageRepository = new PageRepositoryImpl("CoinTrack");
+    
+    /**
+     * Поле репозиторя ячеек хранений. В качестве параметра для конструктора наименование базы данных.
+     */
+    private final HolderCellRepository holderCellRepository = new HolderCellRepositoryImpl("CoinTrack");
 
     /**
      * Получает список всех альбомов.
@@ -88,6 +105,11 @@ public class AlbumServiceImpl implements AlbumService {
      */
     @Override
     public int delete(int id) throws SQLException {
+        List<Page> pages = pageRepository.findByAlbumId(id);
+        for(Page page : pages) 
+            for(HolderCell holderCell : holderCellRepository.findByPageId(page.getId()))
+                holderCellRepository.delete(holderCell.id);
+        
         return albumRepository.delete(id);
     }
 }

@@ -4,6 +4,7 @@ module shapov.cointrack {
     requires lombok;
     requires java.sql;
     requires opencv;
+    requires java.base;
 
     opens shapov.cointrack to javafx.fxml;
     exports shapov.cointrack;
