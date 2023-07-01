@@ -127,49 +127,8 @@
     </left>
    <right>
        <SplitPane dividerPositions="0.5" orientation="VERTICAL" BorderPane.alignment="CENTER">
-           <VBox spacing="10.0">
-               <Button mnemonicParsing="false" onMouseClicked="#onClickedAddCoin" prefHeight="30.0" prefWidth="200.0" text="Добавить монету">
-                   <VBox.margin>
-                       <Insets />
-                   </VBox.margin>
-               </Button>
-               <Button mnemonicParsing="false" onMouseClicked="#onClickedEditCoin" prefHeight="30.0" prefWidth="200.0" text="Изменить монету">
-                   <VBox.margin>
-                       <Insets />
-                   </VBox.margin>
-               </Button>
-               <Button mnemonicParsing="false" onMouseClicked="#onClickedDeleteCoin" prefHeight="30.0" prefWidth="200.0" text="Удалить монету">
-                   <VBox.margin>
-                       <Insets />
-                   </VBox.margin>
-               </Button>
-            <Label fx:id="statusCoin">
-               <VBox.margin>
-                  <Insets bottom="30.0" />
-               </VBox.margin>
-            </Label>
-            <Button fx:id="btReset" disable="true" mnemonicParsing="false" onMouseClicked="#onResetCoin" prefHeight="30.0" prefWidth="200.0" text="Сбросить действие" />
-            <padding>
-               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-            </padding>
-           </VBox>
-           <VBox spacing="10.0">
-               <Button mnemonicParsing="false" onMouseClicked="#onClickedAddPage" prefHeight="30.0" prefWidth="200.0" text="Добавить страницу">
-                   <VBox.margin>
-                       <Insets left="5.0" right="5.0" top="5.0" />
-                   </VBox.margin>
-               </Button>
-               <Button mnemonicParsing="false" onMouseClicked="#onClickedEditPage" prefHeight="30.0" prefWidth="200.0" text="Изменить страницу">
-                   <VBox.margin>
-                       <Insets left="5.0" right="5.0" />
-                   </VBox.margin>
-               </Button>
-               <Button mnemonicParsing="false" onMouseClicked="#onClickedDeletePage" prefHeight="30.0" prefWidth="200.0" text="Удалить страницу">
-                   <VBox.margin>
-                       <Insets bottom="5.0" left="5.0" right="5.0" />
-                   </VBox.margin>
-               </Button>
-           </VBox>
+           <fx:include source="albumModules/coin-manager-view.fxml" />
+           <fx:include source="albumModules/page-manager-view.fxml" />
        </SplitPane>
    </right>
 </BorderPane>

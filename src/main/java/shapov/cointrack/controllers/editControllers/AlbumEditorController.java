@@ -7,7 +7,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import lombok.Getter;
 import java.util.Objects;
-import java.util.Optional;
 import javafx.scene.control.Alert;
 import shapov.cointrack.AlertHelper;
 import shapov.cointrack.models.Album;
@@ -26,21 +25,21 @@ public class AlbumEditorController {
     private Stage stage;
 
     @Getter
-    private Optional<AlbumProperty> album;
+    private AlbumProperty album;
     
     private ActionType actionType;
     
     private final AlbumService albumService = new AlbumServiceImpl();
 
     public void setParams(AlbumProperty album, Stage stage) {
-        this.album = Optional.of(album);
+        this.album = album;
         textName.setText(album.getTitle());
         actionType = ActionType.EDIT;
         initialize(stage);
     }
     
     public void setParams(Stage stage){
-        album = Optional.of(new AlbumProperty(new Album("")));
+        album = new AlbumProperty(new Album(""));
         actionType = ActionType.CREATE;
         initialize(stage);
     }
@@ -51,16 +50,25 @@ public class AlbumEditorController {
             AlertHelper.showAlert(Alert.AlertType.WARNING,
                     "Предупреждение",
                     "Заполните поле.",
-                    "Чтобы добавить подтвердить действие, заполните поле.",
+                    "Чтобы подтвердить действие, заполните поле.",
+                    false);
+            return;
+        }
+
+        if(textName.getText().length() >= 25) {
+            AlertHelper.showAlert(Alert.AlertType.WARNING,
+                    "Предупреждение",
+                    "Превышена максимальная длина названия альбома.",
+                    "Длина названия альбома не должна превышать 25 символов.",
                     false);
             return;
         }
         
-        album.get().setTitle(textName.getText());
+        album.setTitle(textName.getText());
         
         switch(actionType){
             case CREATE -> albumService.create(textName.getText());
-            case EDIT -> albumService.update(album.get().getId(), textName.getText());
+            case EDIT -> albumService.update(album.getId(), textName.getText());
         }
         
         stage.close();

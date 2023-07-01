@@ -11,4 +11,6 @@ module shapov.cointrack {
     exports shapov.cointrack.controllers;
     opens shapov.cointrack.controllers to javafx.fxml;
     opens shapov.cointrack.controllers.editControllers to javafx.fxml;
+    exports shapov.cointrack.controllers.albumModeles;
+    opens shapov.cointrack.controllers.albumModeles to javafx.fxml;
 }

@@ -5,11 +5,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
-import lombok.Setter;
 import shapov.cointrack.models.Coin;
 
-import java.io.Console;
 import java.io.File;
 import java.io.InputStream;
 import java.sql.SQLException;

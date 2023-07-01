@@ -67,7 +67,8 @@ public class PageRepositoryImpl extends DatabaseHelper implements PageRepository
         if (pages.size() > 0)
             return Optional.of(pages.get(0));
         else
-            return Optional.empty();    }
+            return Optional.empty();
+    }
 
     /**
      Извлекает страницы из базы данных по ID альбома.
@@ -125,9 +126,10 @@ public class PageRepositoryImpl extends DatabaseHelper implements PageRepository
         while (resultSet.next()) {
             int id = resultSet.getInt("id");
             int albumId = resultSet.getInt("albumId");
-            int number = resultSet.getInt("number");
+            int previousPageId = resultSet.getInt("previousPageId");
+            int nextPageId = resultSet.getInt("nextPageId");
             String title = resultSet.getString("title");
-            page = new Page(id, albumId, number, title);
+            page = new Page(id, albumId, previousPageId, nextPageId, title);
             pages.add(page);
         }
         connectionClose();
@@ -141,7 +143,8 @@ public class PageRepositoryImpl extends DatabaseHelper implements PageRepository
      */
     private String getParameters(Page page){
         return "albumId=" + page.getAlbumId() +
-                ", number=" + page.getNumber() +
+                ", previousPageId=" + page.getPreviousPageId() +
+                ", nextPageId=" + page.getNextPageId() +
                 ", title='" + page.getTitle() + "' ";
     }
 

@@ -104,12 +104,12 @@ public class AddCoinToPageController implements Initializable {
     }
 
     @FXML
-    void onAddClicked(MouseEvent event) {
+    private void onAddClicked(MouseEvent event) {
         idCoin = idCoinCurrent;
         stage.close();
     }
     @FXML
-    void onCancelClicked(MouseEvent event) {
+    private void onCancelClicked(MouseEvent event) {
         stage.close();
     }
 

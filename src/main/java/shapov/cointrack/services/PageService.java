@@ -13,9 +13,9 @@ public interface PageService {
 
     List<Page> findByAlbumId(int albumId) throws SQLException;
 
-    int create(int albumId, int number, String title) throws SQLException;
+    int create(int albumId, int previousPageId, int nextPageId, String title) throws SQLException;
 
-    int update(int id, int albumId, int number, String title) throws SQLException;
+    int update(int id, int albumId, int previousPageId, int nextPageId, String title) throws SQLException;
 
     int delete(int id) throws SQLException;
 }

@@ -5,12 +5,12 @@ import shapov.cointrack.models.Page;
 
 /**
 
- Класс PageProperty с полями id, albumId, number и title.
+ Класс PageProperty с полями id, albumId, previousPageId, nextPageId и title.
 
  <p>
  Данный класс представляет обертку для класса Page, обеспечивающую использование
 
- свойств типа IntegerProperty и StringProperty для полей id, albumId, number и title соответственно.
+ свойств типа IntegerProperty и StringProperty для полей id, albumId, previousPageId, nextPageId и title соответственно.
 
  <p>
  Предоставляет конструктор для создания экземпляра PageProperty на основе объекта Page.
@@ -23,12 +23,19 @@ import shapov.cointrack.models.Page;
  @version 1.0
  */
 public class PageProperty {
+
     /** Поле id типа IntegerProperty */
     private final IntegerProperty id;
+
     /** Поле albumId типа IntegerProperty */
     private final IntegerProperty albumId;
-    /** Поле number типа IntegerProperty */
-    private final IntegerProperty number;
+
+    /** Поле previousPageId типа IntegerProperty */
+    private final IntegerProperty previousPageId;
+
+    /** Поле nextPageId типа IntegerProperty */
+    private final IntegerProperty nextPageId;
+
     /** Поле title типа StringProperty */
     private final StringProperty title;
 
@@ -39,7 +46,8 @@ public class PageProperty {
     public PageProperty(Page page) {
         this.id = new SimpleIntegerProperty(page.getId());
         this.albumId = new SimpleIntegerProperty(page.getAlbumId());
-        this.number = new SimpleIntegerProperty(page.getNumber());
+        this.previousPageId = new SimpleIntegerProperty(page.getPreviousPageId());
+        this.nextPageId = new SimpleIntegerProperty(page.getNextPageId());
         this.title = new SimpleStringProperty(page.getTitle());
     }
 
@@ -92,27 +100,51 @@ public class PageProperty {
     }
 
     /**
-     Функция получения значения поля number.
-     @return возвращает значение number
+     Функция получения значения поля previousPageId.
+     @return возвращает значение previousPageId
      */
-    public int getNumber() {
-        return number.get();
+    public int getPreviousPageId() {
+        return previousPageId.get();
     }
 
     /**
-     Функция получения свойства numberProperty.
-     @return возвращает свойство numberProperty
+     Функция получения свойства previousPageIdProperty.
+     @return возвращает свойство previousPageIdProperty
      */
-    public IntegerProperty numberProperty() {
-        return number;
+    public IntegerProperty previousPageIdProperty() {
+        return previousPageId;
     }
 
     /**
-     Функция установки значения поля number.
-     @param number значение number
+     Функция установки значения поля previousPageId.
+     @param previousPageId значение previousPageId
      */
-    public void setNumber(int number) {
-        this.number.set(number);
+    public void setPreviousPageId(int previousPageId) {
+        this.previousPageId.set(previousPageId);
+    }
+
+    /**
+     Функция получения значения поля nextPageId.
+     @return возвращает значение nextPageId
+     */
+    public int getNextPageId() {
+        return nextPageId.get();
+    }
+
+    /**
+     Функция получения свойства nextPageIdProperty.
+     @return возвращает свойство nextPageIdProperty
+     */
+    public IntegerProperty nextPageIdProperty() {
+        return nextPageId;
+    }
+
+    /**
+     Функция установки значения поля nextPageId.
+     @param nextPageId значение nextPageId
+     */
+    public void setNextPageId(int nextPageId) {
+        this.nextPageId.set(nextPageId);
     }
 
     /**

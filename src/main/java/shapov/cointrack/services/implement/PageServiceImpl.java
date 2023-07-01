@@ -69,28 +69,30 @@ public class PageServiceImpl implements PageService {
     /**
      Создает новую страницу с указанными параметрами.
      @param albumId идентификатор альбома
-     @param number номер страницы
+     @param previousPageId id предыдущей страницы
+     @param nextPageId id следующей страницы
      @param title название страницы
      @return количество созданных страниц (обычно 1, если страница успешо создалась)
      @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public int create(int albumId, int number, String title) throws SQLException {
-        return pageRepository.create(new Page(albumId, number, title));
+    public int create(int albumId, int previousPageId, int nextPageId, String title) throws SQLException {
+        return pageRepository.create(new Page(albumId, previousPageId, nextPageId, title));
     }
 
     /**
      Обновляет страницу с указанным идентификатором новыми параметрами.
      @param id идентификатор страницы, которую нужно обновить
      @param albumId идентификатор альбома
-     @param number новый номер страницы
+     @param previousPageId id предыдущей страницы
+     @param nextPageId id следующей страницы
      @param title новое название страницы
      @return количество обновленных страниц (обычно 1, если страница с указанным идентификатором существует)
      @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public int update(int id, int albumId, int number, String title) throws SQLException {
-        return pageRepository.edit(new Page(id, albumId, number, title));
+    public int update(int id, int albumId, int previousPageId, int nextPageId, String title) throws SQLException {
+        return pageRepository.edit(new Page(id, albumId, previousPageId, nextPageId, title));
     }
 
     /**
