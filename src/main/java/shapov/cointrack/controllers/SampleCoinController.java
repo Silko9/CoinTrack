@@ -4,12 +4,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import shapov.cointrack.models.Coin;
+import shapov.cointrack.models.HolderCell;
 
 import java.io.File;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class SampleCoinController {
     @FXML
@@ -22,30 +24,25 @@ public class SampleCoinController {
 
     @FXML
     private Label label2;
-    private AddCoinToPageController controller;
+    private AddCoinToPageController addCoinToPageController;
     private int idCoin;
 
     public void setParams(Coin coin, AddCoinToPageController controller){
-        try {
-            String path = File.separator + "shapov" + File.separator + "cointrack" + File.separator + "pictures" + File.separator + coin.getPicturePath();
-            InputStream inputStream = getClass().getResourceAsStream(path);
-            assert inputStream != null;
-            image.setImage(new Image(inputStream));
-        }
-        catch (Exception e){
-            String path = File.separator + "shapov" + File.separator + "cointrack" + File.separator + "pictures" + File.separator + "coin_0.png";
-            InputStream inputStream = getClass().getResourceAsStream(path);
-            assert inputStream != null;
-            image.setImage(new Image(inputStream));
-        }
-        this.label1.setText(coin.getDenomination() + " " + coin.getCurrency().getName() + " " + coin.getYearMinting());
-        this.label2.setText(coin.getCountry().getName());
-        this.label3.setText(coin.getMint().getName());
-        this.controller = controller;
-        this.idCoin = coin.getId();
+        InputStream inputStream = getClass().getResourceAsStream(".shapov.cointrack.pictures.".replace(".", File.separator) + coin.getPicturePath());
+
+        if(inputStream == null)
+            inputStream = getClass().getResourceAsStream(".shapov.cointrack.pictures.".replace(".", File.separator)+ "coin_0.png");
+
+        image.setImage(new Image(Objects.requireNonNull(inputStream)));
+        idCoin = coin.getId();
+        label1.setText(coin.getDenomination() + " " + coin.getCurrency().getName() + " " + coin.getYearMinting());
+        label2.setText(coin.getCountry().getName());
+        label3.setText(coin.getMint().getName());
+        addCoinToPageController= controller;
     }
+
     @FXML
-    private void onClicked(MouseEvent mouseEvent) throws SQLException {
-        controller.setCoinParams(idCoin, "");
+    private void onClicked() throws SQLException {
+        addCoinToPageController.setCoinParams(idCoin, "");
     }
 }

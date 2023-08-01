@@ -55,7 +55,7 @@ public class AlbumEditorController {
             return;
         }
 
-        if(textName.getText().length() >= 25) {
+        if(textName.getText().length() > 25) {
             AlertHelper.showAlert(Alert.AlertType.WARNING,
                     "Предупреждение",
                     "Превышена максимальная длина названия альбома.",

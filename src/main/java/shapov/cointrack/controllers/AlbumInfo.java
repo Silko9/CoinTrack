@@ -1,6 +1,5 @@
 package shapov.cointrack.controllers;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import shapov.cointrack.models.Page;
@@ -9,8 +8,8 @@ import shapov.cointrack.models.properties.AlbumProperty;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
 @NoArgsConstructor
+@Data
 public class AlbumInfo{
 
     private AlbumProperty currentAlbum;
@@ -23,7 +22,7 @@ public class AlbumInfo{
 
     private int currentNumberPage;
 
-    public AlbumInfo(AlbumProperty currentAlbum, List<Page> pages) throws Exception{
+    public AlbumInfo(AlbumProperty currentAlbum, List<Page> pages){
         this.currentAlbum = currentAlbum;
         this.pages = pages;
         if(!pages.isEmpty()) {
@@ -34,7 +33,7 @@ public class AlbumInfo{
         maxNumberPage = pages.size();
     }
 
-    public AlbumInfo(AlbumProperty currentAlbum) throws Exception {
+    public AlbumInfo(AlbumProperty currentAlbum){
         this(currentAlbum, new ArrayList<>());
     }
 }

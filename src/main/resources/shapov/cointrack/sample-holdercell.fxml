@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="160.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shapov.cointrack.controllers.SampleHolderCellController">
+      <ImageView fx:id="iCoin" fitHeight="150.0" fitWidth="150.0" layoutX="5.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="iFrame" fitHeight="160.0" fitWidth="160.0" focusTraversable="true" onMouseClicked="#onClicked" pickOnBounds="true" preserveRatio="true" visible="false">
+      <image>
+         <Image url="@pictures/frame.png" />
+      </image></ImageView>
+   <VBox alignment="CENTER" layoutX="5.0" layoutY="160.0" prefWidth="150.0">
+      <children>
+            <Label fx:id="lTitle" textFill="WHITE" />
+      </children>
+   </VBox>
+</AnchorPane>

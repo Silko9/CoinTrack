@@ -108,7 +108,7 @@ public class CoinManagerController implements Initializable {
             return;
         }
 
-        if(mainController.setAndCheckBorders(true)) {
+        if(!mainController.setAndCheckBorders(true)) {
             AlertHelper.showAlert(Alert.AlertType.WARNING,
                     "Предупреждение",
                     "На странице нет мест для новой монеты.",
@@ -149,7 +149,7 @@ public class CoinManagerController implements Initializable {
             return;
         }
 
-        if(mainController.setAndCheckBorders(false)) {
+        if(!mainController.setAndCheckBorders(false)) {
             AlertHelper.showAlert(Alert.AlertType.WARNING,
                     "Предупреждение",
                     "На странице нет монет.",
@@ -167,7 +167,7 @@ public class CoinManagerController implements Initializable {
     private void onClickedDeleteCoin() {
         mainController.setActionNone();
 
-        if(mainController.setAndCheckBorders(false)) {
+        if(!mainController.setAndCheckBorders(false)) {
             AlertHelper.showAlert(Alert.AlertType.WARNING,
                     "Предупреждение",
                     "На странице нет монет.",

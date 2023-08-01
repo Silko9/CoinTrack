@@ -4,22 +4,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
+import shapov.cointrack.AlertHelper;
 import shapov.cointrack.MainApplication;
 import shapov.cointrack.models.Coin;
-import shapov.cointrack.models.properties.CoinProperty;
 import shapov.cointrack.services.CoinService;
 import shapov.cointrack.services.implement.CoinServiceImpl;
 
@@ -89,7 +86,7 @@ public class AddCoinToPageController implements Initializable {
                 throw new RuntimeException(e);
             }
             loader.setLocation(MainApplication.class.getResource("sample-coin.fxml"));
-            Parent coinFormRoot = null;
+            Parent coinFormRoot;
             try {
                 coinFormRoot = loader.load();
             } catch (IOException e) {
@@ -104,12 +101,21 @@ public class AddCoinToPageController implements Initializable {
     }
 
     @FXML
-    private void onAddClicked(MouseEvent event) {
-        idCoin = idCoinCurrent;
-        stage.close();
+    private void onAddClicked() {
+        if(tfTitle.getText().length() > 15) {
+            AlertHelper.showAlert(Alert.AlertType.WARNING,
+                    "Предупреждение",
+                    "Превышена максимальная длина заголовка.",
+                    "Длина заголовка не должна превышать 15 символов.",
+                    false);
+        } else {
+            idCoin = idCoinCurrent;
+            stage.close();
+        }
     }
+
     @FXML
-    private void onCancelClicked(MouseEvent event) {
+    private void onCancelClicked() {
         stage.close();
     }
 

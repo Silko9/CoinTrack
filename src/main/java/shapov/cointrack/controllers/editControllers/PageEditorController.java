@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import lombok.Getter;
 import shapov.cointrack.AlertHelper;
@@ -44,7 +43,7 @@ public class PageEditorController {
     }
 
     @FXML
-    private void onClickedAccept(MouseEvent mouseEvent) throws SQLException {
+    private void onClickedAccept() throws SQLException {
         if(Objects.equals(textName.getText(), "")) {
             AlertHelper.showAlert(Alert.AlertType.WARNING,
                     "Предупреждение",
@@ -54,7 +53,7 @@ public class PageEditorController {
             return;
         }
 
-        if(textName.getText().length() >= 20) {
+        if(textName.getText().length() > 20) {
             AlertHelper.showAlert(Alert.AlertType.WARNING,
                     "Предупреждение",
                     "Превышена максимальная длина заголовка страницы.",
@@ -81,7 +80,7 @@ public class PageEditorController {
     }
 
     @FXML
-    private void onClickedCancel(MouseEvent mouseEvent) {
+    private void onClickedCancel() {
         stage.close();
     }
 }

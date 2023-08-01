@@ -60,9 +60,9 @@
                   <Insets />
                </VBox.margin>
             </Label>
-            <ScrollPane prefHeight="500.0" prefWidth="770.0">
+            <ScrollPane prefHeight="500.0" prefWidth="740.0">
                <content>
-                  <FlowPane fx:id="mainPane" prefWidth="780.0" />
+                  <FlowPane fx:id="mainPane" prefWidth="720.0" />
                </content>
             </ScrollPane>
          </children>
