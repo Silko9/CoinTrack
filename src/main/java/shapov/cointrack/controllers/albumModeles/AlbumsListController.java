@@ -79,7 +79,8 @@ public class AlbumsListController implements Initializable {
 
         albumsProperty.setAll(album2property(albumService.findAll()));
 
-        mainController.setAlbumInfo(new AlbumInfo(album));
+        mainController.setAlbumInfo(new AlbumInfo());
+        mainController.showPage();
     }
 
     @FXML
@@ -123,6 +124,7 @@ public class AlbumsListController implements Initializable {
 
         albumService.delete(albumInfo.getCurrentAlbum().getId());
         albumsProperty.remove(albumInfo.getCurrentAlbum());
+        mainController.showPage();
     }
     
     @FXML
