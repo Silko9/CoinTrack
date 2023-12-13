@@ -1,7 +1,5 @@
 package shapov.cointrack.repositories.implement;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import shapov.cointrack.databaseHelper.DatabaseHelper;
 import shapov.cointrack.databaseHelper.DatabaseQueryConst;
 import shapov.cointrack.models.Mint;
@@ -27,8 +25,6 @@ import java.util.Optional;
 
  @version 1.0
  */
-@AllArgsConstructor
-@NoArgsConstructor
 public class PageRepositoryImpl extends DatabaseHelper implements PageRepository {
 
     /** Поле константа название таблицы в базе данных */
@@ -36,6 +32,13 @@ public class PageRepositoryImpl extends DatabaseHelper implements PageRepository
 
     /** Поле название базы данных */
     private String nameDB = "CoinTrackTest";
+
+    public PageRepositoryImpl() {
+    }
+
+    public PageRepositoryImpl(String nameDB) {
+        this.nameDB = nameDB;
+    }
 
     /**
      Получает полное имя таблицы, объединяя имя базы данных и имя таблицы.

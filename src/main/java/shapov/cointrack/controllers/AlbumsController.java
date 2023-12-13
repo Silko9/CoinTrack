@@ -24,8 +24,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Optional;
-import lombok.Getter;
-import lombok.Setter;
 
 public class AlbumsController implements Initializable {
     
@@ -35,7 +33,6 @@ public class AlbumsController implements Initializable {
 
     private final PageService pageService = new PageServiceImpl();
 
-    @Getter
     @FXML
     private AnchorPane mainPane;
 
@@ -49,11 +46,8 @@ public class AlbumsController implements Initializable {
     
     private String titleHolder;
 
-    @Getter
     private TypeCoinAction typeCoinAction = TypeCoinAction.NONE;
 
-    @Getter
-    @Setter
     private AlbumInfo albumInfo = new AlbumInfo();
 
     private HolderCells holderCells;
@@ -63,7 +57,23 @@ public class AlbumsController implements Initializable {
     private PageManagerController pageManagerController;
 
     private CoinManagerController coinManagerController;
-                    
+
+    public AnchorPane getMainPane() {
+        return mainPane;
+    }
+
+    public TypeCoinAction getTypeCoinAction() {
+        return typeCoinAction;
+    }
+
+    public AlbumInfo getAlbumInfo() {
+        return albumInfo;
+    }
+
+    public void setAlbumInfo(AlbumInfo albumInfo) {
+        this.albumInfo = albumInfo;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         albumsListController = AlbumsListController.getInstance();

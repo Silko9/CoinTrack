@@ -1,7 +1,5 @@
 package shapov.cointrack.repositories.implement;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import shapov.cointrack.databaseHelper.DatabaseHelper;
 import shapov.cointrack.databaseHelper.DatabaseQueryConst;
 import shapov.cointrack.models.Coin;
@@ -27,8 +25,6 @@ import java.util.Optional;
 
  @version 1.0
  */
-@AllArgsConstructor
-@NoArgsConstructor
 public class CoinRepositoryImpl extends DatabaseHelper implements CoinRepository {
 
     /** Поле константа название таблицы в базе данных */
@@ -198,5 +194,12 @@ public class CoinRepositoryImpl extends DatabaseHelper implements CoinRepository
                 coin.getMintId(),
                 coin.getYearMinting(),
                 coin.getPicturePath());
+    }
+
+    public CoinRepositoryImpl(String nameDB) {
+        this.nameDB = nameDB;
+    }
+
+    public CoinRepositoryImpl() {
     }
 }

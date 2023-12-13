@@ -1,9 +1,5 @@
 package shapov.cointrack.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -43,9 +39,7 @@ import java.util.Optional;
  *
  *  @version 1.0
  */
- @Data
- @AllArgsConstructor
- @NoArgsConstructor
+
  public class Coin {
     /**
      * Идентификатор монеты
@@ -129,6 +123,102 @@ import java.util.Optional;
         this.countryId = countryId;
         this.mintId = mintId;
         this.yearMinting = yearMinting;
+        this.picturePath = picturePath;
+    }
+
+    public Coin(int id, int denomination, int currencyId, Currency currency, int countryId, Country country, int mintId, Mint mint, int yearMinting, String picturePath) {
+        this.id = id;
+        this.denomination = denomination;
+        this.currencyId = currencyId;
+        this.currency = currency;
+        this.countryId = countryId;
+        this.country = country;
+        this.mintId = mintId;
+        this.mint = mint;
+        this.yearMinting = yearMinting;
+        this.picturePath = picturePath;
+    }
+
+    public Coin() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getDenomination() {
+        return denomination;
+    }
+
+    public void setDenomination(int denomination) {
+        this.denomination = denomination;
+    }
+
+    public int getCurrencyId() {
+        return currencyId;
+    }
+
+    public void setCurrencyId(int currencyId) {
+        this.currencyId = currencyId;
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
+    }
+
+    public int getCountryId() {
+        return countryId;
+    }
+
+    public void setCountryId(int countryId) {
+        this.countryId = countryId;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    public int getMintId() {
+        return mintId;
+    }
+
+    public void setMintId(int mintId) {
+        this.mintId = mintId;
+    }
+
+    public Mint getMint() {
+        return mint;
+    }
+
+    public void setMint(Mint mint) {
+        this.mint = mint;
+    }
+
+    public int getYearMinting() {
+        return yearMinting;
+    }
+
+    public void setYearMinting(int yearMinting) {
+        this.yearMinting = yearMinting;
+    }
+
+    public String getPicturePath() {
+        return picturePath;
+    }
+
+    public void setPicturePath(String picturePath) {
         this.picturePath = picturePath;
     }
 }

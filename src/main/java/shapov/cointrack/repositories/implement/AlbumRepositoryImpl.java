@@ -1,7 +1,5 @@
 package shapov.cointrack.repositories.implement;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import shapov.cointrack.databaseHelper.DatabaseHelper;
 import shapov.cointrack.databaseHelper.DatabaseQueryConst;
 import shapov.cointrack.models.Album;
@@ -28,8 +26,6 @@ import java.util.Optional;
 
  @version 1.0
  */
-@AllArgsConstructor
-@NoArgsConstructor
 public class AlbumRepositoryImpl extends DatabaseHelper implements AlbumRepository {
 
     /** Поле константа название таблицы в базе данных */
@@ -37,6 +33,13 @@ public class AlbumRepositoryImpl extends DatabaseHelper implements AlbumReposito
 
     /** Поле название базы данных */
     private String nameDB = "CoinTrackTest";
+
+    public AlbumRepositoryImpl() {
+    }
+
+    public AlbumRepositoryImpl(String nameDB) {
+        this.nameDB = nameDB;
+    }
 
     /**
      Получает полное имя таблицы, объединяя имя базы данных и имя таблицы.

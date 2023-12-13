@@ -1,7 +1,5 @@
 package shapov.cointrack.repositories.implement;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import shapov.cointrack.databaseHelper.DatabaseHelper;
 import shapov.cointrack.databaseHelper.DatabaseQueryConst;
 import shapov.cointrack.models.Currency;
@@ -27,8 +25,6 @@ import java.util.Optional;
 
  @version 1.0
  */
-@AllArgsConstructor
-@NoArgsConstructor
 public class CurrencyRepositoryImpl extends DatabaseHelper implements CurrencyRepository {
 
     /** Поле с константой, содержащей название таблицы в базе данных */
@@ -39,6 +35,13 @@ public class CurrencyRepositoryImpl extends DatabaseHelper implements CurrencyRe
 
     /** Поле, содержащее название базы данных */
     private String nameDB = "CoinTrackTest";
+
+    public CurrencyRepositoryImpl() {
+    }
+
+    public CurrencyRepositoryImpl(String nameDB) {
+        this.nameDB = nameDB;
+    }
 
     /**
      * Метод получения полного имени таблицы, объединяя имя базы данных и имя таблицы.

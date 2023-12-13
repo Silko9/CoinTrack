@@ -1,9 +1,5 @@
 package shapov.cointrack.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 /**
 
  Класс Page с полями <b>id</b>, <b>albumId</b>, <b>previousPageId</b>, <b>nextPageId</b>  и <b>title</b>.
@@ -27,9 +23,6 @@ import lombok.NoArgsConstructor;
 
  @version 1.0
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Page {
 
     /** Поле идентификатор */
@@ -58,6 +51,57 @@ public class Page {
         this.albumId = albumId;
         this.previousPageId = previousPageId;
         this.nextPageId = nextPageId;
+        this.title = title;
+    }
+
+    public Page(int id, int albumId, int previousPageId, int nextPageId, String title) {
+        this.id = id;
+        this.albumId = albumId;
+        this.previousPageId = previousPageId;
+        this.nextPageId = nextPageId;
+        this.title = title;
+    }
+
+    public Page() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getAlbumId() {
+        return albumId;
+    }
+
+    public void setAlbumId(int albumId) {
+        this.albumId = albumId;
+    }
+
+    public int getPreviousPageId() {
+        return previousPageId;
+    }
+
+    public void setPreviousPageId(int previousPageId) {
+        this.previousPageId = previousPageId;
+    }
+
+    public int getNextPageId() {
+        return nextPageId;
+    }
+
+    public void setNextPageId(int nextPageId) {
+        this.nextPageId = nextPageId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
         this.title = title;
     }
 }

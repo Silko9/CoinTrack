@@ -1,12 +1,16 @@
 package shapov.cointrack.controllers;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
-@Getter
-@AllArgsConstructor
 public enum DisplayType {
     PANEL("Панель"),
     TABLE("Таблица");
     private final String value;
+
+    DisplayType(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }

@@ -1,7 +1,5 @@
 package shapov.cointrack.repositories.implement;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import shapov.cointrack.databaseHelper.DatabaseHelper;
 import shapov.cointrack.databaseHelper.DatabaseQueryConst;
 import shapov.cointrack.models.HolderCell;
@@ -28,8 +26,6 @@ import java.util.Optional;
 
  @version 1.0
  */
-@AllArgsConstructor
-@NoArgsConstructor
 public class HolderCellRepositoryImpl extends DatabaseHelper implements HolderCellRepository {
 
     /** Поле константа с названием таблицы */
@@ -37,6 +33,13 @@ public class HolderCellRepositoryImpl extends DatabaseHelper implements HolderCe
 
     /** Поле с названием базы данных */
     private String nameDB = "CoinTrackTest";
+
+    public HolderCellRepositoryImpl() {
+    }
+
+    public HolderCellRepositoryImpl(String nameDB) {
+        this.nameDB = nameDB;
+    }
 
     /**
      Получает полное имя таблицы, объединяя имя базы данных и имя таблицы.

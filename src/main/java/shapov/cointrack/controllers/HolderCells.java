@@ -2,9 +2,6 @@ package shapov.cointrack.controllers;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import shapov.cointrack.MainApplication;
 import shapov.cointrack.models.Coin;
 import shapov.cointrack.models.HolderCell;

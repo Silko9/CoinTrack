@@ -5,8 +5,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import shapov.cointrack.models.HolderCell;
 
 import java.io.File;
@@ -14,10 +12,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 
-@NoArgsConstructor
 public class SampleHolderCellController {
 
-    @Getter
     @FXML
     private AnchorPane mainPane;
     @FXML
@@ -28,14 +24,33 @@ public class SampleHolderCellController {
     private Label lTitle;
     private AlbumsController albumsController;
 
-    @Getter
     private int idHolderCell = 0;
-    @Getter
     private boolean empty = true;
-    @Getter
     private int line = 0;
-    @Getter
     private int column = 0;
+
+    public SampleHolderCellController() {
+    }
+
+    public AnchorPane getMainPane() {
+        return mainPane;
+    }
+
+    public int getIdHolderCell() {
+        return idHolderCell;
+    }
+
+    public boolean isEmpty() {
+        return empty;
+    }
+
+    public int getLine() {
+        return line;
+    }
+
+    public int getColumn() {
+        return column;
+    }
 
     public void setParams(HolderCell holderCell){
         InputStream inputStream = getClass().getResourceAsStream(".shapov.cointrack.pictures.".replace(".", File.separator) + holderCell.getCoin().getPicturePath());

@@ -1,7 +1,6 @@
 module shapov.cointrack {
     requires javafx.controls;
     requires javafx.fxml;
-    requires lombok;
     requires java.sql;
     requires opencv;
     requires java.base;

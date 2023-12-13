@@ -12,8 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
-import lombok.Getter;
-import lombok.Setter;
 import shapov.cointrack.AlertHelper;
 import shapov.cointrack.MainApplication;
 import shapov.cointrack.models.Coin;
@@ -30,7 +28,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AddCoinToPageController implements Initializable {
-    @Getter
     @FXML
     private Button bAdd;
     
@@ -59,15 +56,28 @@ public class AddCoinToPageController implements Initializable {
     private TextField tfTitle;
     
     private final CoinService coinService = new CoinServiceImpl();
-    
-    @Setter
-    @Getter
+
     private Stage stage;
     
-    @Getter
     private int idCoin;
     
     private int idCoinCurrent;
+
+    public Button getbAdd() {
+        return bAdd;
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public int getIdCoin() {
+        return idCoin;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

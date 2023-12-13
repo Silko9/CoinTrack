@@ -5,7 +5,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import lombok.Getter;
 import shapov.cointrack.AlertHelper;
 import shapov.cointrack.models.Page;
 import shapov.cointrack.services.PageService;
@@ -28,10 +27,13 @@ public class PageEditorController {
 
     private Stage stage;
 
-    @Getter
     private Page page;
 
     private ActionType actionType;
+
+    public Page getPage() {
+        return page;
+    }
 
     public void setParams(ActionType actionType, Stage stage, Page page) {
         this.stage = stage;

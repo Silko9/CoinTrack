@@ -1,7 +1,5 @@
 package shapov.cointrack.repositories.implement;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import shapov.cointrack.databaseHelper.DatabaseHelper;
 import shapov.cointrack.databaseHelper.DatabaseQueryConst;
 import shapov.cointrack.models.HolderCell;
@@ -31,8 +29,6 @@ import java.util.Optional;
 
  @version 1.0
  */
-@AllArgsConstructor
-@NoArgsConstructor
 public class MintRepositoryImpl extends DatabaseHelper implements MintRepository {
 
     /** Поле константа с названием таблицы в базе данных */
@@ -175,5 +171,12 @@ public class MintRepositoryImpl extends DatabaseHelper implements MintRepository
      */
     private String getParameters(String name){
         return "name='" + name + "'";
+    }
+
+    public MintRepositoryImpl(String nameDB) {
+        this.nameDB = nameDB;
+    }
+
+    public MintRepositoryImpl() {
     }
 }

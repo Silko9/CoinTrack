@@ -108,7 +108,7 @@ public class CoinsController implements Initializable {
 
             allCoins.clear();
 
-            if(fitlerCoin.getCurrencyId != 0){
+            if(fitlerCoin.getCurrencyId() != 0){
                 allCoins.addAll(resultCoins);
                 resultCoins.clear();
                 for (Coin coin : allCoins)

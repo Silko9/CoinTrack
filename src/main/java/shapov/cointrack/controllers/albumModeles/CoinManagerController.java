@@ -10,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import lombok.Setter;
 import shapov.cointrack.AlertHelper;
 import shapov.cointrack.MainApplication;
 import shapov.cointrack.controllers.AddCoinToPageController;
@@ -30,13 +29,16 @@ public class CoinManagerController implements Initializable {
     @FXML
     private Label statusCoin;
 
-    @Setter
     private AlbumsController mainController;
 
     private static CoinManagerController coinManagerController;
 
     public static CoinManagerController getInstance(){
         return coinManagerController;
+    }
+
+    public void setMainController(AlbumsController mainController) {
+        this.mainController = mainController;
     }
 
     public void resetStatus(){
@@ -77,10 +79,10 @@ public class CoinManagerController implements Initializable {
 
         if(actionType.equals(ActionType.EDIT)) {
             controller.setCoinParams(coinId, title);
-            controller.getBAdd().setText("Изменить");
+            controller.getbAdd().setText("Изменить");
         }
         else
-            controller.getBAdd().setText("Добавить");
+            controller.getbAdd().setText("Добавить");
         addStage.showAndWait();
         return controller;
     }

@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import lombok.Setter;
 import shapov.cointrack.AlertHelper;
 import shapov.cointrack.MainApplication;
 import shapov.cointrack.controllers.AlbumInfo;
@@ -30,13 +29,16 @@ public class PageManagerController implements Initializable {
 
     private final PageService pageService = new PageServiceImpl();
 
-    @Setter
     private AlbumsController mainController;
 
     private static PageManagerController pageManagerController;
 
     public static PageManagerController getInstance(){
         return pageManagerController;
+    }
+
+    public void setMainController(AlbumsController mainController) {
+        this.mainController = mainController;
     }
 
     @Override

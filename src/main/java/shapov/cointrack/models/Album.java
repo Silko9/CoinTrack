@@ -1,8 +1,5 @@
 package shapov.cointrack.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import shapov.cointrack.models.properties.AlbumProperty;
 
 /**
@@ -26,9 +23,6 @@ import shapov.cointrack.models.properties.AlbumProperty;
 
  @version 1.0
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Album {
     
     /** Поле идентификатор */
@@ -42,6 +36,30 @@ public class Album {
      @param title заголовок альбома
      */
     public Album(String title) {
+        this.title = title;
+    }
+
+    public Album(int id, String title) {
+        this.id = id;
+        this.title = title;
+    }
+
+    public Album() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
         this.title = title;
     }
 }

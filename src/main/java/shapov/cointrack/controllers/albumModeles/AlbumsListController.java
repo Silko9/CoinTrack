@@ -18,7 +18,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import lombok.Setter;
 import shapov.cointrack.AlertHelper;
 import shapov.cointrack.MainApplication;
 import shapov.cointrack.controllers.AlbumInfo;
@@ -34,7 +33,6 @@ import shapov.cointrack.services.implement.PageServiceImpl;
 
 public class AlbumsListController implements Initializable {
 
-    @Setter
     private AlbumsController mainController;
     
     private final AlbumService albumService = new AlbumServiceImpl();
@@ -53,6 +51,10 @@ public class AlbumsListController implements Initializable {
 
     public static AlbumsListController getInstance(){
         return albumsListController;
+    }
+
+    public void setMainController(AlbumsController mainController) {
+        this.mainController = mainController;
     }
 
     @Override

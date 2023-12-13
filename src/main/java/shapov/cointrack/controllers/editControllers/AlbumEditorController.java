@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import lombok.Getter;
 import java.util.Objects;
 import javafx.scene.control.Alert;
 import shapov.cointrack.AlertHelper;
@@ -24,12 +23,15 @@ public class AlbumEditorController {
     
     private Stage stage;
 
-    @Getter
     private AlbumProperty album;
     
     private ActionType actionType;
     
     private final AlbumService albumService = new AlbumServiceImpl();
+
+    public AlbumProperty getAlbum() {
+        return album;
+    }
 
     public void setParams(AlbumProperty album, Stage stage) {
         this.album = album;

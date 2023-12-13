@@ -4,7 +4,6 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import lombok.NoArgsConstructor;
 import shapov.cointrack.models.Album;
 
 
@@ -25,7 +24,6 @@ import shapov.cointrack.models.Album;
 
  @version 1.0
  */
-@NoArgsConstructor
 public class AlbumProperty {
     /** Поле id типа IntegerProperty */
     private IntegerProperty id;
@@ -39,6 +37,9 @@ public class AlbumProperty {
     public AlbumProperty(Album album){
         this.id = new SimpleIntegerProperty(album.getId());
         this.title = new SimpleStringProperty(album.getTitle());
+    }
+
+    public AlbumProperty() {
     }
 
     /**

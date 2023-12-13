@@ -1,15 +1,11 @@
 package shapov.cointrack.controllers;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import shapov.cointrack.models.Page;
 import shapov.cointrack.models.properties.AlbumProperty;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
-@Data
 public class AlbumInfo{
 
     private AlbumProperty currentAlbum;
@@ -35,5 +31,48 @@ public class AlbumInfo{
 
     public AlbumInfo(AlbumProperty currentAlbum){
         this(currentAlbum, new ArrayList<>());
+    }
+
+    public AlbumInfo() {
+    }
+
+    public AlbumProperty getCurrentAlbum() {
+        return currentAlbum;
+    }
+
+    public void setCurrentAlbum(AlbumProperty currentAlbum) {
+        this.currentAlbum = currentAlbum;
+    }
+
+    public Page getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(Page currentPage) {
+        this.currentPage = currentPage;
+    }
+
+    public List<Page> getPages() {
+        return pages;
+    }
+
+    public void setPages(List<Page> pages) {
+        this.pages = pages;
+    }
+
+    public int getMaxNumberPage() {
+        return maxNumberPage;
+    }
+
+    public void setMaxNumberPage(int maxNumberPage) {
+        this.maxNumberPage = maxNumberPage;
+    }
+
+    public int getCurrentNumberPage() {
+        return currentNumberPage;
+    }
+
+    public void setCurrentNumberPage(int currentNumberPage) {
+        this.currentNumberPage = currentNumberPage;
     }
 }

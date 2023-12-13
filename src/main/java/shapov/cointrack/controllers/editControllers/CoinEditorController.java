@@ -6,8 +6,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
-import lombok.Getter;
-import lombok.Setter;
 import shapov.cointrack.models.Coin;
 import shapov.cointrack.models.Currency;
 import shapov.cointrack.services.CurrencyService;
@@ -27,13 +25,19 @@ public class CoinEditorController implements Initializable {
     @FXML
     private TextField tDenomination;
 
-    @Setter
     private Stage stage;
 
-    @Getter
     private Coin coin = new Coin();
 
     private CurrencyService currencyService = new CurrencyServiceImpl();
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public Coin getCoin() {
+        return coin;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -74,7 +78,7 @@ public class CoinEditorController implements Initializable {
         }
 
         if(!cbCurrency.getValue().equals("")){
-            coin.setCurrencyId(currencyService.findByName(cbCurrency.getValue().toString()).getId());
+            coin.setCurrencyId(currencyService.findByName(cbCurrency.getValue().toString()).get(0).getId());
             isNull = false;
         }
 

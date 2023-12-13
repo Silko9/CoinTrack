@@ -1,8 +1,5 @@
 package shapov.cointrack.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
 
@@ -27,9 +24,6 @@ import lombok.NoArgsConstructor;
 
  @version 1.0
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Mint {
     /** Поле идентификатор */
     private int id;
@@ -46,6 +40,39 @@ public class Mint {
      */
     public Mint(String name, int countryId) {
         this.name = name;
+        this.countryId = countryId;
+    }
+
+    public Mint(int id, String name, int countryId) {
+        this.id = id;
+        this.name = name;
+        this.countryId = countryId;
+    }
+
+    public Mint() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getCountryId() {
+        return countryId;
+    }
+
+    public void setCountryId(int countryId) {
         this.countryId = countryId;
     }
 }

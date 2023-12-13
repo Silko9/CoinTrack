@@ -1,9 +1,5 @@
 package shapov.cointrack.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 /**
 
  Класс Country с полями <b>id</b> и <b>name</b>.
@@ -25,9 +21,6 @@ import lombok.NoArgsConstructor;
 
  @version 1.0
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Country {
     /** Поле идентификатор */
     private int id;
@@ -39,6 +32,30 @@ public class Country {
      @param name название страны
      */
     public Country(String name) {
+        this.name = name;
+    }
+
+    public Country(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Country() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
         this.name = name;
     }
 }

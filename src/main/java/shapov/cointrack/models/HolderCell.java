@@ -1,9 +1,4 @@
 package shapov.cointrack.models;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 /**
 
  Класс HolderCell с полями <b>id</b>, <b>coinId</b>, <b>coin</b>, <b>available</b>,
@@ -33,9 +28,6 @@ import lombok.NoArgsConstructor;
 
  @version 1.0
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class HolderCell {
     /** Поле идентификатор */
     public int id;
@@ -90,6 +82,84 @@ public class HolderCell {
         this.pageId = pageId;
         this.column = column;
         this.line = line;
+        this.title = title;
+    }
+
+    public HolderCell(int id, int coinId, Coin coin, boolean available, int pageId, int column, int line, String title) {
+        this.id = id;
+        this.coinId = coinId;
+        this.coin = coin;
+        this.available = available;
+        this.pageId = pageId;
+        this.column = column;
+        this.line = line;
+        this.title = title;
+    }
+
+    public HolderCell() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getCoinId() {
+        return coinId;
+    }
+
+    public void setCoinId(int coinId) {
+        this.coinId = coinId;
+    }
+
+    public Coin getCoin() {
+        return coin;
+    }
+
+    public void setCoin(Coin coin) {
+        this.coin = coin;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
+    public int getPageId() {
+        return pageId;
+    }
+
+    public void setPageId(int pageId) {
+        this.pageId = pageId;
+    }
+
+    public int getColumn() {
+        return column;
+    }
+
+    public void setColumn(int column) {
+        this.column = column;
+    }
+
+    public int getLine() {
+        return line;
+    }
+
+    public void setLine(int line) {
+        this.line = line;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
         this.title = title;
     }
 }
