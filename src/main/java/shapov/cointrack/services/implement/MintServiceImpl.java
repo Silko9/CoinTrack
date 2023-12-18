@@ -5,6 +5,7 @@ import shapov.cointrack.repositories.MintRepository;
 import shapov.cointrack.repositories.implement.MintRepositoryImpl;
 import shapov.cointrack.services.MintService;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +25,7 @@ public class MintServiceImpl implements MintService {
     /**
      Репозиторий для работы с монетными дворами.
      */
-    private final MintRepository mintRepository = new MintRepositoryImpl("CoinTrack");
+    private final MintRepository mintRepository = new MintRepositoryImpl();
 
     /**
      Получает список всех монетных дворов.
@@ -32,7 +33,7 @@ public class MintServiceImpl implements MintService {
      @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public List<Mint> findAll() throws SQLException {
+    public List<Mint> findAll() throws SQLException, IOException {
         return mintRepository.findAll();
     }
 
@@ -43,65 +44,43 @@ public class MintServiceImpl implements MintService {
      @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public Optional<Mint> findOneById(int id) throws SQLException {
+    public Optional<Mint> findOneById(int id) throws SQLException, IOException {
         return mintRepository.findOneById(id);
     }
 
     /**
-     Находит монетные дворы по указанному имени.
-     @param name имя монетного двора
-     @return список монетных дворов с указанным именем
-     @throws SQLException если возникает ошибка при выполнении SQL-запроса
+     * Создает новый монетный двор с указанными параметрами.
+     *
+     * @param name      имя монетного двора
+     * @param countryId идентификатор страны
+     * @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public List<Mint> findByName(String name) throws SQLException {
-        return mintRepository.findByName(name);
+    public void create(String name, int countryId) throws SQLException, IOException {
+        mintRepository.create(new Mint(name, countryId));
     }
 
     /**
-     Находит монетные дворы с указанным идентификатором страны.
-     @param countryId идентификатор страны
-     @return список монетных дворов с указанным идентификатором страны
-     @throws SQLException если возникает ошибка при выполнении SQL-запроса
+     * Обновляет монетный двор с указанным идентификатором новыми параметрами.
+     *
+     * @param id        идентификатор монетного двора, который нужно обновить
+     * @param name      новое имя монетного двора
+     * @param countryId новый идентификатор страны
+     * @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public List<Mint> findByCountryId(int countryId) throws SQLException {
-        return mintRepository.findByCountryId(countryId);
+    public void update(int id, String name, int countryId) throws SQLException, IOException {
+        mintRepository.edit(new Mint(id, name, countryId));
     }
 
     /**
-     Создает новый монетный двор с указанными параметрами.
-     @param name имя монетного двора
-     @param countryId идентификатор страны
-     @return количество созданных монетных дворов (обычно 1, если монетный двор успешо создалась)
-     @throws SQLException если возникает ошибка при выполнении SQL-запроса
+     * Удаляет монетный двор с указанным идентификатором.
+     *
+     * @param id идентификатор монетного двора, который нужно удалить
+     * @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public int create(String name, int countryId) throws SQLException {
-        return mintRepository.create(new Mint(name, countryId));
-    }
-
-    /**
-     Обновляет монетный двор с указанным идентификатором новыми параметрами.
-     @param id идентификатор монетного двора, который нужно обновить
-     @param name новое имя монетного двора
-     @param countryId новый идентификатор страны
-     @return количество обновленных монетных дворов (обычно 1, если монетный двор с указанным идентификатором существует)
-     @throws SQLException если возникает ошибка при выполнении SQL-запроса
-     */
-    @Override
-    public int update(int id, String name, int countryId) throws SQLException {
-        return mintRepository.edit(new Mint(id, name, countryId));
-    }
-
-    /**
-     Удаляет монетный двор с указанным идентификатором.
-     @param id идентификатор монетного двора, который нужно удалить
-     @return количество удаленных монетных дворов (обычно 1, если монетный двор с указанным идентификатором существует)
-     @throws SQLException если возникает ошибка при выполнении SQL-запроса
-     */
-    @Override
-    public int delete(int id) throws SQLException {
-        return mintRepository.delete(id);
+    public void delete(int id) throws SQLException, IOException {
+        mintRepository.delete(id);
     }
 }

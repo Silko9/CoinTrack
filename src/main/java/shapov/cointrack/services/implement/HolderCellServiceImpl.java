@@ -1,15 +1,14 @@
 package shapov.cointrack.services.implement;
 
 import shapov.cointrack.models.Coin;
-import shapov.cointrack.models.Country;
 import shapov.cointrack.models.HolderCell;
 import shapov.cointrack.repositories.CoinRepository;
 import shapov.cointrack.repositories.HolderCellRepository;
 import shapov.cointrack.repositories.implement.CoinRepositoryImpl;
 import shapov.cointrack.repositories.implement.HolderCellRepositoryImpl;
-import shapov.cointrack.services.CoinService;
 import shapov.cointrack.services.HolderCellService;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -28,12 +27,12 @@ public class HolderCellServiceImpl implements HolderCellService {
     /**
      Репозиторий для работы с ячейками хранения.
      */
-    private final HolderCellRepository holderCellRepository = new HolderCellRepositoryImpl("CoinTrack");
+    private final HolderCellRepository holderCellRepository = new HolderCellRepositoryImpl();
 
     /**
      Репозиторий для работы с монетами.
      */
-    private final CoinRepository coinRepository = new CoinRepositoryImpl("CoinTrack");
+    private final CoinRepository coinRepository = new CoinRepositoryImpl();
 
     /**
      Получает список всех ячеек хранения.
@@ -41,7 +40,7 @@ public class HolderCellServiceImpl implements HolderCellService {
      @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public List<HolderCell> findAll() throws SQLException {
+    public List<HolderCell> findAll() throws SQLException, IOException {
         return holderCellRepository.findAll();
     }
 
@@ -52,7 +51,7 @@ public class HolderCellServiceImpl implements HolderCellService {
      @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public Optional<HolderCell> findOneById(int id) throws SQLException {
+    public Optional<HolderCell> findOneById(int id) throws SQLException, IOException {
         return holderCellRepository.findOneById(id);
     }
 
@@ -63,51 +62,51 @@ public class HolderCellServiceImpl implements HolderCellService {
      @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public List<HolderCell> findByPageId(int pageId) throws SQLException {
+    public List<HolderCell> findByPageId(int pageId) throws SQLException, IOException {
         return holderCellRepository.findByPageId(pageId);
     }
 
     /**
-     Создает новую ячейку хранения с указанными параметрами.
-     @param coinId идентификатор монеты
-     @param pageId идентификатор страницы
-     @param column номер столбца
-     @param line номер строки
-     @param title заголовок
-     @return количество созданных ячеек хранения (обычно 1, если ячейка хранения успешо создалась)
-     @throws SQLException если возникает ошибка при выполнении SQL-запроса
+     * Создает новую ячейку хранения с указанными параметрами.
+     *
+     * @param coinId идентификатор монеты
+     * @param pageId идентификатор страницы
+     * @param column номер столбца
+     * @param line   номер строки
+     * @param title  заголовок
+     * @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public int create(int coinId, int pageId, int column, int line, String title) throws SQLException {
-        return holderCellRepository.create(new HolderCell(coinId, false, pageId, column, line, title));
+    public void create(int coinId, int pageId, int column, int line, String title) throws SQLException, IOException {
+        holderCellRepository.create(new HolderCell(coinId, false, pageId, column, line, title));
     }
 
     /**
-     Обновляет ячейку хранения с указанным идентификатором новыми параметрами.
-     @param id идентификатор ячейки хранения, которую нужно обновить
-     @param available доступность ячейки хранения
-     @param coinId идентификатор монеты
-     @param pageId идентификатор страницы
-     @param column номер столбца
-     @param line номер строки
-     @param title заголовок
-     @return количество обновленных ячеек хранения (обычно 1, если ячейка хранения с указанным идентификатором существует)
-     @throws SQLException если возникает ошибка при выполнении SQL-запроса
+     * Обновляет ячейку хранения с указанным идентификатором новыми параметрами.
+     *
+     * @param id        идентификатор ячейки хранения, которую нужно обновить
+     * @param available доступность ячейки хранения
+     * @param coinId    идентификатор монеты
+     * @param pageId    идентификатор страницы
+     * @param column    номер столбца
+     * @param line      номер строки
+     * @param title     заголовок
+     * @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public int update(int id, boolean available, int coinId, int pageId, int column, int line, String title) throws SQLException {
-        return holderCellRepository.edit(new HolderCell(id, coinId, available, pageId, column, line, title));
+    public void update(int id, boolean available, int coinId, int pageId, int column, int line, String title) throws SQLException, IOException {
+        holderCellRepository.edit(new HolderCell(id, coinId, available, pageId, column, line, title));
     }
 
     /**
-     Удаляет ячейку хранения с указанным идентификатором.
-     @param id идентификатор ячейки хранения, которую нужно удалить
-     @return количество удаленных ячеек хранения (обычно 1, если ячейка хранения с указанным идентификатором существует)
-     @throws SQLException если возникает ошибка при выполнении SQL-запроса
+     * Удаляет ячейку хранения с указанным идентификатором.
+     *
+     * @param id идентификатор ячейки хранения, которую нужно удалить
+     * @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public int delete(int id) throws SQLException {
-        return holderCellRepository.delete(id);
+    public void delete(int id) throws SQLException, IOException {
+        holderCellRepository.delete(id);
     }
 
     /**
@@ -121,7 +120,7 @@ public class HolderCellServiceImpl implements HolderCellService {
      @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public HolderCell include(HolderCell holderCell) throws SQLException {
+    public HolderCell include(HolderCell holderCell) throws SQLException, IOException {
         Optional<Coin> coin = coinRepository.findOneById(holderCell.getCoinId());
 
         if(coin.isEmpty()) return null;

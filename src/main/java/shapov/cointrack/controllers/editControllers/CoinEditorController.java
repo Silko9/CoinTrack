@@ -11,6 +11,7 @@ import shapov.cointrack.models.Currency;
 import shapov.cointrack.services.CurrencyService;
 import shapov.cointrack.services.implement.CurrencyServiceImpl;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
@@ -51,6 +52,8 @@ public class CoinEditorController implements Initializable {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -78,7 +81,7 @@ public class CoinEditorController implements Initializable {
         }
 
         if(!cbCurrency.getValue().equals("")){
-            coin.setCurrencyId(currencyService.findByName(cbCurrency.getValue().toString()).get(0).getId());
+            //coin.setCurrencyId(currencyService.findByName(cbCurrency.getValue().toString()).get(0).getId());
             isNull = false;
         }
 

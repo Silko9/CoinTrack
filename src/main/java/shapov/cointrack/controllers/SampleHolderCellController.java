@@ -62,10 +62,10 @@ public class SampleHolderCellController {
         iCoin.setImage(new Image(inputStream));
         idHolderCell = holderCell.getId();
         lTitle.setText(holderCell.getTitle());
-        mainPane.setTranslateX(55 + ((holderCell.getColumn() - 1) * 190));
-        if(holderCell.getColumn() >= 3)
+        mainPane.setTranslateX(55 + ((holderCell.getColumnHolder() - 1) * 190));
+        if(holderCell.getColumnHolder() >= 3)
             mainPane.setTranslateX(mainPane.getTranslateX() + 225);
-        mainPane.setTranslateY(25 + ((holderCell.getLine() - 1) * 190));
+        mainPane.setTranslateY(25 + ((holderCell.getLineHolder() - 1) * 190));
         iFrame.setPreserveRatio(false);
         empty = false;
     }

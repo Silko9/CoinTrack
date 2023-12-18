@@ -2,21 +2,17 @@ package shapov.cointrack.services;
 
 import shapov.cointrack.models.Album;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
- public interface AlbumService {
+public interface AlbumService {
 
-    List<Album> findAll() throws SQLException;
+    List<Album> findAll() throws SQLException, IOException;
 
-    Optional<Album> findOneById(int id) throws SQLException;
+    void create(String title) throws SQLException, IOException;
 
-    List<Album> findByTitle(String title) throws SQLException;
+    void update(int id, String title) throws SQLException, IOException;
 
-    int create(String title) throws SQLException;
-
-    int update(int id, String title) throws SQLException;
-
-    int delete(int id) throws SQLException;
+    void delete(int id) throws SQLException, IOException;
  }

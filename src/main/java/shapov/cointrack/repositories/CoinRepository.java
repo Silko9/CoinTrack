@@ -1,30 +1,19 @@
 package shapov.cointrack.repositories;
 
-import shapov.cointrack.models.Album;
 import shapov.cointrack.models.Coin;
 
-import java.sql.ResultSet;
+import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 public interface CoinRepository {
-    List<Coin> findAll() throws SQLException;
-    Optional<Coin> findOneById(int id) throws SQLException;
-    List<Coin> findByDenomination(int denomination) throws SQLException;
+    List<Coin> findAll() throws SQLException, IOException;
+    Optional<Coin> findOneById(int id) throws SQLException, IOException;
 
-    List<Coin> findByCurrencyId(int currencyId) throws SQLException;
+    void create(Coin coin) throws SQLException, IOException;
 
-    List<Coin> findByCountryId(int countryId) throws SQLException;
+    void edit(Coin coin) throws SQLException, IOException;
 
-    List<Coin> findByMintId(int mintId) throws SQLException;
-
-    List<Coin> findByDateMinting(int yearMinting) throws SQLException;
-
-    int create(Coin coin) throws SQLException;
-
-    int edit(Coin coin) throws SQLException;
-
-    int delete(int id) throws SQLException;
+    void delete(int id) throws SQLException, IOException;
 }

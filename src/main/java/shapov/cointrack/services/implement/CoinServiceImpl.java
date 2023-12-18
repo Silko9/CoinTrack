@@ -14,6 +14,7 @@ import shapov.cointrack.repositories.implement.CurrencyRepositoryImpl;
 import shapov.cointrack.repositories.implement.MintRepositoryImpl;
 import shapov.cointrack.services.CoinService;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -34,22 +35,22 @@ public class CoinServiceImpl implements CoinService {
     /**
      * Репозиторий для работы с монетами
      */
-    private final CoinRepository coinRepository = new CoinRepositoryImpl("CoinTrack");
+    private final CoinRepository coinRepository = new CoinRepositoryImpl();
 
     /**
      * Репозиторий для работы с странами
      */
-    private final CountryRepository countryRepository = new CountryRepositoryImpl("CoinTrack");
+    private final CountryRepository countryRepository = new CountryRepositoryImpl();
 
     /**
      * Репозиторий для работы с валютами
      */
-    private final CurrencyRepository currencyRepository = new CurrencyRepositoryImpl("CoinTrack");
+    private final CurrencyRepository currencyRepository = new CurrencyRepositoryImpl();
 
     /**
      * Репозиторий для работы с монетными дворами
      */
-    private final MintRepository mintRepository = new MintRepositoryImpl("CoinTrack");
+    private final MintRepository mintRepository = new MintRepositoryImpl();
 
     /**
      * Получает список всех монет.
@@ -58,7 +59,7 @@ public class CoinServiceImpl implements CoinService {
      * @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public List<Coin> findAll() throws SQLException {
+    public List<Coin> findAll() throws SQLException, IOException {
         return coinRepository.findAll();
     }
 
@@ -70,68 +71,8 @@ public class CoinServiceImpl implements CoinService {
      * @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public Optional<Coin> findOneById(int id) throws SQLException {
+    public Optional<Coin> findOneById(int id) throws SQLException, IOException {
         return coinRepository.findOneById(id);
-    }
-
-    /**
-     * Находит монеты с указанным номиналом.
-     *
-     * @param denomination номинал монеты
-     * @return список монет с указанным номиналом
-     * @throws SQLException если возникает ошибка при выполнении SQL-запроса
-     */
-    @Override
-    public List<Coin> findByDenomination(int denomination) throws SQLException {
-        return coinRepository.findByDenomination(denomination);
-    }
-
-    /**
-     * Находит монеты с указанным идентификатором валюты.
-     *
-     * @param currencyId идентификатор валюты
-     * @return список монет с указанным идентификатором валюты
-     * @throws SQLException если возникает ошибка при выполнении SQL-запроса
-     */
-    @Override
-    public List<Coin> findByCurrencyId(int currencyId) throws SQLException {
-        return coinRepository.findByCurrencyId(currencyId);
-    }
-
-    /**
-     * Находит монеты с указанным идентификатором страны.
-     *
-     * @param countryId идентификатор страны
-     * @return список монет с указанным идентификатором страны
-     * @throws SQLException если возникает ошибка при выполнении SQL-запроса
-     */
-    @Override
-    public List<Coin> findByCountryId(int countryId) throws SQLException {
-        return coinRepository.findByCountryId(countryId);
-    }
-
-    /**
-     * Находит монеты с указанным идентификатором монетного двора.
-     *
-     * @param mintId идентификатор монетного двора
-     * @return список монет с указанным идентификатором монетного двора
-     * @throws SQLException если возникает ошибка при выполнении SQL-запроса
-     */
-    @Override
-    public List<Coin> findByMintId(int mintId) throws SQLException {
-        return coinRepository.findByMintId(mintId);
-    }
-
-    /**
-     * Находит монеты с указанным годом чеканки.
-     *
-     * @param yearMinting год чеканки монет
-     * @return список монет с указанным годом чеканки
-     * @throws SQLException если возникает ошибка при выполнении SQL-запроса
-     */
-    @Override
-    public List<Coin> findByDateMinting(int yearMinting) throws SQLException {
-        return coinRepository.findByDateMinting(yearMinting);
     }
 
     /**
@@ -143,12 +84,11 @@ public class CoinServiceImpl implements CoinService {
      * @param mintId         идентификатор монетного двора
      * @param yearMinting    год чеканки
      * @param picturePath    путь к изображению монеты
-     * @return количество созданных монет (обычно 1, если монета успешно создалась)
      * @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public int create(int denominationId, int currencyId, int countryId, int mintId, int yearMinting, String picturePath) throws SQLException {
-        return coinRepository.create(new Coin(denominationId, currencyId, countryId, mintId, yearMinting, picturePath));
+    public void create(int denominationId, int currencyId, int countryId, int mintId, int yearMinting, String picturePath) throws SQLException, IOException {
+        coinRepository.create(new Coin(denominationId, currencyId, countryId, mintId, yearMinting, picturePath));
     }
 
     /**
@@ -161,24 +101,22 @@ public class CoinServiceImpl implements CoinService {
      * @param mintId         идентификатор монетного двора
      * @param yearMinting    год чеканки
      * @param picturePath    путь к изображению монеты
-     * @return количество обновленных монет (обычно 1, если монета с указанным идентификатором существует)
      * @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public int update(int id, int denominationId, int currencyId, int countryId, int mintId, int yearMinting, String picturePath) throws SQLException {
-        return coinRepository.edit(new Coin(id, denominationId, currencyId, countryId, mintId, yearMinting, picturePath));
+    public void update(int id, int denominationId, int currencyId, int countryId, int mintId, int yearMinting, String picturePath) throws SQLException, IOException {
+        coinRepository.edit(new Coin(id, denominationId, currencyId, countryId, mintId, yearMinting, picturePath));
     }
 
     /**
      * Удаляет монету с указанным идентификатором.
      *
      * @param id идентификатор монеты, которую нужно удалить
-     * @return количество удаленных монет (обычно 1, если монета с указанным идентификатором существует)
      * @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public int delete(int id) throws SQLException {
-        return coinRepository.delete(id);
+    public void delete(int id) throws SQLException, IOException {
+        coinRepository.delete(id);
     }
 
     /**
@@ -188,7 +126,7 @@ public class CoinServiceImpl implements CoinService {
      * @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public Coin include(Coin coin) throws SQLException {
+    public Coin include(Coin coin) throws SQLException, IOException {
         Optional<Country> country = countryRepository.findOneById(coin.getCountryId());
         Optional<Currency> currency = currencyRepository.findOneById(coin.getCurrencyId());
         Optional<Mint> mint = mintRepository.findOneById(coin.getMintId());

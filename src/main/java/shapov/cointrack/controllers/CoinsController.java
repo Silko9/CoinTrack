@@ -37,15 +37,6 @@ public class CoinsController implements Initializable {
     private final CoinService coinService = new CoinServiceImpl();
 
     @FXML
-    private Button bResetFilter;
-
-    @FXML
-    private ChoiceBox<String> cbDisplayType;
-    private DisplayType displayType = DisplayType.PANEL;
-
-    //private Coin fitlerCoin = new Coin();
-
-    @FXML
     private ImageView imageCoin;
 
     @FXML
@@ -74,55 +65,21 @@ public class CoinsController implements Initializable {
         columnDenomination.setCellValueFactory(coinIntegerCellDataFeatures -> coinIntegerCellDataFeatures.getValue().denominationProperty().asObject());
         columnYear.setCellValueFactory(coinIntegerCellDataFeatures -> coinIntegerCellDataFeatures.getValue().yearMintingProperty().asObject());
 
-        tableCoin.setItems(getCoins(null));
-
-        cbDisplayType.getItems().setAll(DisplayType.TABLE.getValue(),
-                                        DisplayType.PANEL.getValue());
-        cbDisplayType.setValue(displayType.getValue());
+        tableCoin.setItems(getCoins());
     }
 
-    private ObservableList<CoinProperty> getCoins(Coin fitlerCoin){
+    private ObservableList<CoinProperty> getCoins(){
         try {
             List<Coin> allCoins = coinService.findAll();
-            if(fitlerCoin == null)
                 return coin2property(allCoins);
-            List<Coin> resultCoins = new ArrayList<>();
-
-            if(fitlerCoin.getDenomination() != 0) {
-                for (Coin coin : allCoins)
-                    if (coin.getDenomination() == fitlerCoin.getDenomination())
-                        resultCoins.add(coin);
-            }
-            else resultCoins.addAll(allCoins);
-
-            allCoins.clear();
-
-            if(fitlerCoin.getYearMinting() != 0) {
-                allCoins.addAll(resultCoins);
-                resultCoins.clear();
-                for (Coin coin : allCoins)
-                    if (coin.getYearMinting() == fitlerCoin.getYearMinting())
-                        resultCoins.add(coin);
-            }
-            else resultCoins.addAll(allCoins);
-
-            allCoins.clear();
-
-            if(fitlerCoin.getCurrencyId() != 0){
-                allCoins.addAll(resultCoins);
-                resultCoins.clear();
-                for (Coin coin : allCoins)
-                    if (coin.getCurrencyId() == fitlerCoin.getCurrencyId())
-                        resultCoins.add(coin);
-            }
-
-            return coin2property(resultCoins);
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private ObservableList<CoinProperty> coin2property(List<Coin> coins) throws SQLException {
+    private ObservableList<CoinProperty> coin2property(List<Coin> coins) throws SQLException, IOException {
         ObservableList<CoinProperty> coinProperties = FXCollections.observableArrayList();
         for(Coin coin : coins){
             coin = coinService.include(coin);
@@ -148,34 +105,5 @@ public class CoinsController implements Initializable {
             Image image = new Image(inputStream);
             imageCoin.setImage(image);
         }
-    }
-
-    @FXML
-    private void onClickedSetFilter() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainApplication.class.getResource("coin-editor-view.fxml"));
-        Parent parentPage = loader.load();
-
-        Stage addStage = new Stage();
-        addStage.setTitle("Установить фильтр");
-        addStage.initModality(Modality.WINDOW_MODAL);
-        addStage.initOwner(MainApplication.getPrimaryStage());
-
-        Scene scene = new Scene(parentPage);
-        addStage.setScene(scene);
-        CoinEditorController controller = loader.getController();
-        controller.setStage(addStage);
-        addStage.showAndWait();
-
-        tableCoin.setItems(getCoins(controller.getCoin()));
-
-        if(controller.getCoin() != null)
-            bResetFilter.setDisable(false);
-    }
-
-    @FXML
-    private void onClickedResetFilter() {
-        tableCoin.setItems(getCoins(null));
-        bResetFilter.setDisable(true);
     }
 }

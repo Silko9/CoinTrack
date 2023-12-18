@@ -39,7 +39,7 @@ public class HolderCells {
     }
 
     public void setHolderCell(HolderCell holderCell){
-        value[holderCell.getLine() - 1][holderCell.getColumn() - 1].setParams(holderCell);
+        value[holderCell.getLineHolder() - 1][holderCell.getColumnHolder() - 1].setParams(holderCell);
     }
 
     public ArrayList<SampleHolderCellController> getValue(){

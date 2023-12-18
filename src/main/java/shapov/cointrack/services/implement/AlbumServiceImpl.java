@@ -5,10 +5,10 @@ import shapov.cointrack.repositories.AlbumRepository;
 import shapov.cointrack.repositories.implement.AlbumRepositoryImpl;
 import shapov.cointrack.services.AlbumService;
 
+import java.io.IOException;
 import java.sql.SQLException;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
+
 import shapov.cointrack.models.HolderCell;
 import shapov.cointrack.models.Page;
 import shapov.cointrack.repositories.HolderCellRepository;
@@ -30,17 +30,17 @@ public class AlbumServiceImpl implements AlbumService {
     /**
      * Поле репозиторя альбомов. В качестве параметра для конструктора наименование базы данных.
      */
-    private final AlbumRepository albumRepository = new AlbumRepositoryImpl("CoinTrack");
+    private final AlbumRepository albumRepository = new AlbumRepositoryImpl();
     
     /**
      * Поле репозиторя страниц. В качестве параметра для конструктора наименование базы данных.
      */
-    private final PageRepository pageRepository = new PageRepositoryImpl("CoinTrack");
+    private final PageRepository pageRepository = new PageRepositoryImpl();
     
     /**
      * Поле репозиторя ячеек хранений. В качестве параметра для конструктора наименование базы данных.
      */
-    private final HolderCellRepository holderCellRepository = new HolderCellRepositoryImpl("CoinTrack");
+    private final HolderCellRepository holderCellRepository = new HolderCellRepositoryImpl();
 
     /**
      * Получает список всех альбомов.
@@ -48,68 +48,48 @@ public class AlbumServiceImpl implements AlbumService {
      * @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public List<Album> findAll() throws SQLException {
+    public List<Album> findAll() throws SQLException, IOException {
         return albumRepository.findAll();
     }
 
     /**
-     * Находит альбом по указанному идентификатору.
-     * @param id идентификатор альбома
-     * @return альбом, если найден, в противном случае пустое значение Optional
-     * @throws SQLException если возникает ошибка при выполнении SQL-запроса
-     */
-    @Override
-    public Optional<Album> findOneById(int id) throws SQLException {
-        return albumRepository.findOneById(id);
-    }
-
-    /**
-     * Находит альбомы по указанному заголовку.
-     * @param title заголовок альбома
-     * @return список альбомов с указанным заголовком
-     * @throws SQLException если возникает ошибка при выполнении SQL-запроса
-     */
-    @Override
-    public List<Album> findByTitle(String title) throws SQLException {
-        return albumRepository.findByTitle(title);
-    }
-
-    /**
      * Создает новый альбом с указанным заголовком.
+     *
      * @param title заголовок нового альбома
-     * @return количество созданных монет (обычно 1, если монета успешно создалась)
      * @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public int create(String title) throws SQLException {
-        return albumRepository.create(new Album(title));
+    public void create(String title) throws SQLException, IOException {
+        albumRepository.create(new Album(title));
     }
 
     /**
      * Обновляет альбом с указанным идентификатором новым заголовком.
+     *
      * @param id    идентификатор альбома, который нужно обновить
      * @param title новый заголовок альбома
-     * @return количество обновленных альбомов (обычно 1, если альбом с указанным идентификатором существует)
      * @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public int update(int id, String title) throws SQLException {
-        return albumRepository.edit(new Album(id, title));
+    public void update(int id, String title) throws SQLException, IOException {
+        albumRepository.edit(new Album(id, title));
     }
 
     /**
      * Удаляет альбом с указанным идентификатором.
+     *
      * @param id идентификатор альбома, который нужно удалить
-     * @return количество удаленных альбомов (обычно 1, если альбом с указанным идентификатором существует)
      * @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public int delete(int id) throws SQLException {
+    public void delete(int id) throws SQLException, IOException {
         List<Page> pages = pageRepository.findByAlbumId(id);
-        for(Page page : pages) 
-            for(HolderCell holderCell : holderCellRepository.findByPageId(page.getId()))
+        for(Page page : pages) {
+            for (HolderCell holderCell : holderCellRepository.findByPageId(page.getId()))
                 holderCellRepository.delete(holderCell.id);
+            pageRepository.delete(page.getId());
+        }
         
-        return albumRepository.delete(id);
+        albumRepository.delete(id);
     }
 }

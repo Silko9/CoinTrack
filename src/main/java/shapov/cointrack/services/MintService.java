@@ -2,23 +2,20 @@ package shapov.cointrack.services;
 
 import shapov.cointrack.models.Mint;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 public interface MintService {
-    List<Mint> findAll() throws SQLException;
+    List<Mint> findAll() throws SQLException, IOException;
 
-    Optional<Mint> findOneById(int id) throws SQLException;
+    Optional<Mint> findOneById(int id) throws SQLException, IOException;
 
-    List<Mint> findByName(String name) throws SQLException;
+    void create(String name, int countryId) throws SQLException, IOException;
 
-    List<Mint> findByCountryId(int countryId) throws SQLException;
+    void update(int id, String name, int countryId) throws SQLException, IOException;
 
-    int create(String name, int countryId) throws SQLException;
-
-    int update(int id, String name, int countryId) throws SQLException;
-
-    int delete(int id) throws SQLException;
+    void delete(int id) throws SQLException, IOException;
 }
 

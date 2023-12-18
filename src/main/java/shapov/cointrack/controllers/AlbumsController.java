@@ -89,7 +89,7 @@ public class AlbumsController implements Initializable {
     }
 
     @FXML
-    private void onClickedNextPage() throws SQLException {
+    private void onClickedNextPage() throws SQLException, IOException {
         setActionNone();
         
         if(albumInfo.getCurrentPage() == null || albumInfo.getCurrentPage().getNextPageId() == 0) return;
@@ -111,7 +111,7 @@ public class AlbumsController implements Initializable {
     }
 
     @FXML
-    private void onClickedBackPage() throws SQLException {
+    private void onClickedBackPage() throws SQLException, IOException {
         setActionNone();
 
         if(albumInfo.getCurrentPage() == null || albumInfo.getCurrentPage().getPreviousPageId() == 0) return;
@@ -132,7 +132,7 @@ public class AlbumsController implements Initializable {
         showPage();
     }
 
-    public void showPage() throws SQLException {
+    public void showPage() throws SQLException, IOException {
         this.holderCells.clear();
         if (albumInfo.getCurrentPage() == null) {
             labelNumberPage.setText("0/0");
@@ -211,8 +211,8 @@ public class AlbumsController implements Initializable {
                         false,
                         idCoin,
                         holderCellOptional.get().getPageId(),
-                        holderCellOptional.get().getColumn(),
-                        holderCellOptional.get().getLine(),
+                        holderCellOptional.get().getColumnHolder(),
+                        holderCellOptional.get().getLineHolder(),
                         titleHolder);
             }
             case DELETE -> {

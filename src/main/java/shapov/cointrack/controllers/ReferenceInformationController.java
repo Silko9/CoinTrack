@@ -20,6 +20,7 @@ import shapov.cointrack.services.implement.CountryServiceImpl;
 import shapov.cointrack.services.implement.CurrencyServiceImpl;
 import shapov.cointrack.services.implement.MintServiceImpl;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
@@ -59,6 +60,8 @@ public class ReferenceInformationController implements Initializable {
             mints = mint2property(mintService.findAll());
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
         columnCountry.setCellValueFactory(countryStringCellDataFeatures -> countryStringCellDataFeatures.getValue().nameProperty());
         columnCurrency.setCellValueFactory(currencyStringCellDataFeatures -> currencyStringCellDataFeatures.getValue().nameProperty());
@@ -67,35 +70,6 @@ public class ReferenceInformationController implements Initializable {
         tableCountry.setItems(countries);
         tableCurrency.setItems(currencies);
         tableMint.setItems(mints);
-    }
-
-    @FXML
-    void onClickedCountry(MouseEvent event) throws SQLException {
-        CountryProperty countryProperty = tableCountry.getSelectionModel().getSelectedItem();
-
-        mints.clear();
-        mints.addAll(mint2property(mintService.findByCountryId(countryProperty.getId())));
-
-        currencies.clear();
-        currencies.addAll(currency2property(currencyService.findByCountryId(countryProperty.getId())));
-    }
-
-    @FXML
-    void onClickedCurrency(MouseEvent event) throws SQLException {
-        CurrencyProperty currencyProperty = tableCurrency.getSelectionModel().getSelectedItem();
-
-        countries.clear();
-        countries.addAll(country2property(countryService.findByCurrencyId(currencyProperty.getId())));
-    }
-
-    @FXML
-    void onClickedMint(MouseEvent event) throws SQLException {
-        MintProperty mintProperty = tableMint.getSelectionModel().getSelectedItem();
-
-        countries.clear();
-        Optional<Country> country = countryService.findOneById(mintProperty.getCountryId());
-        if(country.isEmpty()) return;
-        countries.add(new CountryProperty(country.get()));
     }
 
     private ObservableList<CountryProperty> country2property(List<Country> countries) {
@@ -117,17 +91,5 @@ public class ReferenceInformationController implements Initializable {
         for(Mint mint : mints)
             mintProperties.add(new MintProperty(mint));
         return mintProperties;
-    }
-
-    @FXML
-    protected void onClickedReset(MouseEvent mouseEvent) throws SQLException {
-        countries.clear();
-        countries.addAll(country2property(countryService.findAll()));
-
-        currencies.clear();
-        currencies.addAll(currency2property(currencyService.findAll()));
-
-        mints.clear();
-        mints.addAll(mint2property(mintService.findAll()));
     }
 }

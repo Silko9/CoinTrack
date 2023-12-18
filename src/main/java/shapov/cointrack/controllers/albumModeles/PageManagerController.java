@@ -113,7 +113,7 @@ public class PageManagerController implements Initializable {
     }
 
     @FXML
-    private void onClickedDeletePage() throws SQLException {
+    private void onClickedDeletePage() throws SQLException, IOException {
         mainController.setActionNone();
 
         AlbumInfo albumInfo = mainController.getAlbumInfo();
@@ -199,7 +199,7 @@ public class PageManagerController implements Initializable {
         albumInfo.setPages(null);
     }
 
-    private void deletingFirstPage(AlbumInfo albumInfo, Page nextPage) throws SQLException {
+    private void deletingFirstPage(AlbumInfo albumInfo, Page nextPage) throws SQLException, IOException {
         nextPage.setPreviousPageId(0);
         pageService.update(nextPage.getId(),
                 nextPage.getAlbumId(),
@@ -211,7 +211,7 @@ public class PageManagerController implements Initializable {
         albumInfo.setCurrentPage(nextPage);
     }
 
-    private void deleteLastPage(Page previousPage) throws SQLException {
+    private void deleteLastPage(Page previousPage) throws SQLException, IOException {
         previousPage.setNextPageId(0);
         pageService.update(previousPage.getId(),
                 previousPage.getAlbumId(),
@@ -220,7 +220,7 @@ public class PageManagerController implements Initializable {
                 previousPage.getTitle());
     }
 
-    private void removingPageFromMiddle(Page previousPage, Page nextPage) throws SQLException {
+    private void removingPageFromMiddle(Page previousPage, Page nextPage) throws SQLException, IOException {
         previousPage.setNextPageId(nextPage.getId());
         pageService.update(previousPage.getId(),
                 previousPage.getAlbumId(),

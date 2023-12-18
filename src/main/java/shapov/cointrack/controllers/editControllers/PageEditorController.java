@@ -10,6 +10,7 @@ import shapov.cointrack.models.Page;
 import shapov.cointrack.services.PageService;
 import shapov.cointrack.services.implement.PageServiceImpl;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
@@ -45,7 +46,7 @@ public class PageEditorController {
     }
 
     @FXML
-    private void onClickedAccept() throws SQLException {
+    private void onClickedAccept() throws SQLException, IOException {
         if(Objects.equals(textName.getText(), "")) {
             AlertHelper.showAlert(Alert.AlertType.WARNING,
                     "Предупреждение",
@@ -71,7 +72,7 @@ public class PageEditorController {
                 pageService.create(page.getAlbumId(), page.getPreviousPageId(), page.getNextPageId(), page.getTitle());
                 List<Page> pages = pageService.findByAlbumId(page.getAlbumId());
                 page = pageService.findOneById(pages.get(pages.size() - 1).getId()).get();
-                Optional<Page> previousPage = pageService.findOneById(page.getPreviousPageId());
+                Optional<Page> previousPage = page.getPreviousPageId() == 0 ? Optional.empty() : pageService.findOneById(page.getPreviousPageId());
                 if(previousPage.isEmpty()) break;
                 pageService.update(page.getPreviousPageId(), page.getAlbumId(), previousPage.get().getPreviousPageId(), page.getId(), previousPage.get().getTitle());
             }

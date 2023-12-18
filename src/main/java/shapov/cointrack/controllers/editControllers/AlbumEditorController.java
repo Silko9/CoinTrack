@@ -1,5 +1,6 @@
 package shapov.cointrack.controllers.editControllers;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -47,7 +48,7 @@ public class AlbumEditorController {
     }
 
     @FXML
-    private void onClickedAccept() throws SQLException {
+    private void onClickedAccept() throws SQLException, IOException {
         if(Objects.equals(textName.getText(), "")) {
             AlertHelper.showAlert(Alert.AlertType.WARNING,
                     "Предупреждение",

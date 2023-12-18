@@ -15,7 +15,7 @@
         <TextField layoutX="181.0" layoutY="10.0" prefWidth="1000.0" promptText="Монетный двор" />
     </HBox>
     <HBox prefHeight="1000.0" prefWidth="0.0">
-        <TableView fx:id="tableCurrency" onMouseClicked="#onClickedCurrency" prefWidth="1000.0">
+        <TableView fx:id="tableCurrency" prefWidth="1000.0">
             <columns>
                 <TableColumn fx:id="columnCurrency" prefWidth="150.0" text="Валюта" />
             </columns>
@@ -23,7 +23,7 @@
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
         </TableView>
-        <TableView fx:id="tableCountry" onMouseClicked="#onClickedCountry" prefWidth="1000.0">
+        <TableView fx:id="tableCountry" prefWidth="1000.0">
             <columns>
                 <TableColumn fx:id="columnCountry" prefWidth="300.0" text="Страна" />
             </columns>
@@ -31,7 +31,7 @@
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
         </TableView>
-        <TableView fx:id="tableMint" onMouseClicked="#onClickedMint" prefWidth="1000.0">
+        <TableView fx:id="tableMint" prefWidth="1000.0">
             <columns>
                 <TableColumn fx:id="columnMint" prefWidth="150.0" text="Монетный двор" />
             </columns>
@@ -47,25 +47,5 @@
         <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
         </padding>
-        <Button disable="true" maxHeight="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Добавить" visible="false">
-            <HBox.margin>
-                <Insets right="10.0" />
-            </HBox.margin>
-        </Button>
-        <Button disable="true" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Изменить" visible="false">
-            <HBox.margin>
-                <Insets right="10.0" />
-            </HBox.margin>
-        </Button>
-        <Button disable="true" layoutX="160.0" layoutY="10.0" maxHeight="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" text="Удалить" visible="false">
-            <HBox.margin>
-                <Insets right="20.0" />
-            </HBox.margin>
-        </Button>
-        <Button layoutX="335.0" layoutY="15.0" maxHeight="-Infinity" mnemonicParsing="false" onMouseClicked="#onClickedReset" prefHeight="30.0" prefWidth="150.0" text="Сбросить">
-            <HBox.margin>
-                <Insets />
-            </HBox.margin>
-        </Button>
     </HBox>
 </VBox>

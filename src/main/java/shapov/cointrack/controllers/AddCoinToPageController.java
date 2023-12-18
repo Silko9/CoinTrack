@@ -86,6 +86,8 @@ public class AddCoinToPageController implements Initializable {
             coins = coinService.findAll();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
         for (Coin coin : coins) {
@@ -93,6 +95,8 @@ public class AddCoinToPageController implements Initializable {
             try {
                 coin = coinService.include(coin);
             } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
                 throw new RuntimeException(e);
             }
             loader.setLocation(MainApplication.class.getResource("sample-coin.fxml"));
@@ -131,7 +135,7 @@ public class AddCoinToPageController implements Initializable {
 
     public String getTitle(){return tfTitle.getText();}
 
-    public void setCoinParams(int id, String title) throws SQLException {
+    public void setCoinParams(int id, String title) throws SQLException, IOException {
         Optional<Coin> coinOptional = coinService.findOneById(id);
         if(coinOptional.isEmpty()) return;
         Coin coin = coinService.include(coinOptional.get());

@@ -5,6 +5,7 @@ import shapov.cointrack.repositories.PageRepository;
 import shapov.cointrack.repositories.implement.PageRepositoryImpl;
 import shapov.cointrack.services.PageService;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -27,12 +28,12 @@ public class PageServiceImpl implements PageService {
     /**
      Репозиторий для работы с страницами.
      */
-    private final PageRepository pageRepository = new PageRepositoryImpl("CoinTrack");
+    private final PageRepository pageRepository = new PageRepositoryImpl();
     
     /**
      Репозиторий для работы с ячейками хранения.
      */
-    private final HolderCellRepository holderCellRepository = new HolderCellRepositoryImpl("CoinTrack");
+    private final HolderCellRepository holderCellRepository = new HolderCellRepositoryImpl();
 
     /**
      Получает список всех страниц.
@@ -40,7 +41,7 @@ public class PageServiceImpl implements PageService {
      @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public List<Page> findAll() throws SQLException {
+    public List<Page> findAll() throws SQLException, IOException {
         return pageRepository.findAll();
     }
 
@@ -51,8 +52,8 @@ public class PageServiceImpl implements PageService {
      @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public Optional<Page> findOneById(int id) throws SQLException {
-        return pageRepository.findOneById(id);
+    public Optional<Page> findOneById(int id) throws SQLException, IOException {
+        return id == 0 ? Optional.empty() :  pageRepository.findOneById(id);
     }
 
     /**
@@ -62,49 +63,49 @@ public class PageServiceImpl implements PageService {
      @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public List<Page> findByAlbumId(int albumId) throws SQLException {
+    public List<Page> findByAlbumId(int albumId) throws SQLException, IOException {
         return pageRepository.findByAlbumId(albumId);
     }
 
     /**
-     Создает новую страницу с указанными параметрами.
-     @param albumId идентификатор альбома
-     @param previousPageId id предыдущей страницы
-     @param nextPageId id следующей страницы
-     @param title название страницы
-     @return количество созданных страниц (обычно 1, если страница успешо создалась)
-     @throws SQLException если возникает ошибка при выполнении SQL-запроса
+     * Создает новую страницу с указанными параметрами.
+     *
+     * @param albumId        идентификатор альбома
+     * @param previousPageId id предыдущей страницы
+     * @param nextPageId     id следующей страницы
+     * @param title          название страницы
+     * @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public int create(int albumId, int previousPageId, int nextPageId, String title) throws SQLException {
-        return pageRepository.create(new Page(albumId, previousPageId, nextPageId, title));
+    public void create(int albumId, int previousPageId, int nextPageId, String title) throws SQLException, IOException {
+        pageRepository.create(new Page(albumId, previousPageId, nextPageId, title));
     }
 
     /**
-     Обновляет страницу с указанным идентификатором новыми параметрами.
-     @param id идентификатор страницы, которую нужно обновить
-     @param albumId идентификатор альбома
-     @param previousPageId id предыдущей страницы
-     @param nextPageId id следующей страницы
-     @param title новое название страницы
-     @return количество обновленных страниц (обычно 1, если страница с указанным идентификатором существует)
-     @throws SQLException если возникает ошибка при выполнении SQL-запроса
+     * Обновляет страницу с указанным идентификатором новыми параметрами.
+     *
+     * @param id             идентификатор страницы, которую нужно обновить
+     * @param albumId        идентификатор альбома
+     * @param previousPageId id предыдущей страницы
+     * @param nextPageId     id следующей страницы
+     * @param title          новое название страницы
+     * @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public int update(int id, int albumId, int previousPageId, int nextPageId, String title) throws SQLException {
-        return pageRepository.edit(new Page(id, albumId, previousPageId, nextPageId, title));
+    public void update(int id, int albumId, int previousPageId, int nextPageId, String title) throws SQLException, IOException {
+        pageRepository.edit(new Page(id, albumId, previousPageId, nextPageId, title));
     }
 
     /**
-     Удаляет страницу с указанным идентификатором.
-     @param id идентификатор страницы, которую нужно удалить
-     @return количество удаленных страниц (обычно 1, если страница с указанным идентификатором существует)
-     @throws SQLException если возникает ошибка при выполнении SQL-запроса
+     * Удаляет страницу с указанным идентификатором.
+     *
+     * @param id идентификатор страницы, которую нужно удалить
+     * @throws SQLException если возникает ошибка при выполнении SQL-запроса
      */
     @Override
-    public int delete(int id) throws SQLException {
+    public void delete(int id) throws SQLException, IOException {
         for(HolderCell holderCell : holderCellRepository.findByPageId(id))
             holderCellRepository.delete(holderCell.id);
-        return pageRepository.delete(id);
+        pageRepository.delete(id);
     }
 }

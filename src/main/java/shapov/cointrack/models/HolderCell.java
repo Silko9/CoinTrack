@@ -40,9 +40,9 @@ public class HolderCell {
     /** Поле идентификатор страницы */
     private int pageId;
     /** Поле столбец */
-    private int column;
+    private int columnHolder;
     /** Поле строка */
-    private int line;
+    private int lineHolder;
     /** Поле название */
     private String title;
 
@@ -56,12 +56,12 @@ public class HolderCell {
      @param line строка
      @param title название
      */
-    public HolderCell(int coinId, boolean available, int pageId, int column, int line, String title) {
+    public HolderCell(int coinId, boolean available, int pageId, int columnHolder, int lineHolder, String title) {
         this.coinId = coinId;
         this.available = available;
         this.pageId = pageId;
-        this.column = column;
-        this.line = line;
+        this.columnHolder = columnHolder;
+        this.lineHolder = lineHolder;
         this.title = title;
     }
     /**
@@ -75,24 +75,24 @@ public class HolderCell {
      @param line строка
      @param title название
      */
-    public HolderCell(int id, int coinId, boolean available, int pageId, int column, int line, String title) {
+    public HolderCell(int id, int coinId, boolean available, int pageId, int columnHolder, int lineHolder, String title) {
         this.id = id;
         this.coinId = coinId;
         this.available = available;
         this.pageId = pageId;
-        this.column = column;
-        this.line = line;
+        this.columnHolder = columnHolder;
+        this.lineHolder = lineHolder;
         this.title = title;
     }
 
-    public HolderCell(int id, int coinId, Coin coin, boolean available, int pageId, int column, int line, String title) {
+    public HolderCell(int id, int coinId, Coin coin, boolean available, int pageId, int columnHolder, int lineHolder, String title) {
         this.id = id;
         this.coinId = coinId;
         this.coin = coin;
         this.available = available;
         this.pageId = pageId;
-        this.column = column;
-        this.line = line;
+        this.columnHolder = columnHolder;
+        this.lineHolder = lineHolder;
         this.title = title;
     }
 
@@ -139,20 +139,20 @@ public class HolderCell {
         this.pageId = pageId;
     }
 
-    public int getColumn() {
-        return column;
+    public int getColumnHolder() {
+        return columnHolder;
     }
 
-    public void setColumn(int column) {
-        this.column = column;
+    public void setColumnHolder(int columnHolder) {
+        this.columnHolder = columnHolder;
     }
 
-    public int getLine() {
-        return line;
+    public int getLineHolder() {
+        return lineHolder;
     }
 
-    public void setLine(int line) {
-        this.line = line;
+    public void setLineHolder(int lineHolder) {
+        this.lineHolder = lineHolder;
     }
 
     public String getTitle() {

@@ -9,6 +9,7 @@ import shapov.cointrack.models.Coin;
 import shapov.cointrack.models.HolderCell;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.Objects;
@@ -42,7 +43,7 @@ public class SampleCoinController {
     }
 
     @FXML
-    private void onClicked() throws SQLException {
+    private void onClicked() throws SQLException, IOException {
         addCoinToPageController.setCoinParams(idCoin, "");
     }
 }

@@ -65,6 +65,8 @@ public class AlbumsListController implements Initializable {
             albumsProperty = album2property(albumService.findAll());
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
         columnAlbum.setCellValueFactory(albumStringCellDataFeatures -> albumStringCellDataFeatures.getValue().titleProperty());
@@ -104,7 +106,7 @@ public class AlbumsListController implements Initializable {
     }
 
     @FXML
-    private void onClickedDeleteAlbum() throws SQLException {
+    private void onClickedDeleteAlbum() throws SQLException, IOException {
         mainController.setActionNone();
 
         AlbumInfo albumInfo = mainController.getAlbumInfo();
@@ -130,7 +132,7 @@ public class AlbumsListController implements Initializable {
     }
     
     @FXML
-    private void onClickAlbum() throws SQLException {
+    private void onClickAlbum() throws SQLException, IOException {
         mainController.setActionNone();
 
         if(tableAlbum.getSelectionModel().isEmpty()) return;

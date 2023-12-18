@@ -2,27 +2,19 @@ package shapov.cointrack.repositories;
 
 import shapov.cointrack.models.Currency;
 
-import java.sql.ResultSet;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 public interface CurrencyRepository {
-    List<Currency> findAll() throws SQLException;
+    List<Currency> findAll() throws SQLException, IOException;
 
-    Optional<Currency> findOneById(int id) throws SQLException;
+    Optional<Currency> findOneById(int id) throws SQLException, IOException;
 
-    List<Currency> findByName(String name) throws SQLException;
+    void create(Currency currency) throws SQLException, IOException;
 
-    List<Currency> findByCountryId(int countryId) throws SQLException;
+    void edit(Currency currency) throws SQLException, IOException;
 
-    int addRelationCountry(int currencyId, int countryId) throws SQLException;
-
-    int removeRelationCountry(int currencyId, int countryId) throws SQLException;
-
-    int create(Currency currency) throws SQLException;
-
-    int edit(Currency currency) throws SQLException;
-
-    int delete(int id) throws SQLException;
+    void delete(int id) throws SQLException, IOException;
 }

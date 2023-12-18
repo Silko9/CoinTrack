@@ -1,14 +1,13 @@
 package shapov.cointrack.repositories.implement;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import shapov.cointrack.databaseHelper.DatabaseHelper;
-import shapov.cointrack.databaseHelper.DatabaseQueryConst;
-import shapov.cointrack.models.Mint;
 import shapov.cointrack.models.Page;
 import shapov.cointrack.repositories.PageRepository;
 
-import java.sql.ResultSet;
+import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,27 +24,11 @@ import java.util.Optional;
 
  @version 1.0
  */
-public class PageRepositoryImpl extends DatabaseHelper implements PageRepository {
+public class PageRepositoryImpl implements PageRepository {
 
-    /** Поле константа название таблицы в базе данных */
-    private final static String TABLE_NAME = "Page";
-
-    /** Поле название базы данных */
-    private String nameDB = "CoinTrackTest";
+    private static final String nameTable = "pages";
 
     public PageRepositoryImpl() {
-    }
-
-    public PageRepositoryImpl(String nameDB) {
-        this.nameDB = nameDB;
-    }
-
-    /**
-     Получает полное имя таблицы, объединяя имя базы данных и имя таблицы.
-     @return Полное имя таблицы.
-     */
-    private String getFullTableName(){
-        return nameDB + "." + TABLE_NAME;
     }
 
     /**
@@ -54,8 +37,8 @@ public class PageRepositoryImpl extends DatabaseHelper implements PageRepository
      @throws SQLException если произошла ошибка при выполнении запроса к базе данных.
      */
     @Override
-    public List<Page> findAll() throws SQLException {
-        return mapper(query(String.format(DatabaseQueryConst.SELECT_ALL, getFullTableName())));
+    public List<Page> findAll() throws SQLException, IOException {
+        return new ObjectMapper().readValue(DatabaseHelper.getAll(nameTable), new TypeReference<>(){});
     }
 
     /**
@@ -65,12 +48,12 @@ public class PageRepositoryImpl extends DatabaseHelper implements PageRepository
      @throws SQLException если произошла ошибка при выполнении запроса к базе данных.
      */
     @Override
-    public Optional<Page> findOneById(int id) throws SQLException {
-        List<Page> pages = mapper(query(String.format(DatabaseQueryConst.SELECT_WHERE, getFullTableName(), "id=" + id)));
-        if (pages.size() > 0)
-            return Optional.of(pages.get(0));
-        else
+    public Optional<Page> findOneById(int id) throws SQLException, IOException {
+        Page page = new ObjectMapper().readValue(DatabaseHelper.getById(nameTable + "/get/" + id), Page.class);
+        if(page == null)
             return Optional.empty();
+        else
+            return Optional.of(page);
     }
 
     /**
@@ -80,83 +63,40 @@ public class PageRepositoryImpl extends DatabaseHelper implements PageRepository
      @throws SQLException если произошла ошибка при выполнении запроса к базе данных.
      */
     @Override
-    public List<Page> findByAlbumId(int albumId) throws SQLException {
-        return mapper(query(String.format(DatabaseQueryConst.SELECT_WHERE, getFullTableName(), getParameters(albumId))));
+    public List<Page> findByAlbumId(int albumId) throws SQLException, IOException {
+        return new ObjectMapper().readValue(DatabaseHelper.getById(nameTable + "/get-by-album-id/" + albumId), new TypeReference<>(){});
     }
 
     /**
-     Создает новую страницу в базе данных.
-     @param page Объект Page для создания.
-     @return Количество измененных строк в базе данных.
-     @throws SQLException если произошла ошибка при выполнении запроса к базе данных.
+     * Создает новую страницу в базе данных.
+     *
+     * @param page Объект Page для создания.
+     * @throws SQLException если произошла ошибка при выполнении запроса к базе данных.
      */
     @Override
-    public int create(Page page) throws SQLException {
-        return update(String.format(DatabaseQueryConst.INSERT, getFullTableName(), getParameters(page)));
+    public void create(Page page) throws SQLException, IOException {
+        DatabaseHelper.create(nameTable, page);
     }
 
     /**
-     Редактирует существующую страницу в базе данных.
-     @param page Объект Page для редактирования.
-     @return Количество измененных строк в базе данных.
-     @throws SQLException если произошла ошибка при выполнении запроса к базе данных.
+     * Редактирует существующую страницу в базе данных.
+     *
+     * @param page Объект Page для редактирования.
+     * @throws SQLException если произошла ошибка при выполнении запроса к базе данных.
      */
     @Override
-    public int edit(Page page) throws SQLException {
-        return update(String.format(DatabaseQueryConst.UPDATE, getFullTableName(), getParameters(page), page.getId()));
+    public void edit(Page page) throws SQLException, IOException {
+        DatabaseHelper.edit(nameTable, page, page.getId());
     }
 
     /**
-     Удаляет страницу из базы данных по ее ID.
-     @param id ID страницы для удаления.
-     @return Количество измененных строк в базе данных.
-     @throws SQLException если произошла ошибка при выполнении запроса к базе данных.
+     * Удаляет страницу из базы данных по ее ID.
+     *
+     * @param id ID страницы для удаления.
+     * @throws SQLException если произошла ошибка при выполнении запроса к базе данных.
      */
     @Override
-    public int delete(int id) throws SQLException {
-        return update(String.format(DatabaseQueryConst.DELETE, getFullTableName(), id));
-    }
-
-    /**
-     Метод-маппер для преобразования ResultSet в список объектов Page.
-     @param resultSet ResultSet, полученный из базы данных.
-     @return Список объектов Page.
-     @throws SQLException если произошла ошибка при работе с ResultSet.
-     */
-    private List<Page> mapper(ResultSet resultSet) throws SQLException {
-        List<Page> pages = new ArrayList<>();
-        Page page;
-        while (resultSet.next()) {
-            int id = resultSet.getInt("id");
-            int albumId = resultSet.getInt("albumId");
-            int previousPageId = resultSet.getInt("previousPageId");
-            int nextPageId = resultSet.getInt("nextPageId");
-            String title = resultSet.getString("title");
-            page = new Page(id, albumId, previousPageId, nextPageId, title);
-            pages.add(page);
-        }
-        connectionClose();
-        return pages;
-    }
-
-    /**
-     Генерирует параметры для запроса к базе данных для объекта Page.
-     @param page Объект Page.
-     @return Строка с параметрами для запроса.
-     */
-    private String getParameters(Page page){
-        return "albumId=" + page.getAlbumId() +
-                ", previousPageId=" + page.getPreviousPageId() +
-                ", nextPageId=" + page.getNextPageId() +
-                ", title='" + page.getTitle() + "' ";
-    }
-
-    /**
-     Генерирует параметры для запроса к базе данных по ID альбома.
-     @param albumId ID альбома.
-     @return Строка с параметрами для запроса.
-     */
-    private String getParameters(int albumId){
-        return "albumId=" + albumId;
+    public void delete(int id) throws SQLException, IOException {
+        DatabaseHelper.delete(nameTable, id);
     }
 }

@@ -50,8 +50,8 @@ public class HolderCellProperty {
         this.coinId = new SimpleIntegerProperty(holderCell.getCoinId());
         this.available = new SimpleBooleanProperty(holderCell.isAvailable());
         this.pageId = new SimpleIntegerProperty(holderCell.getPageId());
-        this.column = new SimpleIntegerProperty(holderCell.getColumn());
-        this.line = new SimpleIntegerProperty(holderCell.getLine());
+        this.column = new SimpleIntegerProperty(holderCell.getColumnHolder());
+        this.line = new SimpleIntegerProperty(holderCell.getLineHolder());
         this.title = new SimpleStringProperty(holderCell.getTitle());
     }
 

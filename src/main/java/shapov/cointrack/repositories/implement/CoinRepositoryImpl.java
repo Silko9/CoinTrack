@@ -1,10 +1,13 @@
 package shapov.cointrack.repositories.implement;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import shapov.cointrack.databaseHelper.DatabaseHelper;
 import shapov.cointrack.databaseHelper.DatabaseQueryConst;
 import shapov.cointrack.models.Coin;
 import shapov.cointrack.repositories.CoinRepository;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,23 +28,12 @@ import java.util.Optional;
 
  @version 1.0
  */
-public class CoinRepositoryImpl extends DatabaseHelper implements CoinRepository {
+public class CoinRepositoryImpl implements CoinRepository {
 
     /** Поле константа название таблицы в базе данных */
-    private final static String TABLE_NAME = "Coin";
+    private final static String nameTable = "coins";
 
-    /** Поле константа параметры для форматирования запроса */
-    private final static String PARAMETERS = "denomination=%d, currencyId=%d, countryId=%d, mintId=%d, yearMinting=%d, picturePath='%s' ";
-
-    /** Поле название базы данных */
-    private String nameDB = "CoinTrackTest";
-
-    /**
-     Получает полное имя таблицы, объединяя имя базы данных и имя таблицы.
-     @return Полное имя таблицы.
-     */
-    private String getFullTableName(){
-        return nameDB + "." + TABLE_NAME;
+    public CoinRepositoryImpl() {
     }
 
     /**
@@ -50,8 +42,8 @@ public class CoinRepositoryImpl extends DatabaseHelper implements CoinRepository
      @throws SQLException если произошла ошибка при выполнении запроса к базе данных.
      */
     @Override
-    public List<Coin> findAll() throws SQLException {
-        return mapper(query(String.format(DatabaseQueryConst.SELECT_ALL, getFullTableName())));
+    public List<Coin> findAll() throws SQLException, IOException {
+        return new ObjectMapper().readValue(DatabaseHelper.getAll("coins"), new TypeReference<>(){});
     }
 
     /**
@@ -61,145 +53,44 @@ public class CoinRepositoryImpl extends DatabaseHelper implements CoinRepository
      @throws SQLException если произошла ошибка при выполнении запроса к базе данных.
      */
     @Override
-    public Optional<Coin> findOneById(int id) throws SQLException {
-        List<Coin> coins = mapper(query(String.format(DatabaseQueryConst.SELECT_WHERE, getFullTableName(), "id=" + id)));
-        if (coins.size() > 0)
-            return Optional.of(coins.get(0));
-        else
+    public Optional<Coin> findOneById(int id) throws SQLException, IOException {
+        Coin coin = new ObjectMapper().readValue(DatabaseHelper.getById("coins", id), Coin.class);
+        if(coin == null)
             return Optional.empty();
+        else
+            return Optional.of(coin);
     }
 
     /**
-     Извлекает монеты из базы данных по их номиналу.
-     @param denomination Номинал монеты для извлечения.
-     @return Список объектов Coin, соответствующих номиналу.
-     @throws SQLException если произошла ошибка при выполнении запроса к базе данных.
+     * Создает новую монету в базе данных.
+     *
+     * @param coin Объект Coin для создания.
+     * @throws SQLException если произошла ошибка при выполнении запроса к базе данных.
      */
     @Override
-    public List<Coin> findByDenomination(int denomination) throws SQLException {
-        return mapper(query(String.format(DatabaseQueryConst.SELECT_WHERE, getFullTableName(), "denomination=" + denomination)));
+    public void create(Coin coin) throws SQLException, IOException {
+        DatabaseHelper.create(nameTable, coin);
     }
 
     /**
-     Извлекает монеты из базы данных по ID валюты.
-     @param currencyId ID валюты для извлечения.
-     @return Список объектов Coin, соответствующих ID валюты.
-     @throws SQLException если произошла ошибка при выполнении запроса к базе данных.
+     * Обновляет существующую монету в базе данных.
+     *
+     * @param coin Объект Coin для обновления.
+     * @throws SQLException если произошла ошибка при выполнении запроса к базе данных.
      */
     @Override
-    public List<Coin> findByCurrencyId(int currencyId) throws SQLException {
-        return mapper(query(String.format(DatabaseQueryConst.SELECT_WHERE, getFullTableName(), "currencyId=" + currencyId)));
+    public void edit(Coin coin) throws SQLException, IOException {
+        DatabaseHelper.edit(nameTable, coin, coin.getId());
     }
 
     /**
-     Извлекает монеты из базы данных по ID страны.
-     @param countryId ID страны для извлечения.
-     @return Список объектов Coin, соответствующих ID страны.
-     @throws SQLException если произошла ошибка при выполнении запроса к базе данных.
+     * Удаляет монету из базы данных по ее ID.
+     *
+     * @param id ID монеты для удаления.
+     * @throws SQLException если произошла ошибка при выполнении запроса к базе данных.
      */
     @Override
-    public List<Coin> findByCountryId(int countryId) throws SQLException {
-        return mapper(query(String.format(DatabaseQueryConst.SELECT_WHERE, getFullTableName(), "countryId=" + countryId)));
-    }
-
-    /**
-     Извлекает монеты из базы данных по ID монетного двора.
-     @param mintId ID монетного двора для извлечения.
-     @return Список объектов Coin, соответствующих ID монетного двора.
-     @throws SQLException если произошла ошибка при выполнении запроса к базе данных.
-     */
-    @Override
-    public List<Coin> findByMintId(int mintId) throws SQLException {
-        return mapper(query(String.format(DatabaseQueryConst.SELECT_WHERE, getFullTableName(), "mintId=" + mintId)));
-    }
-
-    /**
-     Извлекает монеты из базы данных по году выпуска.
-     @param yearMinting Год выпуска монеты для извлечения.
-     @return Список объектов Coin, соответствующих году выпуска.
-     @throws SQLException если произошла ошибка при выполнении запроса к базе данных.
-     */
-    @Override
-    public List<Coin> findByDateMinting(int yearMinting) throws SQLException {
-        return mapper(query(String.format(DatabaseQueryConst.SELECT_WHERE, getFullTableName(), "yearMinting=" + yearMinting)));
-    }
-
-    /**
-     Создает новую монету в базе данных.
-     @param coin Объект Coin для создания.
-     @return Количество затронутых строк в базе данных.
-     @throws SQLException если произошла ошибка при выполнении запроса к базе данных.
-     */
-    @Override
-    public int create(Coin coin) throws SQLException {
-        return update(String.format(DatabaseQueryConst.INSERT, getFullTableName(), getParameters(coin)));
-    }
-
-    /**
-     Обновляет существующую монету в базе данных.
-     @param coin Объект Coin для обновления.
-     @return Количество затронутых строк в базе данных.
-     @throws SQLException если произошла ошибка при выполнении запроса к базе данных.
-     */
-    @Override
-    public int edit(Coin coin) throws SQLException {
-        return update(String.format(DatabaseQueryConst.UPDATE, getFullTableName(), getParameters(coin), coin.getId()));
-    }
-
-    /**
-     Удаляет монету из базы данных по ее ID.
-     @param id ID монеты для удаления.
-     @return Количество затронутых строк в базе данных.
-     @throws SQLException если произошла ошибка при выполнении запроса к базе данных.
-     */
-    @Override
-    public int delete(int id) throws SQLException {
-        return update(String.format(DatabaseQueryConst.DELETE, getFullTableName(), id));
-    }
-
-    /**
-     Отображает объект ResultSet в список объектов Coin.
-     @param resultSet Объект ResultSet для отображения.
-     @return Список объектов Coin.
-     @throws SQLException если произошла ошибка при отображении ResultSet.
-     */
-    private List<Coin> mapper(ResultSet resultSet) throws SQLException {
-        List<Coin> coins = new ArrayList<>();
-        Coin coin;
-        while (resultSet.next()) {
-            int id = resultSet.getInt("id");
-            int denomination = resultSet.getInt("denomination");
-            int currencyId = resultSet.getInt("currencyId");
-            int countryId = resultSet.getInt("countryId");
-            int mintId = resultSet.getInt("mintId");
-            int yearMinting = resultSet.getInt("yearMinting");
-            String picturePath = resultSet.getString("picturePath");
-            coin = new Coin(id, denomination, currencyId, countryId, mintId, yearMinting, picturePath);
-            coins.add(coin);
-        }
-        connectionClose();
-        return coins;
-    }
-
-    /**
-     Возвращает параметры монеты в виде строки.
-     @param coin Объект Coin.
-     @return Строка параметров монеты.
-     */
-    private String getParameters(Coin coin){
-        return String.format(PARAMETERS,
-                coin.getDenomination(),
-                coin.getCurrencyId(),
-                coin.getCountryId(),
-                coin.getMintId(),
-                coin.getYearMinting(),
-                coin.getPicturePath());
-    }
-
-    public CoinRepositoryImpl(String nameDB) {
-        this.nameDB = nameDB;
-    }
-
-    public CoinRepositoryImpl() {
+    public void delete(int id) throws SQLException, IOException {
+        DatabaseHelper.delete(nameTable, id);
     }
 }
