@@ -5,12 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nu.pattern.OpenCV;
-import shapov.cointrack.databaseHelper.DatabaseConnectConst;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class MainApplication extends Application {
     private static Stage primaryStage;

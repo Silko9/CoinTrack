@@ -3,14 +3,11 @@ package shapov.cointrack.repositories.implement;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import shapov.cointrack.databaseHelper.DatabaseHelper;
-import shapov.cointrack.databaseHelper.DatabaseQueryConst;
 import shapov.cointrack.models.Country;
 import shapov.cointrack.repositories.CountryRepository;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
