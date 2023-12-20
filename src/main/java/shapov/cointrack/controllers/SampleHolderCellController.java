@@ -53,10 +53,10 @@ public class SampleHolderCellController {
     }
 
     public void setParams(HolderCell holderCell){
-        InputStream inputStream = getClass().getResourceAsStream(".shapov.cointrack.pictures.".replace(".", File.separator) + holderCell.getCoin().getPicturePath());
-
+        InputStream inputStream = getClass().getResourceAsStream("/shapov/cointrack/pictures/" + holderCell.getCoin().getPicturePath());
+        String a =  "/shapov/cointrack/pictures/" + holderCell.getCoin().getPicturePath();
         if(inputStream == null)
-            inputStream = getClass().getResourceAsStream(".shapov.cointrack.pictures.".replace(".", File.separator)+ "coin_0.png");
+            inputStream = getClass().getResourceAsStream(".shapov.cointrack.pictures.".replace(".", "/")+ "coin_0.png");
 
         assert inputStream != null;
         iCoin.setImage(new Image(inputStream));
@@ -90,7 +90,7 @@ public class SampleHolderCellController {
     }
 
     public void reset(){
-        InputStream inputStream = getClass().getResourceAsStream(".shapov.cointrack.pictures.".replace(".", File.separator)+ "coin_0.png");
+        InputStream inputStream = getClass().getResourceAsStream("/shapov/cointrack/pictures/coin_0.png");
         if(inputStream == null) return;
 
         iCoin.setImage(new Image(inputStream));

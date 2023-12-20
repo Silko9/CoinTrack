@@ -29,10 +29,10 @@ public class SampleCoinController {
     private int idCoin;
 
     public void setParams(Coin coin, AddCoinToPageController controller){
-        InputStream inputStream = getClass().getResourceAsStream(".shapov.cointrack.pictures.".replace(".", File.separator) + coin.getPicturePath());
+        InputStream inputStream = getClass().getResourceAsStream(".shapov.cointrack.pictures.".replace(".", "/") + coin.getPicturePath());
 
         if(inputStream == null)
-            inputStream = getClass().getResourceAsStream(".shapov.cointrack.pictures.".replace(".", File.separator)+ "coin_0.png");
+            inputStream = getClass().getResourceAsStream(".shapov.cointrack.pictures.".replace(".", "/")+ "coin_0.png");
 
         image.setImage(new Image(Objects.requireNonNull(inputStream)));
         idCoin = coin.getId();

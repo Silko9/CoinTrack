@@ -27,28 +27,15 @@ import java.util.Optional;
  */
 public class CoinRepositoryImpl implements CoinRepository {
 
-    /** Поле константа название таблицы в базе данных */
     private final static String nameTable = "coins";
 
     public CoinRepositoryImpl() {
     }
 
-    /**
-     Извлекает все монеты из базы данных.
-     @return Список объектов Coin.
-     @throws SQLException если произошла ошибка при выполнении запроса к базе данных.
-     */
     @Override
     public List<Coin> findAll() throws SQLException, IOException {
         return new ObjectMapper().readValue(DatabaseHelper.getAll("coins"), new TypeReference<>(){});
     }
-
-    /**
-     Извлекает монету из базы данных по ее ID.
-     @param id ID монеты для извлечения.
-     @return Объект Optional, содержащий Coin, если найдена, или пустой Optional, если не найдена.
-     @throws SQLException если произошла ошибка при выполнении запроса к базе данных.
-     */
     @Override
     public Optional<Coin> findOneById(int id) throws SQLException, IOException {
         Coin coin = new ObjectMapper().readValue(DatabaseHelper.getById("coins", id), Coin.class);
@@ -58,34 +45,16 @@ public class CoinRepositoryImpl implements CoinRepository {
             return Optional.of(coin);
     }
 
-    /**
-     * Создает новую монету в базе данных.
-     *
-     * @param coin Объект Coin для создания.
-     * @throws SQLException если произошла ошибка при выполнении запроса к базе данных.
-     */
     @Override
     public void create(Coin coin) throws SQLException, IOException {
         DatabaseHelper.create(nameTable, coin);
     }
 
-    /**
-     * Обновляет существующую монету в базе данных.
-     *
-     * @param coin Объект Coin для обновления.
-     * @throws SQLException если произошла ошибка при выполнении запроса к базе данных.
-     */
     @Override
     public void edit(Coin coin) throws SQLException, IOException {
         DatabaseHelper.edit(nameTable, coin, coin.getId());
     }
 
-    /**
-     * Удаляет монету из базы данных по ее ID.
-     *
-     * @param id ID монеты для удаления.
-     * @throws SQLException если произошла ошибка при выполнении запроса к базе данных.
-     */
     @Override
     public void delete(int id) throws SQLException, IOException {
         DatabaseHelper.delete(nameTable, id);

@@ -92,14 +92,14 @@ public class CoinsController implements Initializable {
     protected void onClickedTheCoin() {
         CoinProperty coin = tableCoin.getSelectionModel().getSelectedItem();
         try {
-            String path = File.separator + "shapov" + File.separator + "cointrack" + File.separator + "pictures" + File.separator + coin.getPicturePath();
+            String path = "/shapov/cointrack/pictures/" + coin.getPicturePath();
             InputStream inputStream = getClass().getResourceAsStream(path);
             assert inputStream != null;
             Image image = new Image(inputStream);
             imageCoin.setImage(image);
         }
         catch (Exception e){
-            String path = File.separator + "shapov" + File.separator + "cointrack" + File.separator + "pictures" + File.separator + "coin_0.png";
+            String path = "/shapov/cointrack/pictures/coin_0.png";
             InputStream inputStream = getClass().getResourceAsStream(path);
             assert inputStream != null;
             Image image = new Image(inputStream);
