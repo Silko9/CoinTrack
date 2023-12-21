@@ -33,16 +33,19 @@ public abstract class DatabaseHelper {
 
     public static String getAll(String table) throws IOException {
         URL url = new URL(AppConfig.API_BASE_URL + "/" + table + "/get-all");
+        System.out.println("Получение объектов из " + table);
         return get(url);
     }
 
     public static String getById(String table, int id) throws IOException {
         URL url = new URL(AppConfig.API_BASE_URL + "/" + table + "/get/" + id);
+        System.out.println("Получение объекта из " + table + " с id = " + id);
         return get(url);
     }
 
     public static String getById(String request) throws IOException {
         URL url = new URL(AppConfig.API_BASE_URL + "/" + request);
+        System.out.println("Получение объекта по запросу " + request);
         return get(url);
     }
 
@@ -101,7 +104,7 @@ public abstract class DatabaseHelper {
 
         int responseCode = con.getResponseCode();
         if (responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
-            System.out.println("Объект успешно удален");
+            System.out.println("Объект из " + table + " с id = " + id + " успешно удален");
         } else if (responseCode == HttpURLConnection.HTTP_NOT_FOUND) {
             System.out.println("Объект не найден");
         } else {
@@ -114,7 +117,7 @@ public abstract class DatabaseHelper {
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Accept", "application/json");
         if(conn.getResponseCode() != 200){
-            System.out.println("Ошибка при получение альбома. Код ответа: " + conn.getResponseCode());
+            System.out.println("Ошибка при получение объекта. Код ответа: " + conn.getResponseCode());
             return null;
         }
         BufferedReader bufferedReader =
@@ -126,6 +129,7 @@ public abstract class DatabaseHelper {
             content.append(line + "\n");
         }
         bufferedReader.close();
+        System.out.println(content);
         return content.toString();
     }
 }
